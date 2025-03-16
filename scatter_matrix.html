@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cross-Platform Performance - Scatter Plot Matrix</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .title {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #2c3e50;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .explanation {
+            background-color: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .controls {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .control-group {
+            margin-bottom: 15px;
+        }
+        .back-btn {
+            background-color: #666;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            text-decoration: none;
+            display: inline-block;
+            margin-right: 10px;
+        }
+        .back-btn:hover {
+            background-color: #555;
+        }
+        #scatter-matrix {
+            margin: 0 auto;
+        }
+        .axis-label {
+            font-size: 12px;
+            font-weight: bold;
+        }
+        .cell {
+            fill: none;
+            stroke: #ccc;
+        }
+        .point {
+            fill: #4682b4;
+            opacity: 0.5;
+        }
+        .point:hover {
+            fill: #ff4444;
+            opacity: 1;
+        }
+        .tooltip {
+            position: absolute;
+            background: white;
+            padding: 10px;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            pointer-events: none;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">Cross-Platform Performance Analysis</h1>
+        
+        <div class="explanation">
+            <h2>Understanding Cross-Platform Success</h2>
+            <p>This scatter plot matrix shows how songs perform across different streaming platforms. Each dot represents a song, and its position shows how well it performs on two platforms.</p>
+            
+            <h3>How to Read the Matrix</h3>
+            <ul>
+                <li><strong>Grid Layout</strong>: The visualization is a 5x5 grid where each cell compares two platforms
+                    <ul>
+                        <li>Platform names appear in the diagonal cells</li>
+                        <li>Each off-diagonal cell is a scatter plot comparing two platforms</li>
+                    </ul>
+                </li>
+                <li><strong>Reading a Cell</strong>:
+                    <ul>
+                        <li>X-axis (horizontal): Performance on the platform shown at the bottom</li>
+                        <li>Y-axis (vertical): Performance on the platform shown on the left</li>
+                        <li>Both axes use logarithmic scales to handle the wide range of values</li>
+                    </ul>
+                </li>
+                <li><strong>Interpreting Patterns</strong>:
+                    <ul>
+                        <li>Diagonal trend (bottom-left to top-right): Strong correlation between platforms</li>
+                        <li>Scattered points: Weak correlation between platforms</li>
+                        <li>Clusters: Groups of songs with similar performance patterns</li>
+                    </ul>
+                </li>
+                <li><strong>Interactive Features</strong>:
+                    <ul>
+                        <li>Hover over any point to see the song details and exact values</li>
+                        <li>Use the genre selector to focus on specific music genres</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <h3>Example Interpretation</h3>
+            <p>If you see points forming a diagonal line in a cell (bottom-left to top-right), it suggests that songs popular on one platform tend to be popular on the other. Scattered points indicate that success on one platform doesn't necessarily translate to success on another.</p>
+            
+            <p>Numbers are formatted in K (thousands), M (millions), or B (billions) for readability.</p>
+        </div>
+        
+        <div class="controls">
+            <a href="index.html" class="back-btn">← Back to Menu</a>
+            <div class="control-group">
+                <label for="genre-selector">Select Genre:</label>
+                <select id="genre-selector">
+                    <option value="all">All</option>
+                </select>
+            </div>
+        </div>
+
+        <div id="scatter-matrix"></div>
+    </div>
+    <script src="scatter_matrix.js"></script>
+</body>
+</html> 

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Feature Relationships - Chord Diagram</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .title {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #2c3e50;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .controls {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .control-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: inline-block;
+            width: 120px;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+        select {
+            padding: 5px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            min-width: 150px;
+        }
+        .back-btn {
+            background-color: #666;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            text-decoration: none;
+            display: inline-block;
+            margin-right: 10px;
+        }
+        .back-btn:hover {
+            background-color: #555;
+        }
+        .explanation {
+            background-color: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .explanation h3 {
+            margin-top: 0;
+            color: #333;
+        }
+        .explanation p {
+            margin: 10px 0;
+            line-height: 1.5;
+        }
+        #chord-diagram {
+            width: 800px;
+            height: 800px;
+            margin: 0 auto;
+        }
+        .group-label {
+            font-size: 12px;
+            font-weight: bold;
+        }
+        .relationship-strength {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: white;
+            padding: 10px;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">Feature Relationships in Hit Songs</h1>
+        
+        <div class="explanation">
+            <h2>Understanding Feature Relationships</h2>
+            <p>This chord diagram visualizes the relationships between musical characteristics and technical audio features. The width and opacity of the connections indicate the strength of correlation between features.</p>
+            
+            <h3>Hit Threshold Explained</h3>
+            <p>The hit threshold controls how selective the analysis is in choosing which songs to include:</p>
+            <ul>
+                <li><strong>Higher threshold (e.g., 75%)</strong>: Only includes songs that are in the top percentile for both streams and playlist appearances - focusing on the biggest hits</li>
+                <li><strong>Lower threshold (e.g., 25%)</strong>: Includes a broader range of songs, giving a more general view of feature relationships</li>
+            </ul>
+            <p>For example, a 25% threshold means the analysis only includes songs that are in the top 25% for both Spotify streams AND playlist appearances.</p>
+        </div>
+        
+        <div class="controls">
+            <a href="index.html" class="back-btn">← Back to Menu</a>
+            <div class="control-group">
+                <label for="genre-selector">Select Genre:</label>
+                <select id="genre-selector">
+                    <option value="all">All</option>
+                </select>
+            </div>
+            <div class="control-group">
+                <label for="threshold-selector">Hit Threshold (Top %):</label>
+                <select id="threshold-selector">
+                    <option value="0.10">10%</option>
+                    <option value="0.25" selected>25%</option>
+                    <option value="0.50">50%</option>
+                    <option value="0.75">75%</option>
+                </select>
+            </div>
+        </div>
+
+        <div id="chord-diagram"></div>
+    </div>
+    <script src="chord.js"></script>
+</body>
+</html> 

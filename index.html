@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Music Hits Analysis - Visualization Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .title {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #2c3e50;
+        }
+        .visualization-links {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .visualization-link {
+            display: block;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            text-decoration: none;
+            color: #333;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .visualization-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+        .visualization-link h2 {
+            margin: 0 0 10px 0;
+            color: #2c3e50;
+        }
+        .visualization-link p {
+            margin: 0;
+            color: #666;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">Music Hits Analysis Dashboard</h1>
+        <div class="visualization-links">
+            <a href="radar.html" class="visualization-link">
+                <h2>Radar Chart</h2>
+                <p>Compare musical characteristics between hit and non-hit songs using a radar chart visualization. This view provides an intuitive overview of how different musical features contribute to a song's success.</p>
+            </a>
+            <a href="parallel.html" class="visualization-link">
+                <h2>Parallel Coordinates</h2>
+                <p>Explore relationships between musical characteristics using parallel coordinates. This visualization allows you to see patterns and correlations between different features, with individual lines for each song and highlighted averages for hits and non-hits.</p>
+            </a>
+            <a href="chord.html" class="visualization-link">
+                <h2>Chord Diagram</h2>
+                <p>Discover correlations between musical characteristics and technical features, visualizing the strength of relationships through an interactive chord diagram.</p>
+            </a>
+            <a href="scatter_matrix.html" class="visualization-link">
+                <h2>Cross-Platform Matrix</h2>
+                <p>Compare song performance across different platforms using an interactive scatter plot matrix. Identify patterns in cross-platform success through pairwise comparisons.</p>
+            </a>
+            <a href="platform_parallel.html" class="visualization-link">
+                <h2>Cross-Platform Flow</h2>
+                <p>Track how songs perform across all platforms simultaneously using parallel coordinates. See how success flows from one platform to another and identify common patterns of cross-platform performance.</p>
+            </a>
+        </div>
+    </div>
+</body>
+</html> 
