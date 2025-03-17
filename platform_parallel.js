@@ -16,7 +16,7 @@ function formatNumber(num) {
 }
 
 // Function to create the parallel coordinates plot
-function createParallelPlot(data, threshold) {
+function createParallelPlot(data) {
     // Clear previous plot
     d3.select('#parallel-plot').html('');
 
@@ -64,7 +64,7 @@ function createParallelPlot(data, threshold) {
         .attr('class', 'background-line')
         .attr('d', path);
 
-    // Add colored foreground lines
+    // Add colored foreground lines with interactivity
     const foreground = svg.append('g')
         .attr('class', 'foreground-lines')
         .selectAll('path')
@@ -73,16 +73,40 @@ function createParallelPlot(data, threshold) {
         .append('path')
         .attr('class', 'foreground-line')
         .attr('d', path)
-        .append('title')
-        .text(d => {
+        .style('stroke', '#4682b4')
+        .style('stroke-width', '1.5px')
+        .style('opacity', 0.5)
+        .on('mouseover', function(event, d) {
+            // Highlight the hovered line
+            d3.select(this)
+                .style('stroke', '#ff4444')
+                .style('stroke-width', '3px')
+                .style('opacity', 1)
+                .raise();
+
+            // Show tooltip with song details
+            const tooltip = d3.select('#tooltip');
             let text = `${d.track_name} by ${d.artist_name}\n\n`;
             platforms.forEach(p => {
                 text += `${p.label}: ${formatNumber(d[p.id])}\n`;
             });
-            return text;
+            tooltip.style('display', 'block')
+                .html(text.replace(/\n/g, '<br>'))
+                .style('left', (event.pageX + 10) + 'px')
+                .style('top', (event.pageY - 10) + 'px');
+        })
+        .on('mouseout', function() {
+            // Reset line style
+            d3.select(this)
+                .style('stroke', '#4682b4')
+                .style('stroke-width', '1.5px')
+                .style('opacity', 0.5);
+
+            // Hide tooltip
+            d3.select('#tooltip').style('display', 'none');
         });
 
-    // Add a group element for each platform
+    // Add axes
     const axes = svg.selectAll('.dimension')
         .data(platforms)
         .enter()
@@ -90,7 +114,6 @@ function createParallelPlot(data, threshold) {
         .attr('class', 'dimension')
         .attr('transform', d => `translate(${x(d.id)},0)`);
 
-    // Add axes
     axes.append('g')
         .attr('class', 'axis')
         .each(function() {
@@ -120,6 +143,30 @@ function createParallelPlot(data, threshold) {
         .attr('y2', d => y(d))
         .attr('stroke', '#ddd')
         .attr('stroke-width', 1);
+
+    // Add brushes for each axis
+    axes.append('g')
+        .attr('class', 'brush')
+        .each(function(d) {
+            d3.select(this).call(d3.brushY()
+                .extent([[-8, 0], [8, height]])
+                .on('brush', brushed));
+        });
+
+    // Brush event handler
+    function brushed(event) {
+        const selection = event.selection;
+        if (!selection) return;
+
+        const dimension = this.parentNode.__data__.id;
+        const [min, max] = selection.map(y.invert);
+
+        // Update line visibility based on brush
+        svg.selectAll('.foreground-line')
+            .style('display', d => {
+                return (d[dimension] >= min && d[dimension] <= max) ? null : 'none';
+            });
+    }
 }
 
 // Load and process data
@@ -180,28 +227,15 @@ loadData().then(data => {
     // Function to update visualization
     function updateVisualization() {
         const selectedGenre = genreSelector.property('value');
-        const threshold = +d3.select('#threshold-selector').property('value');
-        
         let filteredData = selectedGenre === 'all' 
             ? data 
             : data.filter(d => d.genre.toLowerCase().includes(selectedGenre));
 
-        // Apply threshold filtering
-        if (threshold > 0) {
-            const metrics = platforms.map(p => p.id);
-            metrics.forEach(metric => {
-                const values = filteredData.map(d => d[metric]).sort((a, b) => b - a);
-                const thresholdValue = values[Math.floor(values.length * threshold)];
-                filteredData = filteredData.filter(d => d[metric] >= thresholdValue);
-            });
-        }
-
-        createParallelPlot(filteredData, threshold);
+        createParallelPlot(filteredData);
     }
 
     // Add event listeners
     genreSelector.on('change', updateVisualization);
-    d3.select('#threshold-selector').on('change', updateVisualization);
 
     // Initial visualization
     updateVisualization();

@@ -49,7 +49,7 @@
         label {
             font-weight: bold;
         }
-        select, input {
+        select {
             padding: 5px;
             border-radius: 4px;
             border: 1px solid #ddd;
@@ -96,12 +96,20 @@
             font-size: 12px;
             font-weight: bold;
         }
-        .legend {
-            margin-top: 20px;
+        #tooltip {
+            position: absolute;
+            display: none;
+            background: white;
             padding: 10px;
-            background-color: white;
             border-radius: 4px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            pointer-events: none;
+            font-size: 12px;
+            line-height: 1.4;
+        }
+        .brush .selection {
+            fill: rgba(70, 130, 180, 0.1);
+            stroke: #4682b4;
         }
     </style>
 </head>
@@ -131,7 +139,7 @@
             <ul>
                 <li>Hover over lines to highlight specific songs and see details</li>
                 <li>Use the genre selector to focus on specific music types</li>
-                <li>Adjust the performance threshold to focus on different levels of success</li>
+                <li>Click and drag on any axis to filter songs by their values on that platform</li>
             </ul>
         </div>
         
@@ -143,19 +151,10 @@
                     <option value="all">All Genres</option>
                 </select>
             </div>
-            <div class="control-group">
-                <label for="threshold-selector">Performance Threshold:</label>
-                <select id="threshold-selector">
-                    <option value="0">All Songs</option>
-                    <option value="0.25">Top 75%</option>
-                    <option value="0.5" selected>Top 50%</option>
-                    <option value="0.75">Top 25%</option>
-                    <option value="0.9">Top 10%</option>
-                </select>
-            </div>
         </div>
 
         <div id="parallel-plot"></div>
+        <div id="tooltip"></div>
     </div>
     <script src="platform_parallel.js"></script>
 </body>
