@@ -112,6 +112,11 @@
             fill: rgba(70, 130, 180, 0.1);
             stroke: #4682b4;
         }
+        .threshold-line {
+            stroke: #ff4444;
+            stroke-width: 2;
+            stroke-dasharray: 5,5;
+        }
     </style>
 </head>
 <body>
@@ -127,20 +132,23 @@
                 <li><strong>Vertical Axes</strong>: Each axis represents a different platform (Spotify, YouTube, TikTok, etc.)</li>
                 <li><strong>Lines</strong>: Each line is a song, showing its performance across all platforms</li>
                 <li><strong>Height</strong>: Higher position on each axis means better performance on that platform</li>
-                <li><strong>Patterns</strong>:
-                    <ul>
-                        <li>Parallel lines: Similar performance patterns across platforms</li>
-                        <li>Crossing lines: Different performance patterns</li>
-                        <li>Clustered lines: Groups of songs with similar behavior</li>
-                    </ul>
-                </li>
+                <li><strong>Performance Threshold</strong>: Red dashed lines show the cutoff point for the selected performance level (e.g., Top 25%)</li>
+            </ul>
+            
+            <h3>Performance Filtering</h3>
+            <ul>
+                <li><strong>All Songs</strong>: Shows all songs in the dataset</li>
+                <li><strong>Top 25%</strong>: Highlights songs that maintain top 25% performance across platforms</li>
+                <li><strong>Top 50%</strong>: Shows songs in the upper half of performance</li>
+                <li><strong>Top 75%</strong>: Displays songs above the 25th percentile</li>
             </ul>
             
             <h3>Interactive Features</h3>
             <ul>
                 <li>Hover over lines to highlight specific songs and see details</li>
                 <li>Use the genre selector to focus on specific music types</li>
-                <li>Click and drag on any axis to filter songs by their values on that platform</li>
+                <li>Use the performance selector to focus on top-performing songs</li>
+                <li>Red dashed lines show the threshold for each platform</li>
             </ul>
         </div>
         

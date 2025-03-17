@@ -16,7 +16,7 @@ function formatNumber(num) {
 }
 
 // Function to create the parallel coordinates plot
-function createParallelPlot(data) {
+function createParallelPlot(data, threshold = 0) {
     // Clear previous plot
     d3.select('#parallel-plot').html('');
 
@@ -54,6 +54,28 @@ function createParallelPlot(data) {
         return d3.line()(platforms.map(p => [x(p.id), y(Math.max(1, d[p.id]))]));
     }
 
+    // Calculate threshold values for each platform
+    const thresholdValues = {};
+    if (threshold > 0) {
+        platforms.forEach(platform => {
+            const values = data.map(d => d[platform.id]).sort((a, b) => b - a);
+            thresholdValues[platform.id] = values[Math.floor(values.length * threshold)];
+        });
+    }
+
+    // Function to check if a song meets the threshold criteria
+    function meetsThreshold(d, upToIndex) {
+        if (threshold === 0) return true;
+        
+        for (let i = 0; i <= upToIndex; i++) {
+            const platform = platforms[i];
+            if (d[platform.id] < thresholdValues[platform.id]) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     // Add grey background lines
     svg.append('g')
         .attr('class', 'background-lines')
@@ -75,8 +97,11 @@ function createParallelPlot(data) {
         .attr('d', path)
         .style('stroke', '#4682b4')
         .style('stroke-width', '1.5px')
-        .style('opacity', 0.5)
+        .style('opacity', d => meetsThreshold(d, platforms.length - 1) ? 0.5 : 0.1)
+        .style('pointer-events', d => meetsThreshold(d, platforms.length - 1) ? 'auto' : 'none')
         .on('mouseover', function(event, d) {
+            if (!meetsThreshold(d, platforms.length - 1)) return;
+            
             // Highlight the hovered line
             d3.select(this)
                 .style('stroke', '#ff4444')
@@ -95,7 +120,9 @@ function createParallelPlot(data) {
                 .style('left', (event.pageX + 10) + 'px')
                 .style('top', (event.pageY - 10) + 'px');
         })
-        .on('mouseout', function() {
+        .on('mouseout', function(event, d) {
+            if (!meetsThreshold(d, platforms.length - 1)) return;
+            
             // Reset line style
             d3.select(this)
                 .style('stroke', '#4682b4')
@@ -129,6 +156,19 @@ function createParallelPlot(data) {
         .attr('text-anchor', 'middle')
         .text(d => d.label)
         .style('fill', '#2c3e50');
+
+    // Add threshold markers if threshold > 0
+    if (threshold > 0) {
+        axes.append('line')
+            .attr('class', 'threshold-line')
+            .attr('x1', -10)
+            .attr('x2', 10)
+            .attr('y1', d => y(thresholdValues[d.id]))
+            .attr('y2', d => y(thresholdValues[d.id]))
+            .style('stroke', '#ff4444')
+            .style('stroke-width', 2)
+            .style('stroke-dasharray', '5,5');
+    }
 
     // Add grid lines
     axes.append('g')
@@ -224,18 +264,44 @@ loadData().then(data => {
     // Set default value to 'all'
     genreSelector.property('value', 'all');
 
+    // Add threshold selector
+    const thresholdSelector = d3.select('.control-group')
+        .append('div')
+        .attr('class', 'control-group');
+
+    thresholdSelector.append('label')
+        .attr('for', 'threshold-selector')
+        .text('Performance:');
+
+    thresholdSelector.append('select')
+        .attr('id', 'threshold-selector')
+        .selectAll('option')
+        .data([
+            { value: 0, text: 'All Songs' },
+            { value: 0.75, text: 'Top 25%' },
+            { value: 0.5, text: 'Top 50%' },
+            { value: 0.25, text: 'Top 75%' }
+        ])
+        .enter()
+        .append('option')
+        .attr('value', d => d.value)
+        .text(d => d.text);
+
     // Function to update visualization
     function updateVisualization() {
         const selectedGenre = genreSelector.property('value');
+        const threshold = +d3.select('#threshold-selector').property('value');
+        
         let filteredData = selectedGenre === 'all' 
             ? data 
             : data.filter(d => d.genre.toLowerCase().includes(selectedGenre));
 
-        createParallelPlot(filteredData);
+        createParallelPlot(filteredData, threshold);
     }
 
     // Add event listeners
     genreSelector.on('change', updateVisualization);
+    d3.select('#threshold-selector').on('change', updateVisualization);
 
     // Initial visualization
     updateVisualization();
