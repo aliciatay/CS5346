@@ -1,4 +1,4 @@
-// Platform metrics to compare
+// Platform metrics to compare - Updated version with brushing and improved interactivity
 const platforms = [
     { id: 'spotify_streams', label: 'Spotify', column: 'Spotify Streams' },
     { id: 'youtube_views', label: 'YouTube', column: 'YouTube Views' },
