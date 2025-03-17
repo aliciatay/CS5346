@@ -16,7 +16,7 @@ function formatNumber(num) {
 }
 
 // Function to create the parallel coordinates plot
-function createParallelPlot(data, threshold = 0) {
+function createParallelPlot(data, percentile = 0) {
     // Clear previous plot
     d3.select('#parallel-plot').html('');
 
@@ -56,16 +56,17 @@ function createParallelPlot(data, threshold = 0) {
 
     // Calculate threshold values for each platform
     const thresholdValues = {};
-    if (threshold > 0) {
+    if (percentile > 0) {
         platforms.forEach(platform => {
-            const values = data.map(d => d[platform.id]).sort((a, b) => b - a);
-            thresholdValues[platform.id] = values[Math.floor(values.length * threshold)];
+            const values = data.map(d => d[platform.id]).filter(v => v > 0).sort((a, b) => a - b);
+            const index = Math.floor(values.length * (1 - percentile));
+            thresholdValues[platform.id] = values[index];
         });
     }
 
     // Function to check if a song meets the threshold criteria
     function meetsThreshold(d, upToIndex) {
-        if (threshold === 0) return true;
+        if (percentile === 0) return true;
         
         for (let i = 0; i <= upToIndex; i++) {
             const platform = platforms[i];
@@ -113,7 +114,9 @@ function createParallelPlot(data, threshold = 0) {
             const tooltip = d3.select('#tooltip');
             let text = `${d.track_name} by ${d.artist_name}\n\n`;
             platforms.forEach(p => {
-                text += `${p.label}: ${formatNumber(d[p.id])}\n`;
+                const value = d[p.id];
+                const isAboveThreshold = percentile === 0 || value >= thresholdValues[p.id];
+                text += `${p.label}: ${formatNumber(value)}${isAboveThreshold ? ' ✓' : ''}\n`;
             });
             tooltip.style('display', 'block')
                 .html(text.replace(/\n/g, '<br>'))
@@ -157,8 +160,8 @@ function createParallelPlot(data, threshold = 0) {
         .text(d => d.label)
         .style('fill', '#2c3e50');
 
-    // Add threshold markers if threshold > 0
-    if (threshold > 0) {
+    // Add threshold markers if percentile > 0
+    if (percentile > 0) {
         axes.append('line')
             .attr('class', 'threshold-line')
             .attr('x1', -10)
@@ -168,6 +171,16 @@ function createParallelPlot(data, threshold = 0) {
             .style('stroke', '#ff4444')
             .style('stroke-width', 2)
             .style('stroke-dasharray', '5,5');
+
+        // Add threshold labels
+        axes.append('text')
+            .attr('class', 'threshold-label')
+            .attr('x', 15)
+            .attr('y', d => y(thresholdValues[d.id]))
+            .attr('dy', '0.3em')
+            .style('font-size', '10px')
+            .style('fill', '#ff4444')
+            .text(d => `Top ${Math.round(percentile * 100)}%`);
     }
 
     // Add grid lines
@@ -278,9 +291,9 @@ loadData().then(data => {
         .selectAll('option')
         .data([
             { value: 0, text: 'All Songs' },
-            { value: 0.75, text: 'Top 25%' },
+            { value: 0.25, text: 'Top 25%' },
             { value: 0.5, text: 'Top 50%' },
-            { value: 0.25, text: 'Top 75%' }
+            { value: 0.75, text: 'Top 75%' }
         ])
         .enter()
         .append('option')
@@ -290,13 +303,13 @@ loadData().then(data => {
     // Function to update visualization
     function updateVisualization() {
         const selectedGenre = genreSelector.property('value');
-        const threshold = +d3.select('#threshold-selector').property('value');
+        const percentile = +d3.select('#threshold-selector').property('value');
         
         let filteredData = selectedGenre === 'all' 
             ? data 
             : data.filter(d => d.genre.toLowerCase().includes(selectedGenre));
 
-        createParallelPlot(filteredData, threshold);
+        createParallelPlot(filteredData, percentile);
     }
 
     // Add event listeners
