@@ -64,6 +64,14 @@ function createParallelPlot(data, percentile = 0) {
         });
     }
 
+    // Function to count how many thresholds a song passes
+    function countPassedThresholds(d) {
+        if (percentile === 0) return platforms.length;
+        return platforms.reduce((count, platform) => {
+            return count + (d[platform.id] >= thresholdValues[platform.id] ? 1 : 0);
+        }, 0);
+    }
+
     // Function to check if a song meets the threshold criteria
     function meetsThreshold(d, upToIndex) {
         if (percentile === 0) return true;
@@ -76,6 +84,11 @@ function createParallelPlot(data, percentile = 0) {
         }
         return true;
     }
+
+    // Create color scale for threshold counts
+    const colorScale = d3.scaleLinear()
+        .domain([0, platforms.length])
+        .range(['#ddd', '#4682b4']);
 
     // Add grey background lines
     svg.append('g')
@@ -96,12 +109,15 @@ function createParallelPlot(data, percentile = 0) {
         .append('path')
         .attr('class', 'foreground-line')
         .attr('d', path)
-        .style('stroke', '#4682b4')
+        .style('stroke', d => colorScale(countPassedThresholds(d)))
         .style('stroke-width', '1.5px')
-        .style('opacity', d => meetsThreshold(d, platforms.length - 1) ? 0.5 : 0.1)
-        .style('pointer-events', d => meetsThreshold(d, platforms.length - 1) ? 'auto' : 'none')
+        .style('opacity', d => {
+            const passedCount = countPassedThresholds(d);
+            return percentile === 0 ? 0.5 : (passedCount > 0 ? 0.3 + (passedCount / platforms.length) * 0.7 : 0.1);
+        })
+        .style('pointer-events', d => countPassedThresholds(d) > 0 ? 'auto' : 'none')
         .on('mouseover', function(event, d) {
-            if (!meetsThreshold(d, platforms.length - 1)) return;
+            if (countPassedThresholds(d) === 0) return;
             
             // Highlight the hovered line
             d3.select(this)
@@ -112,7 +128,9 @@ function createParallelPlot(data, percentile = 0) {
 
             // Show tooltip with song details
             const tooltip = d3.select('#tooltip');
-            let text = `${d.track_name} by ${d.artist_name}\n\n`;
+            const passedCount = countPassedThresholds(d);
+            let text = `${d.track_name} by ${d.artist_name}\n`;
+            text += `Passes ${passedCount} out of ${platforms.length} thresholds\n\n`;
             platforms.forEach(p => {
                 const value = d[p.id];
                 const isAboveThreshold = percentile === 0 || value >= thresholdValues[p.id];
@@ -124,17 +142,66 @@ function createParallelPlot(data, percentile = 0) {
                 .style('top', (event.pageY - 10) + 'px');
         })
         .on('mouseout', function(event, d) {
-            if (!meetsThreshold(d, platforms.length - 1)) return;
+            if (countPassedThresholds(d) === 0) return;
             
             // Reset line style
+            const passedCount = countPassedThresholds(d);
             d3.select(this)
-                .style('stroke', '#4682b4')
+                .style('stroke', colorScale(passedCount))
                 .style('stroke-width', '1.5px')
-                .style('opacity', 0.5);
+                .style('opacity', percentile === 0 ? 0.5 : (0.3 + (passedCount / platforms.length) * 0.7));
 
             // Hide tooltip
             d3.select('#tooltip').style('display', 'none');
         });
+
+    // Add legend for color intensity
+    if (percentile > 0) {
+        const legendWidth = 150;
+        const legendHeight = 80;
+        const legend = svg.append('g')
+            .attr('class', 'legend')
+            .attr('transform', `translate(${width - legendWidth}, 0)`);
+
+        legend.append('rect')
+            .attr('width', legendWidth)
+            .attr('height', legendHeight)
+            .attr('fill', 'white')
+            .attr('stroke', '#ddd');
+
+        legend.append('text')
+            .attr('x', 10)
+            .attr('y', 20)
+            .text('Color Intensity')
+            .style('font-size', '12px')
+            .style('font-weight', 'bold');
+
+        const examples = [
+            { count: platforms.length, label: 'All thresholds' },
+            { count: Math.ceil(platforms.length / 2), label: 'Some thresholds' },
+            { count: 1, label: 'One threshold' },
+            { count: 0, label: 'No thresholds' }
+        ];
+
+        examples.forEach((ex, i) => {
+            const y = 35 + i * 12;
+            
+            legend.append('line')
+                .attr('x1', 10)
+                .attr('x2', 30)
+                .attr('y1', y)
+                .attr('y2', y)
+                .style('stroke', colorScale(ex.count))
+                .style('stroke-width', 2)
+                .style('opacity', ex.count === 0 ? 0.1 : (0.3 + (ex.count / platforms.length) * 0.7));
+
+            legend.append('text')
+                .attr('x', 40)
+                .attr('y', y + 4)
+                .text(ex.label)
+                .style('font-size', '10px');
+        });
+    }
 
     // Add axes
     const axes = svg.selectAll('.dimension')
