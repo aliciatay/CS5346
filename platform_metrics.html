@@ -110,6 +110,15 @@
             height: 10px;
             margin-right: 5px;
         }
+
+        .axis .tick text {
+            font-size: 10px;
+        }
+
+        .axis-title {
+            font-size: 11px;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -166,17 +175,44 @@
             .attr("class", "tooltip")
             .style("opacity", 0);
 
-        // Platform metrics mapping
+        // Platform metrics mapping with scale configurations
         const platformMetrics = {
-            'Spotify': 'Spotify Streams',
-            'YouTube': 'YouTube Views',
-            'TikTok': 'TikTok Views',
-            'Apple Music': 'AirPlay Spins',
-            'Deezer': 'Deezer Playlist Count',
-            'SiriusXM': 'SiriusXM Spins',
-            'Amazon': 'Amazon Playlist Count',
-            'Pandora': 'Pandora Streams',
-            'Shazam': 'Shazam Counts'
+            'Spotify': {
+                metric: 'Spotify Streams',
+                format: d => d3.format('.2s')(d).replace('G', 'B')
+            },
+            'YouTube': {
+                metric: 'YouTube Views',
+                format: d => d3.format('.2s')(d).replace('G', 'B')
+            },
+            'TikTok': {
+                metric: 'TikTok Views',
+                format: d => d3.format('.2s')(d).replace('G', 'B')
+            },
+            'Apple Music': {
+                metric: 'AirPlay Spins',
+                format: d => d3.format('.2s')(d)
+            },
+            'Deezer': {
+                metric: 'Deezer Playlist Count',
+                format: d => d3.format(',.0f')(d)
+            },
+            'SiriusXM': {
+                metric: 'SiriusXM Spins',
+                format: d => d3.format('.2s')(d)
+            },
+            'Amazon': {
+                metric: 'Amazon Playlist Count',
+                format: d => d3.format(',.0f')(d)
+            },
+            'Pandora': {
+                metric: 'Pandora Streams',
+                format: d => d3.format('.2s')(d)
+            },
+            'Shazam': {
+                metric: 'Shazam Counts',
+                format: d => d3.format('.2s')(d)
+            }
         };
 
         // Load the data
@@ -207,26 +243,38 @@
                 .attr("transform", `translate(${margin.left},${margin.top})`);
 
             // Create scales for each metric
-            const metrics = Object.values(platformMetrics);
+            const metrics = Object.values(platformMetrics).map(p => p.metric);
             const x = d3.scalePoint()
                 .domain(metrics)
                 .range([0, width])
                 .padding(0.1);
 
-            // Find min and max for each metric (excluding zeros and very small values)
+            // Find min and max for each metric with improved filtering
             const metricExtents = {};
             metrics.forEach(metric => {
-                const values = data.map(d => +d[metric]).filter(v => v > 1);
+                const values = data.map(d => +d[metric])
+                    .filter(v => v > 0)  // Filter out zeros
+                    .sort((a, b) => a - b);  // Sort for percentile calculation
+                
+                // Use 1st percentile as min and 99th percentile as max to avoid outliers
+                const min = values[Math.floor(values.length * 0.01)] || 1;
+                const max = values[Math.floor(values.length * 0.99)] || 1000;
+                
                 metricExtents[metric] = {
-                    min: d3.min(values),
-                    max: d3.max(values)
+                    min: min,
+                    max: max,
+                    median: d3.median(values) || 1
                 };
             });
 
             const y = {};
-            metrics.forEach(metric => {
+            Object.entries(platformMetrics).forEach(([platform, config]) => {
+                const metric = config.metric;
                 y[metric] = d3.scaleLog()
-                    .domain([metricExtents[metric].min, metricExtents[metric].max])
+                    .domain([
+                        metricExtents[metric].min,
+                        metricExtents[metric].max
+                    ])
                     .range([height, 0])
                     .nice();
             });
@@ -337,10 +385,19 @@
                             .filter(platform => d[`${platform}_Hit`] === 'True')
                             .join(", ");
                         
+                        // Format metric values in tooltip
+                        const metricValues = Object.entries(platformMetrics)
+                            .map(([platform, config]) => {
+                                const value = d[config.metric];
+                                return `${platform}: ${config.format(value)}`;
+                            })
+                            .join('<br>');
+                        
                         tooltip.html(`
                             <strong>${d.track_name}</strong><br/>
                             <em>by ${d.artists}</em><br/>
                             Genre: ${d.track_genre}<br/>
+                            ${metricValues}<br/>
                             Hits on: ${hitPlatforms || "None"}<br/>
                             Number of Hit Platforms: ${Object.keys(platformMetrics)
                                 .filter(platform => d[`${platform}_Hit`] === 'True').length}
@@ -362,22 +419,37 @@
                 updateLegend(colorBy);
             }
 
-            // Draw the axes
+            // Draw the axes with improved formatting
             metrics.forEach(metric => {
+                const platform = Object.entries(platformMetrics).find(([_, config]) => config.metric === metric)[0];
+                const format = platformMetrics[platform].format;
+                
                 const axis = svg.append("g")
                     .attr("transform", `translate(${x(metric)},0)`);
 
-                axis.call(d3.axisLeft(y[metric])
-                    .ticks(5, ".0s"));
+                axis.call(
+                    d3.axisLeft(y[metric])
+                        .ticks(5)
+                        .tickFormat(format)
+                );
 
-                // Add axis labels
+                // Add axis labels with platform names
                 axis.append("text")
                     .attr("class", "axis-label")
                     .attr("y", -20)
                     .attr("x", 0)
                     .attr("text-anchor", "middle")
                     .attr("transform", "rotate(0)")
-                    .text(metric)
+                    .text(platform)
+                    .style("fill", "black");
+
+                // Add metric name below
+                axis.append("text")
+                    .attr("class", "axis-title")
+                    .attr("y", height + 30)
+                    .attr("x", 0)
+                    .attr("text-anchor", "middle")
+                    .text(metric.replace(platform, '').trim())
                     .style("fill", "black");
             });
 
