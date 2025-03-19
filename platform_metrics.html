@@ -82,7 +82,7 @@
         .axis-label {
             font-size: 14px;
             font-weight: bold;
-            transform: translate(0, -60px);
+            transform: translate(0, -80px);
         }
 
         .axis-title {
@@ -155,6 +155,11 @@
         }
         .legend-section {
             min-width: 300px;
+        }
+
+        /* Increase top margin to make room for labels */
+        #parallel-coordinates svg {
+            margin-top: 40px;
         }
     </style>
 </head>
@@ -267,7 +272,7 @@
                 .attr("value", d => d);
 
             // Set up the dimensions of the canvas
-            const margin = {top: 50, right: 100, bottom: 50, left: 100};
+            const margin = {top: 100, right: 100, bottom: 50, left: 100};
             const width = 1200 - margin.left - margin.right;
             const height = 600 - margin.top - margin.bottom;
 
@@ -500,14 +505,16 @@
                 // Add platform name at top
                 axis.append("text")
                     .attr("class", "axis-label")
-                    .attr("y", -60)
+                    .attr("y", -80)
                     .attr("x", 0)
                     .attr("text-anchor", "middle")
                     .attr("transform", "rotate(0)")
                     .text(metric)
                     .style("fill", "black")
                     .style("font-size", "14px")
-                    .style("font-weight", "bold");
+                    .style("font-weight", "bold")
+                    .style("background", "white")
+                    .style("padding", "5px");
 
                 // Adjust tick label positions for better readability
                 axis.selectAll(".tick text")
