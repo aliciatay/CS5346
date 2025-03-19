@@ -31,9 +31,10 @@
         }
 
         select {
-            width: 200px;
-            height: 100px;
+            width: 300px;
+            height: 150px;
             margin: 10px 0;
+            font-size: 14px;
         }
 
         .line {
@@ -45,21 +46,38 @@
             stroke-width: 3px;
             opacity: 1 !important;
         }
+
+        .debug-info {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 10px;
+            background-color: #f0f0f0;
+            border-radius: 5px;
+        }
     </style>
 </head>
 <body>
     <h1 class="title">Music Hit Status Across Platforms</h1>
     <div class="filters">
         <label for="genre-select">Filter by Genre (Hold Ctrl/Cmd to select multiple): </label><br>
-        <select id="genre-select" multiple size="5">
+        <select id="genre-select" multiple size="8">
             <!-- Genres will be populated dynamically -->
         </select>
     </div>
+    <div id="debug-info" class="debug-info">Loading data...</div>
     <div id="parallel-coordinates"></div>
 
     <script>
+        // Debug function to display data info
+        function updateDebugInfo(message) {
+            document.getElementById('debug-info').innerHTML = message;
+        }
+
         // Load the data
         d3.csv("final_df_cleaned.csv").then(function(data) {
+            // Debug data loading
+            updateDebugInfo(`Loaded ${data.length} records. First record: <pre>${JSON.stringify(data[0], null, 2)}</pre>`);
+
             // Get platforms (columns ending with '_Hit')
             const platforms = Object.keys(data[0])
                 .filter(key => key.endsWith('_Hit'))
@@ -71,13 +89,19 @@
             // Convert hit status strings to boolean and ensure Genre is present
             data.forEach(d => {
                 platforms.forEach(platform => {
-                    d[`${platform}_Hit`] = d[`${platform}_Hit`] === 'True';
+                    // Convert string 'True'/'False' to boolean
+                    d[`${platform}_Hit`] = String(d[`${platform}_Hit`]).toLowerCase() === 'true';
                 });
                 if (!d.Genre) d.Genre = 'Unknown';
             });
 
             // Get unique genres for the filter
             const genres = [...new Set(data.map(d => d.Genre))].sort();
+
+            // Update debug info with genre count
+            updateDebugInfo(`Loaded ${data.length} records. Found ${genres.length} unique genres.<br>
+                           Platforms: ${platforms.join(', ')}<br>
+                           Sample genres: ${genres.slice(0, 5).join(', ')}...`);
 
             // Populate genre select
             const genreSelect = d3.select("#genre-select");
@@ -103,14 +127,16 @@
                 } else {
                     y[dim] = d3.scalePoint()
                         .domain(['Hit', 'Not Hit'])
-                        .range([0, height]);
+                        .range([height, 0])
+                        .padding(0.5);
                 }
             });
 
             // Position of each axis
             const x = d3.scalePoint()
                 .domain(dimensions)
-                .range([0, width]);
+                .range([0, width])
+                .padding(0.1);
 
             // Create SVG
             const svg = d3.select("#parallel-coordinates")
@@ -126,9 +152,10 @@
                     if (dim === 'Genre') {
                         return [x(dim), y[dim](d[dim])];
                     } else {
-                        return [x(dim), y[dim](d[`${dim}_Hit`] ? 'Hit' : 'Not Hit')];
+                        const value = d[`${dim}_Hit`] ? 'Hit' : 'Not Hit';
+                        return [x(dim), y[dim](value)];
                     }
-                }));
+                }).filter(p => p[1] !== undefined));
             }
 
             // Draw the lines
@@ -137,6 +164,10 @@
                 const filteredData = selectedGenres.length > 0 
                     ? data.filter(d => selectedGenres.includes(d.Genre))
                     : data;
+
+                // Update debug info
+                updateDebugInfo(`Showing ${filteredData.length} songs${selectedGenres.length > 0 ? 
+                    ` for genres: ${selectedGenres.join(', ')}` : ' (all genres)'}`);
 
                 // Remove existing lines
                 svg.selectAll(".line").remove();
@@ -155,7 +186,24 @@
                         // Color based on hit count
                         return d3.interpolateRdYlBu(hitCount / platforms.length);
                     })
-                    .style("opacity", 0.3);
+                    .style("opacity", 0.3)
+                    .on("mouseover", function(event, d) {
+                        d3.select(this)
+                            .style("stroke-width", "3px")
+                            .style("opacity", 1);
+                        // Show song info in debug panel
+                        updateDebugInfo(`Song: ${d.Title || 'Unknown'}<br>
+                                      Genre: ${d.Genre}<br>
+                                      Hits on: ${platforms.filter(p => d[`${p}_Hit`]).join(', ')}`);
+                    })
+                    .on("mouseout", function(event, d) {
+                        d3.select(this)
+                            .style("stroke-width", "1.5px")
+                            .style("opacity", 0.3);
+                        // Restore general debug info
+                        updateDebugInfo(`Showing ${filteredData.length} songs${selectedGenres.length > 0 ? 
+                            ` for genres: ${selectedGenres.join(', ')}` : ' (all genres)'}`);
+                    });
             }
 
             // Draw the axes
@@ -224,6 +272,10 @@
 
             // Initial chart
             updateChart([]);
+        }).catch(error => {
+            // Handle any errors loading the data
+            updateDebugInfo(`Error loading data: ${error.message}`);
+            console.error('Error:', error);
         });
     </script>
 </body>
