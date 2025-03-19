@@ -82,13 +82,13 @@
         .axis-label {
             font-size: 14px;
             font-weight: bold;
-            transform: translate(0, -40px);
+            transform: translate(0, -60px);
         }
 
         .axis-title {
             font-size: 12px;
             font-weight: bold;
-            transform: translate(0, 50px);
+            transform: translate(0, -40px);
         }
 
         .axis .tick text {
@@ -489,7 +489,7 @@
                     .attr("transform", `translate(${x(metric)},0)`);
 
                 // Reduce number of ticks and ensure nice values
-                const tickCount = 5;  // Further reduced number of ticks
+                const tickCount = 8;  // Increased number of ticks for better scale visibility
                 
                 axis.call(
                     d3.axisLeft(y[metric])
@@ -500,23 +500,23 @@
                 // Add platform names at top
                 axis.append("text")
                     .attr("class", "axis-label")
-                    .attr("y", -30)
+                    .attr("y", -50)
                     .attr("x", 0)
                     .attr("text-anchor", "middle")
                     .attr("transform", "rotate(0)")
                     .text(platform)
                     .style("fill", "black");
 
-                // Add metric type at bottom
+                // Add metric type below platform name
                 axis.append("text")
                     .attr("class", "axis-title")
-                    .attr("y", height + 40)
+                    .attr("y", -30)
                     .attr("x", 0)
                     .attr("text-anchor", "middle")
                     .text(metric.replace(platform, '').trim())
                     .style("fill", "black");
 
-                // Adjust tick label positions and rotation for better readability
+                // Adjust tick label positions for better readability
                 axis.selectAll(".tick text")
                     .attr("transform", "translate(-10,0)");
             });
