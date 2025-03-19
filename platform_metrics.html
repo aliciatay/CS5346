@@ -80,20 +80,20 @@
         }
 
         .axis-label {
-            font-size: 12px;
+            font-size: 14px;
             font-weight: bold;
-            transform: translate(0, -30px);
+            transform: translate(0, -40px);
         }
 
         .axis-title {
-            font-size: 11px;
+            font-size: 12px;
             font-weight: bold;
-            transform: translate(0, 40px);
+            transform: translate(0, 50px);
         }
 
         .axis .tick text {
-            font-size: 10px;
-            transform: translate(-5px, 0);
+            font-size: 11px;
+            transform: translate(-10px, 0);
         }
 
         .tooltip {
@@ -252,24 +252,35 @@
                 .range([0, width])
                 .padding(0.1);
 
-            // Find min and max for each metric with improved filtering
+            // Find min and max for each metric with improved filtering and rounding
             const metricExtents = {};
             metrics.forEach(metric => {
                 const values = data.map(d => +d[metric])
                     .filter(v => v > 0)  // Filter out zeros
                     .sort((a, b) => a - b);  // Sort for percentile calculation
                 
-                // Use 1st percentile as min and actual max for the upper bound
-                const min = values[Math.floor(values.length * 0.01)] || 1;
-                const max = values[values.length - 1] || 1000;  // Use actual maximum
+                // Use 5th percentile as min to avoid extreme lows
+                const min = values[Math.floor(values.length * 0.05)] || 1;
+                
+                // Use 95th percentile as max to avoid extreme outliers
+                const max = values[Math.floor(values.length * 0.95)] || 1000;
+                
+                // Round the bounds to nice numbers
+                const roundToNiceNumber = (num) => {
+                    const exp = Math.floor(Math.log10(num));
+                    const base = num / Math.pow(10, exp);
+                    const niceBase = base <= 2 ? 2 : base <= 5 ? 5 : 10;
+                    return niceBase * Math.pow(10, exp);
+                };
                 
                 metricExtents[metric] = {
-                    min: min,
-                    max: max,
+                    min: Math.max(1, roundToNiceNumber(min)),
+                    max: roundToNiceNumber(max),
                     median: d3.median(values) || 1
                 };
             });
 
+            // Create y-scales with optimized domains
             const y = {};
             Object.entries(platformMetrics).forEach(([platform, config]) => {
                 const metric = config.metric;
@@ -430,8 +441,8 @@
                 const axis = svg.append("g")
                     .attr("transform", `translate(${x(metric)},0)`);
 
-                // Adjust tick count based on range
-                const tickCount = 6;  // Reduced number of ticks
+                // Reduce number of ticks and ensure nice values
+                const tickCount = 5;  // Further reduced number of ticks
                 
                 axis.call(
                     d3.axisLeft(y[metric])
@@ -439,28 +450,28 @@
                         .tickFormat(format)
                 );
 
-                // Add axis labels with platform names (moved up)
+                // Add platform names at top
                 axis.append("text")
                     .attr("class", "axis-label")
-                    .attr("y", -20)
+                    .attr("y", -30)
                     .attr("x", 0)
                     .attr("text-anchor", "middle")
                     .attr("transform", "rotate(0)")
                     .text(platform)
                     .style("fill", "black");
 
-                // Add metric name below (moved down)
+                // Add metric type at bottom
                 axis.append("text")
                     .attr("class", "axis-title")
-                    .attr("y", height + 30)
+                    .attr("y", height + 40)
                     .attr("x", 0)
                     .attr("text-anchor", "middle")
                     .text(metric.replace(platform, '').trim())
                     .style("fill", "black");
 
-                // Adjust tick label positions to prevent overlap
+                // Adjust tick label positions and rotation for better readability
                 axis.selectAll(".tick text")
-                    .attr("transform", "translate(-5,0)");
+                    .attr("transform", "translate(-10,0)");
             });
 
             // Add event listeners
