@@ -82,6 +82,18 @@
         .axis-label {
             font-size: 12px;
             font-weight: bold;
+            transform: translate(0, -30px);
+        }
+
+        .axis-title {
+            font-size: 11px;
+            font-weight: bold;
+            transform: translate(0, 40px);
+        }
+
+        .axis .tick text {
+            font-size: 10px;
+            transform: translate(-5px, 0);
         }
 
         .tooltip {
@@ -109,15 +121,6 @@
             width: 20px;
             height: 10px;
             margin-right: 5px;
-        }
-
-        .axis .tick text {
-            font-size: 10px;
-        }
-
-        .axis-title {
-            font-size: 11px;
-            font-weight: bold;
         }
     </style>
 </head>
@@ -256,9 +259,9 @@
                     .filter(v => v > 0)  // Filter out zeros
                     .sort((a, b) => a - b);  // Sort for percentile calculation
                 
-                // Use 1st percentile as min and 99th percentile as max to avoid outliers
+                // Use 1st percentile as min and actual max for the upper bound
                 const min = values[Math.floor(values.length * 0.01)] || 1;
-                const max = values[Math.floor(values.length * 0.99)] || 1000;
+                const max = values[values.length - 1] || 1000;  // Use actual maximum
                 
                 metricExtents[metric] = {
                     min: min,
@@ -427,13 +430,16 @@
                 const axis = svg.append("g")
                     .attr("transform", `translate(${x(metric)},0)`);
 
+                // Adjust tick count based on range
+                const tickCount = 6;  // Reduced number of ticks
+                
                 axis.call(
                     d3.axisLeft(y[metric])
-                        .ticks(5)
+                        .ticks(tickCount)
                         .tickFormat(format)
                 );
 
-                // Add axis labels with platform names
+                // Add axis labels with platform names (moved up)
                 axis.append("text")
                     .attr("class", "axis-label")
                     .attr("y", -20)
@@ -443,7 +449,7 @@
                     .text(platform)
                     .style("fill", "black");
 
-                // Add metric name below
+                // Add metric name below (moved down)
                 axis.append("text")
                     .attr("class", "axis-title")
                     .attr("y", height + 30)
@@ -451,6 +457,10 @@
                     .attr("text-anchor", "middle")
                     .text(metric.replace(platform, '').trim())
                     .style("fill", "black");
+
+                // Adjust tick label positions to prevent overlap
+                axis.selectAll(".tick text")
+                    .attr("transform", "translate(-5,0)");
             });
 
             // Add event listeners
