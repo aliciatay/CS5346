@@ -221,7 +221,7 @@ function updateVisualization(data, year, genre) {
     let filteredData = data;
     
     if (!d3.select('#all-time-checkbox').property('checked')) {
-        filteredData = data.filter(d => d.year <= year);
+        filteredData = data.filter(d => d.year === year);
     }
     
     if (genre !== 'all') {
