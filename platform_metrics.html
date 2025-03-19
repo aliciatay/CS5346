@@ -488,8 +488,8 @@
                 const axis = svg.append("g")
                     .attr("transform", `translate(${x(metric)},0)`);
 
-                // Reduce number of ticks and ensure nice values
-                const tickCount = 8;  // Increased number of ticks for better scale visibility
+                // Reduce number of ticks back to 6
+                const tickCount = 6;
                 
                 axis.call(
                     d3.axisLeft(y[metric])
@@ -497,23 +497,14 @@
                         .tickFormat(format)
                 );
 
-                // Add platform names at top
+                // Add combined platform name and metric type at top
                 axis.append("text")
                     .attr("class", "axis-label")
-                    .attr("y", -50)
+                    .attr("y", -20)
                     .attr("x", 0)
                     .attr("text-anchor", "middle")
                     .attr("transform", "rotate(0)")
-                    .text(platform)
-                    .style("fill", "black");
-
-                // Add metric type below platform name
-                axis.append("text")
-                    .attr("class", "axis-title")
-                    .attr("y", -30)
-                    .attr("x", 0)
-                    .attr("text-anchor", "middle")
-                    .text(metric.replace(platform, '').trim())
+                    .text(metric)
                     .style("fill", "black");
 
                 // Adjust tick label positions for better readability
