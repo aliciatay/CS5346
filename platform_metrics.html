@@ -144,6 +144,18 @@
             margin-right: 5px;
             border: 1px solid #ddd;
         }
+
+        .legend-item div {
+            margin-bottom: 8px;
+        }
+        .legend-item small {
+            color: #666;
+            display: block;
+            margin-top: 2px;
+        }
+        .legend-section {
+            min-width: 300px;
+        }
     </style>
 </head>
 <body>
@@ -281,11 +293,9 @@
                     .filter(v => v > 0)  // Filter out zeros
                     .sort((a, b) => a - b);  // Sort for percentile calculation
                 
-                // Use 5th percentile as min to avoid extreme lows
-                const min = values[Math.floor(values.length * 0.05)] || 1;
-                
-                // Use 95th percentile as max to avoid extreme outliers
-                const max = values[Math.floor(values.length * 0.95)] || 1000;
+                // Use actual min and max values
+                const min = values[0] || 1;  // Use actual minimum
+                const max = values[values.length - 1] || 1000;  // Use actual maximum
                 
                 // Round the bounds to nice numbers
                 const roundToNiceNumber = (num) => {
@@ -296,8 +306,8 @@
                 };
                 
                 metricExtents[metric] = {
-                    min: Math.max(1, roundToNiceNumber(min)),
-                    max: roundToNiceNumber(max),
+                    min: Math.max(1, Math.floor(min)),  // Ensure minimum is at least 1 for log scale
+                    max: Math.ceil(max * 1.1),  // Add 10% padding to max
                     median: d3.median(values) || 1
                 };
             });
@@ -337,17 +347,17 @@
                 const legendDiv = d3.select("#legend");
                 legendDiv.html("");
 
-                // Create sections
-                const platformSection = legendDiv.append("div")
+                // Create sections for genres
+                const genreSection = legendDiv.append("div")
                     .attr("class", "legend-section");
                 
-                platformSection.append("div")
+                genreSection.append("div")
                     .attr("class", "legend-title")
                     .text("Genres");
 
-                // Always show genre colors first
+                // Add genre colors
                 genres.filter(g => g !== 'All').forEach(genre => {
-                    platformSection.append("div")
+                    genreSection.append("div")
                         .attr("class", "legend-item")
                         .html(`
                             <span class="legend-color" style="background: ${genreColorScale(genre)}"></span>
@@ -355,7 +365,7 @@
                         `);
                 });
 
-                // Add platform metrics info
+                // Add platform metrics info with ranges
                 const metricsSection = legendDiv.append("div")
                     .attr("class", "legend-section");
                 
@@ -364,9 +374,19 @@
                     .text("Platform Metrics");
 
                 Object.entries(platformMetrics).forEach(([platform, config]) => {
+                    const metric = config.metric;
+                    const format = config.format;
+                    const min = format(metricExtents[metric].min);
+                    const max = format(metricExtents[metric].max);
+                    
                     metricsSection.append("div")
                         .attr("class", "legend-item")
-                        .text(`${platform}: ${config.metric}`);
+                        .html(`
+                            <div>
+                                <strong>${platform}</strong>: ${config.metric}<br/>
+                                <small>Range: ${min} - ${max}</small>
+                            </div>
+                        `);
                 });
             }
 
