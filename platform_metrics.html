@@ -497,15 +497,17 @@
                         .tickFormat(format)
                 );
 
-                // Add combined platform name and metric type at top
+                // Add platform name at top
                 axis.append("text")
                     .attr("class", "axis-label")
-                    .attr("y", -20)
+                    .attr("y", -60)
                     .attr("x", 0)
                     .attr("text-anchor", "middle")
                     .attr("transform", "rotate(0)")
                     .text(metric)
-                    .style("fill", "black");
+                    .style("fill", "black")
+                    .style("font-size", "14px")
+                    .style("font-weight", "bold");
 
                 // Adjust tick label positions for better readability
                 axis.selectAll(".tick text")
