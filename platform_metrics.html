@@ -109,11 +109,32 @@
 
         .legend {
             margin-top: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .legend-section {
+            margin: 0 20px;
+        }
+
+        .legend-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-size: 14px;
         }
 
         .legend-item {
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
             margin-right: 20px;
+            margin-bottom: 5px;
+            font-size: 12px;
         }
 
         .legend-color {
@@ -121,6 +142,7 @@
             width: 20px;
             height: 10px;
             margin-right: 5px;
+            border: 1px solid #ddd;
         }
     </style>
 </head>
@@ -315,9 +337,18 @@
                 const legendDiv = d3.select("#legend");
                 legendDiv.html("");
 
+                // Create sections
+                const platformSection = legendDiv.append("div")
+                    .attr("class", "legend-section");
+                
+                platformSection.append("div")
+                    .attr("class", "legend-title")
+                    .text("Platforms");
+
+                // Add platform colors
                 if (colorBy !== "genre") {
                     const selectedCount = parseInt(colorBy);
-                    legendDiv.append("div")
+                    platformSection.append("div")
                         .attr("class", "legend-item")
                         .html(`
                             <span class="legend-color" style="background: ${hitColorScale(selectedCount)}"></span>
@@ -325,7 +356,7 @@
                         `);
                 } else {
                     genres.filter(g => g !== 'All').forEach(genre => {
-                        legendDiv.append("div")
+                        platformSection.append("div")
                             .attr("class", "legend-item")
                             .html(`
                                 <span class="legend-color" style="background: ${genreColorScale(genre)}"></span>
@@ -333,6 +364,20 @@
                             `);
                     });
                 }
+
+                // Add platform metrics info
+                const metricsSection = legendDiv.append("div")
+                    .attr("class", "legend-section");
+                
+                metricsSection.append("div")
+                    .attr("class", "legend-title")
+                    .text("Platform Metrics");
+
+                Object.entries(platformMetrics).forEach(([platform, config]) => {
+                    metricsSection.append("div")
+                        .attr("class", "legend-item")
+                        .text(`${platform}: ${config.metric}`);
+                });
             }
 
             // Function to update the chart
