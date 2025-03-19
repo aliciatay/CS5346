@@ -174,8 +174,9 @@
             </select>
         </div>
         <div class="filter-group">
-            <label for="color-select">Color By:</label>
+            <label for="color-select"># of Platforms Song is a Hit:</label>
             <select id="color-select">
+                <option value="genre">All</option>
                 <option value="0">0 Platforms</option>
                 <option value="1">1 Platform</option>
                 <option value="2">2 Platforms</option>
@@ -186,7 +187,6 @@
                 <option value="7">7 Platforms</option>
                 <option value="8">8 Platforms</option>
                 <option value="9">9 Platforms</option>
-                <option value="genre">Genre</option>
             </select>
         </div>
     </div>
@@ -343,27 +343,17 @@
                 
                 platformSection.append("div")
                     .attr("class", "legend-title")
-                    .text("Platforms");
+                    .text("Genres");
 
-                // Add platform colors
-                if (colorBy !== "genre") {
-                    const selectedCount = parseInt(colorBy);
+                // Always show genre colors first
+                genres.filter(g => g !== 'All').forEach(genre => {
                     platformSection.append("div")
                         .attr("class", "legend-item")
                         .html(`
-                            <span class="legend-color" style="background: ${hitColorScale(selectedCount)}"></span>
-                            <span>${selectedCount} Platform${selectedCount !== 1 ? 's' : ''}</span>
+                            <span class="legend-color" style="background: ${genreColorScale(genre)}"></span>
+                            <span>${genre}</span>
                         `);
-                } else {
-                    genres.filter(g => g !== 'All').forEach(genre => {
-                        platformSection.append("div")
-                            .attr("class", "legend-item")
-                            .html(`
-                                <span class="legend-color" style="background: ${genreColorScale(genre)}"></span>
-                                <span>${genre}</span>
-                            `);
-                    });
-                }
+                });
 
                 // Add platform metrics info
                 const metricsSection = legendDiv.append("div")
@@ -421,15 +411,7 @@
 
                 lines.merge(linesEnter)
                     .attr("d", path)
-                    .style("stroke", d => {
-                        if (colorBy !== "genre") {
-                            const hitCount = Object.keys(platformMetrics)
-                                .filter(platform => d[`${platform}_Hit`] === 'True').length;
-                            return hitColorScale(hitCount);
-                        } else {
-                            return genreColorScale(d.track_genre);
-                        }
-                    })
+                    .style("stroke", d => genreColorScale(d.track_genre))  // Always color by genre
                     .style("opacity", 0.3)
                     .on("mouseover", function(event, d) {
                         d3.select(this)
