@@ -97,11 +97,26 @@
 
         .legend {
             margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background: #f9f9f9;
+        }
+
+        .legend-section {
+            margin-bottom: 20px;
+        }
+
+        .legend-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #333;
         }
 
         .legend-item {
             display: inline-block;
             margin-right: 20px;
+            margin-bottom: 10px;
         }
 
         .legend-color {
@@ -109,6 +124,57 @@
             width: 20px;
             height: 10px;
             margin-right: 5px;
+        }
+
+        .percentile-info {
+            margin-top: 15px;
+            font-size: 12px;
+        }
+
+        .percentile-platform {
+            margin-bottom: 10px;
+        }
+
+        .percentile-title {
+            font-weight: bold;
+            color: #666;
+        }
+
+        .reference-line {
+            stroke: #999;
+            stroke-dasharray: 2,2;
+            stroke-width: 1px;
+        }
+
+        .reference-label {
+            font-size: 10px;
+            fill: #666;
+        }
+
+        .platform-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .platform-stat-card {
+            background: white;
+            padding: 10px;
+            border: 1px solid #eee;
+            border-radius: 4px;
+        }
+
+        .platform-name {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .percentile-value {
+            color: #666;
+            font-size: 12px;
+            margin: 2px 0;
         }
     </style>
 </head>
@@ -158,7 +224,16 @@
     </div>
 
     <div id="parallel-coordinates"></div>
-    <div id="legend" class="legend"></div>
+    <div id="legend" class="legend">
+        <div class="legend-section">
+            <div class="legend-title">Color Coding</div>
+            <div id="color-legend"></div>
+        </div>
+        <div class="legend-section">
+            <div class="legend-title">Platform Performance Metrics</div>
+            <div class="platform-stats" id="platform-stats"></div>
+        </div>
+    </div>
 
     <script>
         // Create tooltip div
@@ -248,9 +323,50 @@
                 }));
             }
 
+            // Calculate percentiles for each metric
+            const percentileInfo = {};
+            metrics.forEach(metric => {
+                const values = data.map(d => +d[metric]).filter(v => v > 1).sort((a, b) => a - b);
+                percentileInfo[metric] = {
+                    '25th': d3.quantile(values, 0.25),
+                    '50th': d3.quantile(values, 0.50),
+                    '75th': d3.quantile(values, 0.75),
+                    min: d3.min(values),
+                    max: d3.max(values)
+                };
+            });
+
+            // Update platform stats in legend
+            function updatePlatformStats() {
+                const statsDiv = d3.select("#platform-stats");
+                statsDiv.html("");
+
+                Object.entries(platformMetrics).forEach(([platform, metric]) => {
+                    const stats = percentileInfo[metric];
+                    const card = statsDiv.append("div")
+                        .attr("class", "platform-stat-card");
+
+                    card.append("div")
+                        .attr("class", "platform-name")
+                        .text(platform);
+
+                    card.append("div")
+                        .attr("class", "percentile-value")
+                        .text(`25th percentile: ${d3.format(".2s")(stats['25th'])}`);
+
+                    card.append("div")
+                        .attr("class", "percentile-value")
+                        .text(`Median: ${d3.format(".2s")(stats['50th'])}`);
+
+                    card.append("div")
+                        .attr("class", "percentile-value")
+                        .text(`75th percentile: ${d3.format(".2s")(stats['75th'])}`);
+                });
+            }
+
             // Function to update the legend
             function updateLegend(colorBy) {
-                const legendDiv = d3.select("#legend");
+                const legendDiv = d3.select("#color-legend");
                 legendDiv.html("");
 
                 if (colorBy !== "genre") {
@@ -271,6 +387,9 @@
                             `);
                     });
                 }
+
+                // Always show platform stats
+                updatePlatformStats();
             }
 
             // Function to update the chart
@@ -362,15 +481,37 @@
                 updateLegend(colorBy);
             }
 
-            // Draw the axes
+            // Draw the axes with percentile markers
             metrics.forEach(metric => {
                 const axis = svg.append("g")
                     .attr("transform", `translate(${x(metric)},0)`);
 
+                // Main axis
                 axis.call(d3.axisLeft(y[metric])
                     .ticks(5, ".0s"));
 
-                // Add rotated axis labels
+                // Add percentile reference lines
+                [0.25, 0.5, 0.75].forEach(percentile => {
+                    const yPos = y[metric](percentileInfo[metric][`${percentile * 100}th`]);
+                    
+                    // Reference line
+                    axis.append("line")
+                        .attr("class", "reference-line")
+                        .attr("x1", -5)
+                        .attr("x2", 5)
+                        .attr("y1", yPos)
+                        .attr("y2", yPos);
+
+                    // Percentile label
+                    axis.append("text")
+                        .attr("class", "reference-label")
+                        .attr("x", 7)
+                        .attr("y", yPos)
+                        .attr("dy", "0.3em")
+                        .text(`${percentile * 100}%`);
+                });
+
+                // Platform label
                 axis.append("text")
                     .attr("class", "axis-label")
                     .attr("y", -20)
