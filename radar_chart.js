@@ -32,8 +32,7 @@ const technicalFeatures = {
     'zero_crossing_rate': 'Zero Crossing Rate',
     'chroma_stft': 'Chroma STFT',
     'beat_strength': 'Beat Strength',
-    'harmonic_to_percussive': 'Harmonic/Percussive',
-    'harmonic_to_percussive_ratio': 'H/P Ratio',
+    'harmonic_to_percussive_ratio': 'Harmonic/Percussive Ratio',
     'speech_to_music_ratio': 'Speech/Music Ratio',
     'tempogram': 'Tempogram'
 };
@@ -181,8 +180,7 @@ async function loadData() {
                 } else if (feature === 'zero_crossing_rate' || feature === 'chroma_stft' || feature === 'beat_strength') {
                     // These features are already between 0 and 1
                     obj[feature] = Math.min(1, Math.max(0, +d[feature]));
-                } else if (feature === 'harmonic_to_percussive' || feature === 'harmonic_to_percussive_ratio' || 
-                          feature === 'speech_to_music_ratio' || feature === 'tempogram') {
+                } else if (feature === 'harmonic_to_percussive_ratio' || feature === 'speech_to_music_ratio' || feature === 'tempogram') {
                     // Normalize ratio features
                     obj[feature] = Math.min(1, +d[feature]);
                 }
