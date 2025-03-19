@@ -1,3 +1,16 @@
+// Platform metrics definition
+const platformMetrics = {
+    'Spotify': true,
+    'YouTube': true,
+    'TikTok': true,
+    'Apple Music': true,
+    'Deezer': true,
+    'SiriusXM': true,
+    'Amazon': true,
+    'Pandora': true,
+    'Shazam': true
+};
+
 // Features to display with nice labels
 const musicalCharacteristics = {
     'danceability': 'Danceability',
@@ -162,6 +175,16 @@ async function loadData() {
                     obj[feature] = +d[feature] / 11;  // Keys are 0-11
                 } else if (feature === 'time_signature') {
                     obj[feature] = +d[feature] / 7;  // Assuming max time signature of 7
+                } else if (feature === 'spectral_centroid' || feature === 'spectral_bandwidth' || feature === 'spectral_rolloff') {
+                    // Normalize spectral features by their typical ranges
+                    obj[feature] = Math.min(1, +d[feature] / 10000);
+                } else if (feature === 'zero_crossing_rate' || feature === 'chroma_stft' || feature === 'beat_strength') {
+                    // These features are already between 0 and 1
+                    obj[feature] = Math.min(1, Math.max(0, +d[feature]));
+                } else if (feature === 'harmonic_to_percussive' || feature === 'harmonic_to_percussive_ratio' || 
+                          feature === 'speech_to_music_ratio' || feature === 'tempogram') {
+                    // Normalize ratio features
+                    obj[feature] = Math.min(1, +d[feature]);
                 }
                 return obj;
             }, {}),
