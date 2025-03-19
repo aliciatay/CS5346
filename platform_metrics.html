@@ -1,1 +1,270 @@
-The entire HTML content above 
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Cross-Platform Performance Analysis</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        .title {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .filters {
+            display: flex;
+            gap: 20px;
+            margin: 20px 0;
+            align-items: center;
+        }
+
+        .filter-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        select {
+            padding: 5px;
+            font-size: 14px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            min-width: 150px;
+        }
+
+        .line {
+            fill: none;
+            stroke-width: 1px;
+        }
+
+        .line:hover {
+            stroke-width: 3px;
+            opacity: 1 !important;
+        }
+
+        .axis text {
+            font-size: 12px;
+        }
+
+        .back-button {
+            background: #666;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        .axis-label {
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .tooltip {
+            position: absolute;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            pointer-events: none;
+            font-size: 12px;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="back-button">← Back to Menu</a>
+    
+    <div class="filters">
+        <div class="filter-group">
+            <label for="genre-select">Genre:</label>
+            <select id="genre-select">
+                <option value="All">All</option>
+            </select>
+        </div>
+        <div class="filter-group">
+            <label for="performance-select">Performance:</label>
+            <select id="performance-select">
+                <option value="All">All Songs</option>
+                <option value="Hit">Hits</option>
+                <option value="NonHit">Non-Hits</option>
+            </select>
+        </div>
+    </div>
+
+    <div id="parallel-coordinates"></div>
+
+    <script>
+        // Create tooltip div
+        const tooltip = d3.select("body").append("div")
+            .attr("class", "tooltip")
+            .style("opacity", 0);
+
+        // Platform metrics mapping
+        const platformMetrics = {
+            'Spotify': 'Spotify Streams',
+            'YouTube': 'YouTube Views',
+            'TikTok': 'TikTok Views',
+            'Apple Music': 'AirPlay Spins',
+            'Deezer': 'Deezer Playlist Count',
+            'SiriusXM': 'SiriusXM Spins',
+            'Amazon': 'Amazon Playlist Count',
+            'Pandora': 'Pandora Streams',
+            'Shazam': 'Shazam Counts'
+        };
+
+        // Load the data
+        d3.csv("final_df_cleaned.csv").then(function(data) {
+            // Get unique genres
+            const genres = ['All', ...new Set(data.map(d => d.Genre))].sort();
+
+            // Populate genre select
+            d3.select("#genre-select")
+                .selectAll("option")
+                .data(genres)
+                .enter()
+                .append("option")
+                .text(d => d)
+                .attr("value", d => d);
+
+            // Set up the dimensions of the canvas
+            const margin = {top: 50, right: 100, bottom: 50, left: 100};
+            const width = 1200 - margin.left - margin.right;
+            const height = 600 - margin.top - margin.bottom;
+
+            // Create SVG
+            const svg = d3.select("#parallel-coordinates")
+                .append("svg")
+                .attr("width", width + margin.left + margin.right)
+                .attr("height", height + margin.top + margin.bottom)
+                .append("g")
+                .attr("transform", `translate(${margin.left},${margin.top})`);
+
+            // Create scales for each metric
+            const metrics = Object.values(platformMetrics);
+            const x = d3.scalePoint()
+                .domain(metrics)
+                .range([0, width])
+                .padding(0.1);
+
+            const y = {};
+            metrics.forEach(metric => {
+                y[metric] = d3.scaleLog()
+                    .domain([1, d3.max(data, d => Math.max(1, +d[metric] || 1))])
+                    .range([height, 0])
+                    .nice();
+            });
+
+            // Function to draw the lines
+            function path(d) {
+                return d3.line()(metrics.map(metric => {
+                    const value = Math.max(1, +d[metric] || 1);
+                    return [x(metric), y[metric](value)];
+                }));
+            }
+
+            // Function to update the chart
+            function updateChart() {
+                const selectedGenre = d3.select("#genre-select").property("value");
+                const selectedPerformance = d3.select("#performance-select").property("value");
+
+                // Filter data
+                let filteredData = data;
+                if (selectedGenre !== "All") {
+                    filteredData = filteredData.filter(d => d.Genre === selectedGenre);
+                }
+                if (selectedPerformance !== "All") {
+                    filteredData = filteredData.filter(d => {
+                        const isHit = Object.keys(platformMetrics).some(platform => 
+                            d[`${platform}_Hit`] === 'True'
+                        );
+                        return selectedPerformance === "Hit" ? isHit : !isHit;
+                    });
+                }
+
+                // Update the lines
+                const lines = svg.selectAll(".line")
+                    .data(filteredData);
+
+                lines.exit().remove();
+
+                const linesEnter = lines.enter()
+                    .append("path")
+                    .attr("class", "line");
+
+                lines.merge(linesEnter)
+                    .attr("d", path)
+                    .style("stroke", d => {
+                        const hitCount = Object.keys(platformMetrics)
+                            .filter(platform => d[`${platform}_Hit`] === 'True').length;
+                        return d3.interpolateRdYlBu(hitCount / Object.keys(platformMetrics).length);
+                    })
+                    .style("opacity", 0.3)
+                    .on("mouseover", function(event, d) {
+                        d3.select(this)
+                            .style("stroke-width", "3px")
+                            .style("opacity", 1);
+                        
+                        tooltip.transition()
+                            .duration(200)
+                            .style("opacity", .9);
+                        
+                        const hitPlatforms = Object.keys(platformMetrics)
+                            .filter(platform => d[`${platform}_Hit`] === 'True')
+                            .join(", ");
+                        
+                        tooltip.html(`
+                            <strong>${d.Title}</strong><br/>
+                            Genre: ${d.Genre}<br/>
+                            Hits on: ${hitPlatforms || "None"}
+                        `)
+                            .style("left", (event.pageX + 10) + "px")
+                            .style("top", (event.pageY - 28) + "px");
+                    })
+                    .on("mouseout", function() {
+                        d3.select(this)
+                            .style("stroke-width", "1px")
+                            .style("opacity", 0.3);
+                        
+                        tooltip.transition()
+                            .duration(500)
+                            .style("opacity", 0);
+                    });
+            }
+
+            // Draw the axes
+            metrics.forEach(metric => {
+                const axis = svg.append("g")
+                    .attr("transform", `translate(${x(metric)},0)`);
+
+                axis.call(d3.axisLeft(y[metric])
+                    .ticks(5, ".0s"));
+
+                // Add rotated axis labels
+                axis.append("text")
+                    .attr("class", "axis-label")
+                    .attr("y", -20)
+                    .attr("x", 0)
+                    .attr("text-anchor", "middle")
+                    .attr("transform", "rotate(0)")
+                    .text(metric)
+                    .style("fill", "black");
+            });
+
+            // Add event listeners
+            d3.select("#genre-select").on("change", updateChart);
+            d3.select("#performance-select").on("change", updateChart);
+
+            // Initial chart
+            updateChart();
+        });
+    </script>
+</body>
+</html> 
