@@ -147,12 +147,16 @@
         
         <div class="explanation">
             <h3>What defines a "Hit" song?</h3>
-            <p>A song is classified as a "Hit" when it meets both of these criteria:</p>
+            <p>A song is classified as a "Hit" when it is successful on multiple platforms. Specifically:</p>
+            <ul>
+                <li>A song is considered a "Hit" if it is successful on 5 or more platforms</li>
+                <li>Success on each platform is determined by platform-specific metrics and thresholds</li>
+            </ul>
+            <p>The radar chart compares two groups of features between hit and non-hit songs:</p>
             <ol>
-                <li>The number of Spotify Streams is in the top percentile for the selected time period and genre</li>
-                <li>The number of Spotify Playlist appearances is in the top percentile for the selected time period and genre</li>
+                <li><strong>Musical Characteristics:</strong> Core musical attributes like danceability, energy, key, etc.</li>
+                <li><strong>Technical Features:</strong> Advanced audio analysis metrics like spectral features and rhythm analysis</li>
             </ol>
-            <p>Use the threshold selector below to adjust what percentile defines a "Hit". For example, selecting 25% means a song needs to be in the top 25% for both metrics to be considered a hit.</p>
             <p>Time Range: You can either select a specific year using the slider (1986-2023) or check "All Time" to analyze the entire dataset.</p>
         </div>
         
@@ -172,22 +176,6 @@
                 <label for="genre-selector">Genre:</label>
                 <select id="genre-selector">
                     <option value="all">All</option>
-                </select>
-            </div>
-            
-            <div class="control-group">
-                <label for="threshold-selector">Hit Threshold:</label>
-                <select id="threshold-selector">
-                    <option value="0.05">Top 5%</option>
-                    <option value="0.10">Top 10%</option>
-                    <option value="0.15">Top 15%</option>
-                    <option value="0.20">Top 20%</option>
-                    <option value="0.25" selected>Top 25%</option>
-                    <option value="0.30">Top 30%</option>
-                    <option value="0.35">Top 35%</option>
-                    <option value="0.40">Top 40%</option>
-                    <option value="0.45">Top 45%</option>
-                    <option value="0.50">Top 50%</option>
                 </select>
             </div>
             

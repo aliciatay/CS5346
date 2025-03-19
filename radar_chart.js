@@ -1,15 +1,41 @@
 // Features to display with nice labels
-const featureLabels = {
+const musicalCharacteristics = {
     'danceability': 'Danceability',
     'energy': 'Energy',
-    'valence': 'Valence',
-    'acousticness': 'Acousticness',
+    'key': 'Key',
     'loudness': 'Loudness',
     'speechiness': 'Speechiness',
+    'acousticness': 'Acousticness',
     'instrumentalness': 'Instrumentalness',
-    'liveness': 'Liveness'
+    'liveness': 'Liveness',
+    'valence': 'Valence',
+    'time_signature': 'Time Signature'
 };
-const features = Object.keys(featureLabels);
+
+const technicalFeatures = {
+    'spectral_centroid': 'Spectral Centroid',
+    'spectral_bandwidth': 'Spectral Bandwidth',
+    'spectral_rolloff': 'Spectral Rolloff',
+    'zero_crossing_rate': 'Zero Crossing Rate',
+    'chroma_stft': 'Chroma STFT',
+    'beat_strength': 'Beat Strength',
+    'harmonic_to_percussive': 'Harmonic/Percussive',
+    'harmonic_to_percussive_ratio': 'H/P Ratio',
+    'speech_to_music_ratio': 'Speech/Music Ratio',
+    'tempogram': 'Tempogram'
+};
+
+const featureCategories = {
+    'Musical Characteristics': musicalCharacteristics,
+    'Technical Features': technicalFeatures
+};
+
+const allFeatures = {
+    ...musicalCharacteristics,
+    ...technicalFeatures
+};
+
+const features = Object.keys(allFeatures);
 
 // Color scheme
 const colors = {
@@ -22,6 +48,10 @@ const colors = {
         fill: 'rgba(54, 162, 235, 0.5)',
         stroke: 'rgb(54, 162, 235)',
         highlight: 'rgb(54, 162, 235)'
+    },
+    categories: {
+        'Musical Characteristics': '#2ecc71',
+        'Technical Features': '#9b59b6'
     }
 };
 
@@ -81,7 +111,7 @@ function initializeChart() {
             .style('text-anchor', 'middle')
             .style('font-size', '14px')
             .style('fill', '#333')
-            .text(featureLabels[feature]);
+            .text(allFeatures[feature]);
     });
 
     // Draw circular levels
@@ -123,15 +153,19 @@ async function loadData() {
         const processedData = rows.map(d => ({
             year: new Date(d['Release Date']).getFullYear(),
             genre: d.track_genre,
-            streams: +d['Spotify Streams'],
-            playlists: +d['Spotify Playlist Count'],
             features: features.reduce((obj, feature) => {
                 obj[feature] = +d[feature];
+                // Normalize values between 0 and 1
                 if (feature === 'loudness') {
                     obj[feature] = (+d[feature] + 60) / 60;
+                } else if (feature === 'key') {
+                    obj[feature] = +d[feature] / 11;  // Keys are 0-11
+                } else if (feature === 'time_signature') {
+                    obj[feature] = +d[feature] / 7;  // Assuming max time signature of 7
                 }
                 return obj;
-            }, {})
+            }, {}),
+            hitPlatforms: Object.keys(platformMetrics).filter(platform => d[`${platform}_Hit`] === 'True').length
         }));
 
         // Find min and max years from actual data
@@ -191,29 +225,9 @@ function updateVisualization(data, year, genre) {
     d3.select('#no-data').style('display', 'none');
     d3.selectAll('.viz-section').style('display', 'block');
 
-    // Get current threshold value and calculate percentile
-    const thresholdValue = d3.select('#threshold-selector').property('value');
-    const thresholdPercentile = 1 - parseFloat(thresholdValue);
-    console.log('Threshold settings:', {
-        value: thresholdValue,
-        percentile: thresholdPercentile
-    });
-
-    // Calculate thresholds using the selected percentile
-    const streamsArray = filteredData.map(d => d.streams).sort(d3.ascending);
-    const playlistArray = filteredData.map(d => d.playlists).sort(d3.ascending);
-    
-    const streamsThreshold = d3.quantile(streamsArray, thresholdPercentile);
-    const playlistThreshold = d3.quantile(playlistArray, thresholdPercentile);
-    
-    console.log('Calculated thresholds:', {
-        streams: streamsThreshold,
-        playlists: playlistThreshold
-    });
-
-    // Split into hits and non-hits
-    const hits = filteredData.filter(d => d.streams >= streamsThreshold && d.playlists >= playlistThreshold);
-    const nonHits = filteredData.filter(d => d.streams < streamsThreshold || d.playlists < playlistThreshold);
+    // Split into hits (5 or more platforms) and non-hits
+    const hits = filteredData.filter(d => d.hitPlatforms >= 5);
+    const nonHits = filteredData.filter(d => d.hitPlatforms < 5);
     
     console.log('Data split:', {
         hits: hits.length,
