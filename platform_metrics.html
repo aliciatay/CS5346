@@ -8,11 +8,27 @@
         body {
             font-family: Arial, sans-serif;
             margin: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin: 20px 0 30px 0;
         }
 
         .title {
-            text-align: center;
-            margin: 20px 0;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .description {
+            color: #666;
+            line-height: 1.4;
+            max-width: 800px;
+            margin: 0 auto;
         }
 
         .filters {
@@ -97,6 +113,15 @@
     </style>
 </head>
 <body>
+    <div class="header">
+        <div class="title">Cross-Platform Music Performance Analysis</div>
+        <div class="description">
+            Explore how songs perform across different music platforms through this interactive visualization. 
+            Each line represents a song, connecting its performance metrics across platforms. 
+            Use the filters to explore by genre and hit status, and see how songs achieve success across multiple platforms.
+        </div>
+    </div>
+
     <a href="index.html" class="back-button">← Back to Menu</a>
     
     <div class="filters">
@@ -117,7 +142,16 @@
         <div class="filter-group">
             <label for="color-select">Color By:</label>
             <select id="color-select">
-                <option value="hits">Number of Hit Platforms</option>
+                <option value="0">0 Platforms</option>
+                <option value="1">1 Platform</option>
+                <option value="2">2 Platforms</option>
+                <option value="3">3 Platforms</option>
+                <option value="4">4 Platforms</option>
+                <option value="5">5 Platforms</option>
+                <option value="6">6 Platforms</option>
+                <option value="7">7 Platforms</option>
+                <option value="8">8 Platforms</option>
+                <option value="9">9 Platforms</option>
                 <option value="genre">Genre</option>
             </select>
         </div>
@@ -179,16 +213,20 @@
                 .range([0, width])
                 .padding(0.1);
 
-            // Find global min and max for all metrics
-            const globalMin = 1;
-            const globalMax = d3.max(data, d => 
-                d3.max(metrics, metric => Math.max(1, +d[metric] || 1))
-            );
+            // Find min and max for each metric (excluding zeros and very small values)
+            const metricExtents = {};
+            metrics.forEach(metric => {
+                const values = data.map(d => +d[metric]).filter(v => v > 1);
+                metricExtents[metric] = {
+                    min: d3.min(values),
+                    max: d3.max(values)
+                };
+            });
 
             const y = {};
             metrics.forEach(metric => {
                 y[metric] = d3.scaleLog()
-                    .domain([globalMin, globalMax])
+                    .domain([metricExtents[metric].min, metricExtents[metric].max])
                     .range([height, 0])
                     .nice();
             });
@@ -205,7 +243,7 @@
             // Function to draw the lines
             function path(d) {
                 return d3.line()(metrics.map(metric => {
-                    const value = Math.max(1, +d[metric] || 1);
+                    const value = Math.max(metricExtents[metric].min, +d[metric] || metricExtents[metric].min);
                     return [x(metric), y[metric](value)];
                 }));
             }
@@ -215,16 +253,14 @@
                 const legendDiv = d3.select("#legend");
                 legendDiv.html("");
 
-                if (colorBy === "hits") {
-                    const hitCounts = [...Array(Object.keys(platformMetrics).length + 1).keys()];
-                    hitCounts.forEach(count => {
-                        legendDiv.append("div")
-                            .attr("class", "legend-item")
-                            .html(`
-                                <span class="legend-color" style="background: ${hitColorScale(count)}"></span>
-                                <span>${count} Platform${count !== 1 ? 's' : ''}</span>
-                            `);
-                    });
+                if (colorBy !== "genre") {
+                    const selectedCount = parseInt(colorBy);
+                    legendDiv.append("div")
+                        .attr("class", "legend-item")
+                        .html(`
+                            <span class="legend-color" style="background: ${hitColorScale(selectedCount)}"></span>
+                            <span>${selectedCount} Platform${selectedCount !== 1 ? 's' : ''}</span>
+                        `);
                 } else {
                     genres.filter(g => g !== 'All').forEach(genre => {
                         legendDiv.append("div")
@@ -271,7 +307,7 @@
                 lines.merge(linesEnter)
                     .attr("d", path)
                     .style("stroke", d => {
-                        if (colorBy === "hits") {
+                        if (colorBy !== "genre") {
                             const hitCount = Object.keys(platformMetrics)
                                 .filter(platform => d[`${platform}_Hit`] === 'True').length;
                             return hitColorScale(hitCount);
@@ -279,7 +315,14 @@
                             return genreColorScale(d.track_genre);
                         }
                     })
-                    .style("opacity", 0.3)
+                    .style("opacity", d => {
+                        if (colorBy !== "genre") {
+                            const hitCount = Object.keys(platformMetrics)
+                                .filter(platform => d[`${platform}_Hit`] === 'True').length;
+                            return hitCount === parseInt(colorBy) ? 0.8 : 0.1;
+                        }
+                        return 0.3;
+                    })
                     .on("mouseover", function(event, d) {
                         d3.select(this)
                             .style("stroke-width", "3px")
@@ -295,6 +338,7 @@
                         
                         tooltip.html(`
                             <strong>${d.track_name}</strong><br/>
+                            <em>by ${d.artists}</em><br/>
                             Genre: ${d.track_genre}<br/>
                             Hits on: ${hitPlatforms || "None"}
                         `)
@@ -304,7 +348,14 @@
                     .on("mouseout", function() {
                         d3.select(this)
                             .style("stroke-width", "1px")
-                            .style("opacity", 0.3);
+                            .style("opacity", d => {
+                                if (colorBy !== "genre") {
+                                    const hitCount = Object.keys(platformMetrics)
+                                        .filter(platform => d[`${platform}_Hit`] === 'True').length;
+                                    return hitCount === parseInt(colorBy) ? 0.8 : 0.1;
+                                }
+                                return 0.3;
+                            });
                         
                         tooltip.transition()
                             .duration(500)
