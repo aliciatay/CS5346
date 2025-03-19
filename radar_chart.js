@@ -219,27 +219,20 @@ function updateVisualization(data, year, genre) {
         totalDataPoints: data.length
     });
     
-    // Filter data based on year (if not All Time) and genre
-    let filteredData;
-    const isAllTime = d3.select('#all-time-checkbox').property('checked');
+    // Filter data based on year and genre
+    let filteredData = data;
     
-    if (isAllTime) {
-        console.log('All Time selected - using complete dataset');
-        filteredData = [...data];  // Use all data
-    } else {
-        console.log('Filtering data for year <=', year);
+    if (!d3.select('#all-time-checkbox').property('checked')) {
         filteredData = data.filter(d => d.year <= year);
     }
     
     if (genre !== 'all') {
-        console.log('Filtering by genre:', genre);
         filteredData = filteredData.filter(d => d.genre.toLowerCase() === genre.toLowerCase());
     }
 
     console.log('Filtered data points:', filteredData.length);
 
     if (filteredData.length === 0) {
-        console.log('No data available for current selection');
         d3.select('#no-data').style('display', 'block');
         d3.selectAll('.viz-section').style('display', 'none');
         return;
@@ -248,23 +241,11 @@ function updateVisualization(data, year, genre) {
     d3.select('#no-data').style('display', 'none');
     d3.selectAll('.viz-section').style('display', 'block');
 
-    // Split into hits (5 or more platforms) and non-hits
+    // Split into hits and non-hits
     const hits = filteredData.filter(d => d.hitPlatforms >= 5);
     const nonHits = filteredData.filter(d => d.hitPlatforms < 5);
-    
-    console.log('Data split:', {
-        hits: hits.length,
-        nonHits: nonHits.length,
-        total: filteredData.length
-    });
 
-    // Update radar chart
-    updateRadarChart(hits, nonHits);
-}
-
-// Function to update just the radar chart
-function updateRadarChart(hits, nonHits) {
-    // Calculate averages
+    // Calculate averages for each feature
     const hitsAvg = features.map(feature => ({
         feature,
         value: d3.mean(hits, d => d.features[feature])
@@ -275,18 +256,23 @@ function updateRadarChart(hits, nonHits) {
         value: d3.mean(nonHits, d => d.features[feature])
     }));
 
-    // Initialize chart
+    // Update radar chart with averaged values
+    updateRadarChart(hitsAvg, nonHitsAvg);
+}
+
+// Update the radar chart drawing function
+function updateRadarChart(hitsAvg, nonHitsAvg) {
     const { svg, g, radius, angleSlice } = initializeChart();
 
-    // Scale for data
+    // Scale for data - ensure all values are between 0 and 1
     const rScale = d3.scaleLinear()
-        .domain([0, config.maxValue])
+        .domain([0, 1])
         .range([0, radius]);
 
     // Draw paths
     const radarLine = d3.lineRadial()
         .curve(d3.curveLinearClosed)
-        .radius(d => rScale(d.value))
+        .radius(d => rScale(Math.min(1, Math.max(0, d.value || 0))))
         .angle((d, i) => i * angleSlice);
 
     // Draw hits path
@@ -296,8 +282,7 @@ function updateRadarChart(hits, nonHits) {
         .attr('d', radarLine)
         .style('fill', colors.hits.fill)
         .style('stroke', colors.hits.stroke)
-        .style('stroke-width', config.strokeWidth + 'px')
-        .style('fill-opacity', 0.3);
+        .style('stroke-width', config.strokeWidth + 'px');
 
     // Draw non-hits path
     g.append('path')
@@ -306,90 +291,66 @@ function updateRadarChart(hits, nonHits) {
         .attr('d', radarLine)
         .style('fill', colors.nonHits.fill)
         .style('stroke', colors.nonHits.stroke)
-        .style('stroke-width', config.strokeWidth + 'px')
-        .style('fill-opacity', 0.3);
+        .style('stroke-width', config.strokeWidth + 'px');
 
-    // Add data points
-    const pointsGroup = g.append('g').attr('class', 'points-group');
-
-    // Draw hits points
-    hitsAvg.forEach((d, i) => {
-        const x = rScale(d.value) * Math.cos(angleSlice * i - Math.PI/2);
-        const y = rScale(d.value) * Math.sin(angleSlice * i - Math.PI/2);
-
-        pointsGroup.append('circle')
-            .attr('class', 'dot-hits')
-            .attr('cx', x)
-            .attr('cy', y)
-            .attr('r', config.dotRadius)
-            .style('fill', colors.hits.stroke)
-            .style('stroke', '#fff')
-            .style('stroke-width', '2px')
-            .on('mouseover', function() {
-                const label = pointsGroup.append('text')
-                    .attr('class', 'point-label')
-                    .attr('x', x)
-                    .attr('y', y - 15)
-                    .style('text-anchor', 'middle')
-                    .style('fill', colors.hits.stroke)
-                    .style('font-size', '12px')
-                    .text(d.value.toFixed(2));
-            })
-            .on('mouseout', function() {
-                pointsGroup.selectAll('.point-label').remove();
-            });
-    });
-
-    // Draw non-hits points
-    nonHitsAvg.forEach((d, i) => {
-        const x = rScale(d.value) * Math.cos(angleSlice * i - Math.PI/2);
-        const y = rScale(d.value) * Math.sin(angleSlice * i - Math.PI/2);
-
-        pointsGroup.append('circle')
-            .attr('class', 'dot-non-hits')
-            .attr('cx', x)
-            .attr('cy', y)
-            .attr('r', config.dotRadius)
-            .style('fill', colors.nonHits.stroke)
-            .style('stroke', '#fff')
-            .style('stroke-width', '2px')
-            .on('mouseover', function() {
-                const label = pointsGroup.append('text')
-                    .attr('class', 'point-label')
-                    .attr('x', x)
-                    .attr('y', y - 15)
-                    .style('text-anchor', 'middle')
-                    .style('fill', colors.nonHits.stroke)
-                    .style('font-size', '12px')
-                    .text(d.value.toFixed(2));
-            })
-            .on('mouseout', function() {
-                pointsGroup.selectAll('.point-label').remove();
-            });
-    });
-
-    // Add legend
+    // Update legend position and size
     const legend = svg.append('g')
         .attr('class', 'legend')
-        .attr('transform', `translate(${config.width + config.margin - 100}, 30)`);
+        .attr('transform', `translate(${config.width + config.margin - 150}, 50)`);
 
     ['Hits', 'Non-Hits'].forEach((label, i) => {
         const color = label === 'Hits' ? colors.hits : colors.nonHits;
         const group = legend.append('g')
-            .attr('transform', `translate(0, ${i * 25})`);
+            .attr('transform', `translate(0, ${i * 30})`);
 
         group.append('rect')
-            .attr('width', 15)
-            .attr('height', 15)
+            .attr('width', 20)
+            .attr('height', 20)
             .style('fill', color.fill)
             .style('stroke', color.stroke);
 
         group.append('text')
-            .attr('x', 25)
-            .attr('y', 12)
-            .style('font-size', '12px')
+            .attr('x', 30)
+            .attr('y', 15)
+            .style('font-size', '14px')
             .text(label);
     });
+
+    // Add data points with proper tooltips
+    const pointsGroup = g.append('g').attr('class', 'points-group');
+
+    // Function to add points
+    const addPoints = (data, color) => {
+        data.forEach((d, i) => {
+            const value = Math.min(1, Math.max(0, d.value || 0));
+            const x = rScale(value) * Math.cos(angleSlice * i - Math.PI/2);
+            const y = rScale(value) * Math.sin(angleSlice * i - Math.PI/2);
+
+            pointsGroup.append('circle')
+                .attr('cx', x)
+                .attr('cy', y)
+                .attr('r', config.dotRadius)
+                .style('fill', color.fill)
+                .style('stroke', color.stroke)
+                .style('stroke-width', '2px')
+                .on('mouseover', function() {
+                    const tooltip = pointsGroup.append('text')
+                        .attr('class', 'point-label')
+                        .attr('x', x)
+                        .attr('y', y - 15)
+                        .style('text-anchor', 'middle')
+                        .style('fill', color.stroke)
+                        .style('font-size', '12px')
+                        .text(`${allFeatures[d.feature]}: ${d.value.toFixed(3)}`);
+                })
+                .on('mouseout', function() {
+                    pointsGroup.selectAll('.point-label').remove();
+                });
+        });
+    };
+
+    addPoints(hitsAvg, colors.hits);
+    addPoints(nonHitsAvg, colors.nonHits);
 }
 
 // Initialize the visualization

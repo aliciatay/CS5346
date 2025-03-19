@@ -98,18 +98,21 @@
             margin-top: 20px;
         }
         .chart-container {
-            width: 1000px;
+            width: 1200px;
             height: 1000px;
             margin: 0 auto;
             position: relative;
+            overflow: visible;
         }
         .radar-chart {
             background-color: #fff;
+            overflow: visible;
         }
         .axis-label {
             font-family: Arial, sans-serif;
-            font-size: 14px;
+            font-size: 12px;
             font-weight: 500;
+            dominant-baseline: middle;
         }
         .feature-label {
             cursor: pointer;
@@ -138,6 +141,10 @@
         #year-slider:disabled {
             opacity: 0.5;
             cursor: not-allowed;
+        }
+        .axis-label {
+            word-wrap: break-word;
+            word-break: break-word;
         }
     </style>
 </head>
