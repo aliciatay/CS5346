@@ -293,6 +293,14 @@
                             hitCount < Object.keys(platformMetrics).length;
                     });
                 }
+                if (colorBy !== "genre") {
+                    const selectedCount = parseInt(colorBy);
+                    filteredData = filteredData.filter(d => {
+                        const hitCount = Object.keys(platformMetrics)
+                            .filter(platform => d[`${platform}_Hit`] === 'True').length;
+                        return hitCount === selectedCount;
+                    });
+                }
 
                 // Update the lines
                 const lines = svg.selectAll(".line")
@@ -315,14 +323,7 @@
                             return genreColorScale(d.track_genre);
                         }
                     })
-                    .style("opacity", d => {
-                        if (colorBy !== "genre") {
-                            const hitCount = Object.keys(platformMetrics)
-                                .filter(platform => d[`${platform}_Hit`] === 'True').length;
-                            return hitCount === parseInt(colorBy) ? 0.8 : 0.1;
-                        }
-                        return 0.3;
-                    })
+                    .style("opacity", 0.3)
                     .on("mouseover", function(event, d) {
                         d3.select(this)
                             .style("stroke-width", "3px")
@@ -340,7 +341,9 @@
                             <strong>${d.track_name}</strong><br/>
                             <em>by ${d.artists}</em><br/>
                             Genre: ${d.track_genre}<br/>
-                            Hits on: ${hitPlatforms || "None"}
+                            Hits on: ${hitPlatforms || "None"}<br/>
+                            Number of Hit Platforms: ${Object.keys(platformMetrics)
+                                .filter(platform => d[`${platform}_Hit`] === 'True').length}
                         `)
                             .style("left", (event.pageX + 10) + "px")
                             .style("top", (event.pageY - 28) + "px");
@@ -348,14 +351,7 @@
                     .on("mouseout", function() {
                         d3.select(this)
                             .style("stroke-width", "1px")
-                            .style("opacity", d => {
-                                if (colorBy !== "genre") {
-                                    const hitCount = Object.keys(platformMetrics)
-                                        .filter(platform => d[`${platform}_Hit`] === 'True').length;
-                                    return hitCount === parseInt(colorBy) ? 0.8 : 0.1;
-                                }
-                                return 0.3;
-                            });
+                            .style("opacity", 0.3);
                         
                         tooltip.transition()
                             .duration(500)
