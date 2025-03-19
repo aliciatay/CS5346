@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Music Hit Status Parallel Coordinates</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        .title {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .filters {
+            margin: 20px;
+            font-family: Arial, sans-serif;
+        }
+
+        .parallel-coordinates {
+            margin: 20px;
+        }
+
+        .dimension .tick text {
+            font-size: 10px;
+            font-family: Arial, sans-serif;
+        }
+
+        .legend {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1 class="title">Music Hit Status Across Platforms</h1>
+    <div class="filters">
+        <label for="genre-select">Filter by Genre: </label>
+        <select id="genre-select" multiple>
+            <!-- Genres will be populated dynamically -->
+        </select>
+    </div>
+    <div id="parallel-coordinates"></div>
+
+    <script>
+        // Load the data
+        d3.csv("final_df_cleaned.csv").then(function(data) {
+            // Get platforms (columns ending with '_Hit')
+            const platforms = Object.keys(data[0])
+                .filter(key => key.endsWith('_Hit'))
+                .map(key => key.replace('_Hit', ''));
+
+            // Setup dimensions
+            const dimensions = ['Genre', ...platforms];
+            
+            // Convert hit status strings to boolean
+            data.forEach(d => {
+                platforms.forEach(platform => {
+                    d[`${platform}_Hit`] = d[`${platform}_Hit`] === 'True';
+                });
+            });
+
+            // Get unique genres for the filter
+            const genres = [...new Set(data.map(d => d.Genre))];
+
+            // Populate genre select
+            const genreSelect = d3.select("#genre-select");
+            genres.forEach(genre => {
+                genreSelect.append("option")
+                    .attr("value", genre)
+                    .text(genre);
+            });
+
+            // Set up the dimensions of the canvas
+            const margin = {top: 30, right: 100, bottom: 30, left: 100};
+            const width = 1200 - margin.left - margin.right;
+            const height = 600 - margin.top - margin.bottom;
+
+            // Create scales for each axis
+            const y = {};
+            dimensions.forEach(dim => {
+                if (dim === 'Genre') {
+                    y[dim] = d3.scalePoint()
+                        .domain(genres)
+                        .range([height, 0]);
+                } else {
+                    y[dim] = d3.scalePoint()
+                        .domain(['Hit', 'Not Hit'])
+                        .range([height, 0]);
+                }
+            });
+
+            // Position of each axis
+            const x = d3.scalePoint()
+                .domain(dimensions)
+                .range([0, width]);
+
+            // Create SVG
+            const svg = d3.select("#parallel-coordinates")
+                .append("svg")
+                .attr("width", width + margin.left + margin.right)
+                .attr("height", height + margin.top + margin.bottom)
+                .append("g")
+                .attr("transform", `translate(${margin.left},${margin.top})`);
+
+            // Create a line generator
+            const line = d3.line()
+                .defined(d => d !== null);
+
+            // Function to draw the lines
+            function path(d) {
+                return line(dimensions.map(dim => {
+                    if (dim === 'Genre') {
+                        return [x(dim), y[dim](d[dim])];
+                    } else {
+                        return [x(dim), y[dim](d[`${dim}_Hit`] ? 'Hit' : 'Not Hit')];
+                    }
+                }));
+            }
+
+            // Draw the lines
+            function updateChart(selectedGenres) {
+                // Filter data based on selected genres
+                const filteredData = selectedGenres.length > 0 
+                    ? data.filter(d => selectedGenres.includes(d.Genre))
+                    : data;
+
+                // Remove existing lines
+                svg.selectAll(".line").remove();
+
+                // Draw new lines
+                svg.selectAll(".line")
+                    .data(filteredData)
+                    .enter()
+                    .append("path")
+                    .attr("class", "line")
+                    .attr("d", path)
+                    .style("fill", "none")
+                    .style("stroke", d => {
+                        // Count number of platforms where the song is a hit
+                        const hitCount = platforms.reduce((acc, platform) => 
+                            acc + (d[`${platform}_Hit`] ? 1 : 0), 0);
+                        // Color based on hit count
+                        return d3.interpolateRdYlBu(hitCount / platforms.length);
+                    })
+                    .style("opacity", 0.5);
+            }
+
+            // Draw the axes
+            const axes = svg.selectAll(".axis")
+                .data(dimensions)
+                .enter()
+                .append("g")
+                .attr("class", "axis")
+                .attr("transform", d => `translate(${x(d)},0)`);
+
+            axes.each(function(d) {
+                d3.select(this).call(d3.axisLeft(y[d]));
+            });
+
+            // Add axis labels
+            axes.append("text")
+                .attr("y", -10)
+                .attr("text-anchor", "middle")
+                .text(d => d)
+                .style("fill", "black");
+
+            // Handle genre filter changes
+            d3.select("#genre-select").on("change", function() {
+                const selectedGenres = Array.from(this.selectedOptions).map(option => option.value);
+                updateChart(selectedGenres);
+            });
+
+            // Initial chart
+            updateChart([]);
+
+            // Add legend
+            const legend = svg.append("g")
+                .attr("class", "legend")
+                .attr("transform", `translate(${width + 20}, 0)`);
+
+            legend.append("text")
+                .attr("x", 0)
+                .attr("y", 20)
+                .text("Color Scale:")
+                .style("font-weight", "bold");
+
+            const legendData = [
+                {text: "All Hits", value: 1},
+                {text: "Mixed", value: 0.5},
+                {text: "No Hits", value: 0}
+            ];
+
+            legend.selectAll(".legend-item")
+                .data(legendData)
+                .enter()
+                .append("g")
+                .attr("class", "legend-item")
+                .attr("transform", (d, i) => `translate(0, ${40 + i * 20})`)
+                .each(function(d) {
+                    d3.select(this)
+                        .append("rect")
+                        .attr("width", 15)
+                        .attr("height", 15)
+                        .style("fill", d => d3.interpolateRdYlBu(d.value));
+
+                    d3.select(this)
+                        .append("text")
+                        .attr("x", 25)
+                        .attr("y", 12)
+                        .text(d => d.text);
+                });
+        });
+    </script>
+</body>
+</html> 
