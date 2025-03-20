@@ -76,9 +76,9 @@ function updateVisualization(minPlatforms) {
     
     // Create chord layout
     const chord = d3.chord()
-        .padAngle(0.04)
-        .sortSubgroups(d3.descending)
-        .sortChords(d3.descending)
+        .padAngle(0.02)  // Reduce padding between segments
+        .sortSubgroups((a, b) => Math.abs(b) - Math.abs(a))  // Sort by absolute correlation strength
+        .sortChords((a, b) => Math.abs(b.source.value) - Math.abs(a.source.value))
         (currentMatrix);
 
     // Add the groups
@@ -93,9 +93,10 @@ function updateVisualization(minPlatforms) {
         .attr('fill', d => {
             const featureName = features[d.index];
             const color = musicalCharacteristics.includes(featureName) ? groupColors.musical : groupColors.technical;
-            return color;  // Explicitly return the color
+            return color;
         })
         .attr('stroke', '#fff')
+        .attr('stroke-width', 1)  // Add thin white stroke
         .attr('d', d3.arc()
             .innerRadius(innerRadius)
             .outerRadius(outerRadius)
@@ -107,7 +108,7 @@ function updateVisualization(minPlatforms) {
         .attr('dy', '.35em')
         .attr('transform', d => {
             const rotation = (d.angle * 180 / Math.PI - 90);
-            const translation = outerRadius + 20;  // Move labels further out
+            const translation = outerRadius + 25;  // Move labels slightly further out
             return `
                 rotate(${rotation})
                 translate(${translation})
@@ -116,9 +117,9 @@ function updateVisualization(minPlatforms) {
         })
         .attr('text-anchor', d => d.angle > Math.PI ? 'end' : 'start')
         .text(d => features[d.index])
-        .style('font-size', '12px')  // Slightly larger font
-        .style('font-weight', 'bold')  // Make text bold
-        .style('fill', '#000');  // Black text for better readability
+        .style('font-size', '11px')  // Slightly smaller font
+        .style('font-weight', 'bold')
+        .style('fill', '#000');
 
     // Add the chords with updated styling
     const chords = svg.append('g')
@@ -129,9 +130,15 @@ function updateVisualization(minPlatforms) {
         .attr('d', d3.ribbon()
             .radius(innerRadius)
         )
-        .attr('fill', d => correlationColors(currentMatrix[d.source.index][d.target.index]))
+        .attr('fill', d => {
+            const correlation = currentMatrix[d.source.index][d.target.index];
+            return correlationColors(correlation);
+        })
         .attr('stroke', 'none')
-        .attr('fill-opacity', 0.8);  // Slightly more opaque
+        .attr('fill-opacity', d => {
+            const correlation = Math.abs(currentMatrix[d.source.index][d.target.index]);
+            return 0.4 + (correlation * 0.6);  // Opacity based on correlation strength
+        });
 
     // Add mouseover interactions
     chords.on('mouseover', function(event, d) {
@@ -139,20 +146,22 @@ function updateVisualization(minPlatforms) {
         
         d3.select(this)
             .attr('fill-opacity', 1)
-            .attr('stroke-width', 2);
+            .attr('stroke', '#000')
+            .attr('stroke-width', 1);
         
         tooltip.html(`
-            <strong>${features[d.source.index]} → ${features[d.target.index]}</strong><br>
+            <strong>${features[d.source.index]} ↔ ${features[d.target.index]}</strong><br>
             Correlation: ${correlation.toFixed(3)}
         `)
         .style('visibility', 'visible')
         .style('left', (event.pageX + 10) + 'px')
         .style('top', (event.pageY - 10) + 'px');
     })
-    .on('mouseout', function() {
+    .on('mouseout', function(event, d) {
+        const correlation = Math.abs(currentMatrix[d.source.index][d.target.index]);
         d3.select(this)
-            .attr('fill-opacity', 0.67)
-            .attr('stroke-width', 0.5);
+            .attr('fill-opacity', 0.4 + (correlation * 0.6))
+            .attr('stroke', 'none');
         
         tooltip.style('visibility', 'hidden');
     });
