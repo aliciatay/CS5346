@@ -251,7 +251,7 @@ function updateVisualization(minPlatforms, selectedGenre = 'All') {
 
     // Add legend with more space
     const legend = svg.append('g')
-        .attr('transform', `translate(20, 20)`);
+        .attr('transform', `translate(${width - 300}, 20)`);  // Move legend to right side
 
     // Feature type legend with feature lists
     const featureTypes = [
@@ -271,41 +271,41 @@ function updateVisualization(minPlatforms, selectedGenre = 'All') {
         .data(featureTypes)
         .join('g')
         .attr('class', 'legend-item')
-        .attr('transform', (d, i) => `translate(0, ${i * (30 + d.features.length * 20)})`);  // Adjust spacing for feature lists
+        .attr('transform', (d, i) => `translate(0, ${i * (25 + d.features.length * 18)})`);  // Reduced spacing
 
     // Add main category circle and label
     legendItems.append('circle')
-        .attr('r', 6)
+        .attr('r', 5)  // Slightly smaller circles
         .attr('fill', d => d.color);
 
     legendItems.append('text')
-        .attr('x', 15)
-        .attr('y', 5)
-        .style('font-size', '14px')
+        .attr('x', 12)  // Slightly reduced spacing
+        .attr('y', 4)
+        .style('font-size', '13px')  // Smaller font
         .style('font-weight', 'bold')
         .text(d => d.type);
 
-    // Add feature lists
+    // Add feature lists with smaller text and spacing
     legendItems.each(function(d) {
         const featureList = d3.select(this)
             .selectAll('.feature-item')
             .data(d.features)
             .join('text')
             .attr('class', 'feature-item')
-            .attr('x', 20)
-            .attr('y', (_, i) => 25 + i * 20)
+            .attr('x', 15)  // Slightly reduced indent
+            .attr('y', (_, i) => 22 + i * 18)  // Reduced spacing
             .style('font-size', '12px')
             .text(f => f);
     });
 
     // Calculate total height of feature lists for positioning correlation legend
-    const totalFeatureHeight = Math.max(musicalCharacteristics.length, technicalFeatures.length) * 20;
+    const totalFeatureHeight = Math.max(musicalCharacteristics.length, technicalFeatures.length) * 18;  // Reduced spacing
 
     // Add correlation legend title
     legend.append('text')
         .attr('x', 0)
-        .attr('y', totalFeatureHeight + 80)  // Add some padding after feature lists
-        .style('font-size', '14px')
+        .attr('y', totalFeatureHeight + 60)  // Reduced padding
+        .style('font-size', '13px')
         .style('font-weight', 'bold')
         .text('Correlation Strength');
 
@@ -321,20 +321,20 @@ function updateVisualization(minPlatforms, selectedGenre = 'All') {
         .data(correlationTypes)
         .join('g')
         .attr('class', 'correlation-item')
-        .attr('transform', (d, i) => `translate(0, ${totalFeatureHeight + 100 + i * 30})`);  // Position below feature lists
+        .attr('transform', (d, i) => `translate(0, ${totalFeatureHeight + 75 + i * 25})`);  // Reduced spacing
 
     correlationItems.append('line')
         .attr('x1', 0)
         .attr('y1', 5)
-        .attr('x2', 40)
+        .attr('x2', 35)  // Slightly shorter lines
         .attr('y2', 5)
         .attr('stroke', d => d.color)
         .attr('stroke-width', d => edgeScale(Math.abs(d.value)));
 
     correlationItems.append('text')
-        .attr('x', 50)
+        .attr('x', 45)  // Reduced spacing
         .attr('y', 9)
-        .style('font-size', '14px')
+        .style('font-size', '12px')  // Smaller font
         .text(d => d.label);
 }
 
