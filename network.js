@@ -246,7 +246,7 @@ function updateVisualization(minPlatforms, selectedGenre = 'All') {
             .attr('transform', d => `translate(${d.x},${d.y})`);
     });
 
-    // Add legend
+    // Add legend with more space
     const legend = svg.append('g')
         .attr('transform', `translate(20, 20)`);
 
@@ -260,7 +260,7 @@ function updateVisualization(minPlatforms, selectedGenre = 'All') {
         .data(featureTypes)
         .join('g')
         .attr('class', 'legend-item')
-        .attr('transform', (d, i) => `translate(0, ${i * 25})`);
+        .attr('transform', (d, i) => `translate(0, ${i * 30})`);  // Increased spacing from 25 to 30
 
     legendItems.append('circle')
         .attr('r', 6)
@@ -269,14 +269,17 @@ function updateVisualization(minPlatforms, selectedGenre = 'All') {
     legendItems.append('text')
         .attr('x', 15)
         .attr('y', 5)
+        .style('font-size', '14px')  // Increased font size
         .text(d => d.type);
 
-    // Correlation legend
+    // Correlation legend with more space
     const correlationLegend = svg.append('g')
-        .attr('transform', `translate(${width - 200}, 20)`);
+        .attr('transform', `translate(${width - 250}, 20)`);  // Moved left by 50px
 
     const correlationTypes = [
         { label: 'Strong Negative', value: -0.7, color: '#ff0000' },
+        { label: 'Moderate Negative', value: -0.4, color: '#ff0000' },
+        { label: 'Moderate Positive', value: 0.4, color: '#0000ff' },
         { label: 'Strong Positive', value: 0.7, color: '#0000ff' }
     ];
 
@@ -284,19 +287,20 @@ function updateVisualization(minPlatforms, selectedGenre = 'All') {
         .data(correlationTypes)
         .join('g')
         .attr('class', 'correlation-item')
-        .attr('transform', (d, i) => `translate(0, ${i * 25})`);
+        .attr('transform', (d, i) => `translate(0, ${i * 30})`);  // Increased spacing from 25 to 30
 
     correlationItems.append('line')
         .attr('x1', 0)
         .attr('y1', 5)
-        .attr('x2', 30)
+        .attr('x2', 40)  // Increased line length from 30 to 40
         .attr('y2', 5)
         .attr('stroke', d => d.color)
         .attr('stroke-width', d => edgeScale(Math.abs(d.value)));
 
     correlationItems.append('text')
-        .attr('x', 40)
+        .attr('x', 50)  // Increased spacing from 40 to 50
         .attr('y', 9)
+        .style('font-size', '14px')  // Increased font size
         .text(d => d.label);
 }
 
@@ -332,12 +336,12 @@ fetch('https://raw.githubusercontent.com/aliciatay/CS5346/main/final_df_cleaned.
             });
             const platforms = ['Spotify_Hit', 'YouTube_Hit', 'TikTok_Hit', 'Deezer_Hit', 'Amazon_Hit'];
             processed.hitPlatforms = platforms.filter(platform => d[platform] === 'True').length;
-            processed.genre = d.genre || 'Unknown';  // Add genre information
+            processed.genre = d.track_genre || 'Unknown';  // Changed from genre to track_genre
             return processed;
         });
 
         // Get unique genres for the filter
-        const genres = ['All', ...new Set(processedData.map(d => d.genre))].filter(Boolean);
+        const genres = ['All', ...new Set(processedData.map(d => d.genre))].sort();  // Added sort()
         
         // Set up genre filter
         const genreSelect = d3.select('#genre-filter')
