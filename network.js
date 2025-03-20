@@ -298,10 +298,18 @@ function updateVisualization(minPlatforms, selectedGenre = 'All') {
             .text(f => f);
     });
 
-    // Correlation legend with more space - moved down to accommodate feature lists
-    const correlationLegend = svg.append('g')
-        .attr('transform', `translate(${width - 250}, ${Math.max(musicalCharacteristics.length, technicalFeatures.length) * 20 + 60})`);
+    // Calculate total height of feature lists for positioning correlation legend
+    const totalFeatureHeight = Math.max(musicalCharacteristics.length, technicalFeatures.length) * 20;
 
+    // Add correlation legend title
+    legend.append('text')
+        .attr('x', 0)
+        .attr('y', totalFeatureHeight + 80)  // Add some padding after feature lists
+        .style('font-size', '14px')
+        .style('font-weight', 'bold')
+        .text('Correlation Strength');
+
+    // Correlation legend
     const correlationTypes = [
         { label: 'Strong Negative', value: -0.7, color: '#ff0000' },
         { label: 'Moderate Negative', value: -0.4, color: '#ff0000' },
@@ -309,24 +317,24 @@ function updateVisualization(minPlatforms, selectedGenre = 'All') {
         { label: 'Strong Positive', value: 0.7, color: '#0000ff' }
     ];
 
-    const correlationItems = correlationLegend.selectAll('.correlation-item')
+    const correlationItems = legend.selectAll('.correlation-item')
         .data(correlationTypes)
         .join('g')
         .attr('class', 'correlation-item')
-        .attr('transform', (d, i) => `translate(0, ${i * 30})`);  // Increased spacing from 25 to 30
+        .attr('transform', (d, i) => `translate(0, ${totalFeatureHeight + 100 + i * 30})`);  // Position below feature lists
 
     correlationItems.append('line')
         .attr('x1', 0)
         .attr('y1', 5)
-        .attr('x2', 40)  // Increased line length from 30 to 40
+        .attr('x2', 40)
         .attr('y2', 5)
         .attr('stroke', d => d.color)
         .attr('stroke-width', d => edgeScale(Math.abs(d.value)));
 
     correlationItems.append('text')
-        .attr('x', 50)  // Increased spacing from 40 to 50
+        .attr('x', 50)
         .attr('y', 9)
-        .style('font-size', '14px')  // Increased font size
+        .style('font-size', '14px')
         .text(d => d.label);
 }
 

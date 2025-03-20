@@ -72,17 +72,17 @@
         }
 
         #correlation-summary {
-            width: 350px;
-            padding: 20px;
-            background-color: white;
-            border: 1px solid #ddd;
-            border-radius: 4px;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 400px;
+            max-height: 80vh;
             overflow-y: auto;
-            height: 800px;
-        }
-
-        .summary-section {
-            margin-bottom: 30px;
+            background-color: white;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
 
         .correlation-item {
@@ -91,36 +91,32 @@
             align-items: center;
             padding: 10px;
             border-bottom: 1px solid #eee;
-            font-size: 14px;
-            line-height: 1.4;
         }
 
         .feature-pair {
-            font-size: 14px;
             margin-right: 15px;
-            flex: 1;
+            font-size: 14px;
         }
 
         .correlation-value {
             font-weight: bold;
             font-size: 14px;
-            white-space: nowrap;
         }
 
-        h3, h4 {
-            margin-bottom: 15px;
-            color: #333;
+        .summary-section {
+            margin: 20px 0;
         }
 
         h3 {
+            margin: 0 0 20px 0;
+            color: #333;
             font-size: 18px;
-            border-bottom: 2px solid #eee;
-            padding-bottom: 10px;
         }
 
         h4 {
-            font-size: 16px;
+            margin: 10px 0;
             color: #666;
+            font-size: 16px;
         }
 
         #tooltip {
