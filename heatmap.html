@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Musical vs Technical Features Analysis</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f8f9fa;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .explanation {
+            margin-bottom: 20px;
+            line-height: 1.5;
+            color: #333;
+        }
+        .controls {
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .filter-label {
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        #platform-filter {
+            padding: 5px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+        .visualization-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        #tooltip {
+            position: absolute;
+            visibility: hidden;
+            background-color: white;
+            padding: 10px;
+            border: 2px solid #333;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            pointer-events: none;
+            font-size: 14px;
+            max-width: 200px;
+        }
+        #song-count {
+            margin-top: 10px;
+            font-style: italic;
+            color: #666;
+        }
+        #error-message {
+            display: none;
+            color: #721c24;
+            background-color: #f8d7da;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        .version {
+            text-align: right;
+            font-size: 10px;
+            color: #666;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Musical vs Technical Features Analysis</h1>
+        
+        <div class="explanation">
+            <p>This heatmap visualizes the correlations between musical characteristics and technical features in songs. 
+            The color intensity represents the strength and direction of correlation, with red indicating negative correlation 
+            and blue indicating positive correlation. Use the filter to analyze songs based on their success across different platforms.</p>
+        </div>
+
+        <div class="controls">
+            <label class="filter-label" for="platform-filter">Minimum Number of Successful Platforms:</label>
+            <select id="platform-filter">
+                <option value="0">All Songs</option>
+                <option value="1">≥ 1 Platform</option>
+                <option value="2">≥ 2 Platforms</option>
+                <option value="3">≥ 3 Platforms</option>
+                <option value="4">≥ 4 Platforms</option>
+                <option value="5">≥ 5 Platforms</option>
+            </select>
+            <div id="song-count"></div>
+        </div>
+
+        <div class="visualization-container">
+            <div id="heatmap"></div>
+            <div id="tooltip"></div>
+        </div>
+
+        <div id="error-message"></div>
+        
+        <div class="version">Version: 1.0.0</div>
+    </div>
+    <script src="heatmap.js"></script>
+</body>
+</html> 
