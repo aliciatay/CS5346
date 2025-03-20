@@ -38,8 +38,10 @@ const svg = d3.select('#chord-diagram')
     .attr('transform', `translate(${width/2},${height/2})`);
 
 // Load and process the data
-d3.csv('data/processed_data.csv')
-    .then(data => {
+fetch('https://raw.githubusercontent.com/aliciatay/CS5346/main/final_df_cleaned.csv')
+    .then(response => response.text())
+    .then(csvText => {
+        const data = d3.csvParse(csvText);
         console.log('Data loaded:', data.length, 'rows');
         console.log('Sample row:', data[0]);
         console.log('Available columns:', Object.keys(data[0]));
@@ -68,7 +70,10 @@ d3.csv('data/processed_data.csv')
                 }
                 processed[feature] = value || 0;
             });
-            processed.hitPlatforms = +d.hitPlatforms || 0;
+            // Count platforms where the song is a hit
+            processed.hitPlatforms = ['spotify_hit', 'youtube_hit', 'tiktok_hit', 'deezer_hit', 'amazon_hit']
+                .filter(platform => d[platform] === '1')
+                .length;
             return processed;
         });
         
