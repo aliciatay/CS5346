@@ -49,6 +49,117 @@ const tooltip = d3.select('body').append('div')
     .style('font-size', '12px')
     .style('box-shadow', '0 2px 4px rgba(0,0,0,0.1)');
 
+let processedData = [];  // Store all processed data
+let currentMatrix = [];  // Store current correlation matrix
+
+// Function to update the visualization
+function updateVisualization(minPlatforms) {
+    // Filter data based on minimum platforms
+    const filteredData = processedData.filter(d => d.hitPlatforms >= minPlatforms);
+    
+    // Update song count display
+    document.getElementById('song-count').textContent = 
+        `Showing correlations for ${filteredData.length} songs`;
+
+    if (filteredData.length === 0) {
+        document.getElementById('error-message').style.display = 'block';
+        document.getElementById('error-message').innerText = 
+            `No songs found with ${minPlatforms} or more successful platforms`;
+        return;
+    }
+
+    // Calculate new correlation matrix
+    currentMatrix = calculateCorrelationMatrix(filteredData, features);
+    
+    // Clear existing visualization
+    svg.selectAll('*').remove();
+    
+    // Create chord layout
+    const chord = d3.chord()
+        .padAngle(0.04)
+        .sortSubgroups(d3.descending)
+        .sortChords(d3.descending)
+        (currentMatrix);
+
+    // Add the groups
+    const group = svg.append('g')
+        .attr('class', 'groups')
+        .selectAll('g')
+        .data(chord.groups)
+        .join('g');
+
+    // Draw the outer arcs
+    group.append('path')
+        .attr('fill', d => {
+            const featureName = features[d.index];
+            return musicalCharacteristics.includes(featureName) ? groupColors.musical : groupColors.technical;
+        })
+        .attr('stroke', '#fff')
+        .attr('d', d3.arc()
+            .innerRadius(innerRadius)
+            .outerRadius(outerRadius)
+        );
+
+    // Add labels
+    group.append('text')
+        .each(d => { d.angle = (d.startAngle + d.endAngle) / 2; })
+        .attr('dy', '.35em')
+        .attr('transform', d => {
+            const rotation = (d.angle * 180 / Math.PI - 90);
+            const translation = outerRadius + 10;
+            return `
+                rotate(${rotation})
+                translate(${translation})
+                ${d.angle > Math.PI ? 'rotate(180)' : ''}
+            `;
+        })
+        .attr('text-anchor', d => d.angle > Math.PI ? 'end' : 'start')
+        .text(d => features[d.index])
+        .style('font-size', '10px')
+        .style('fill', d => {
+            const featureName = features[d.index];
+            return musicalCharacteristics.includes(featureName) ? groupColors.musical : groupColors.technical;
+        });
+
+    // Add the chords
+    const chords = svg.append('g')
+        .attr('class', 'chords')
+        .selectAll('path')
+        .data(chord)
+        .join('path')
+        .attr('d', d3.ribbon()
+            .radius(innerRadius)
+        )
+        .attr('fill', d => correlationColors(currentMatrix[d.source.index][d.target.index]))
+        .attr('stroke', '#fff')
+        .attr('stroke-width', 0.5)
+        .attr('fill-opacity', 0.67);
+
+    // Add mouseover interactions
+    chords.on('mouseover', function(event, d) {
+        const correlation = currentMatrix[d.source.index][d.target.index];
+        
+        d3.select(this)
+            .attr('fill-opacity', 1)
+            .attr('stroke-width', 2);
+        
+        tooltip.html(`
+            <strong>${features[d.source.index]} → ${features[d.target.index]}</strong><br>
+            Correlation: ${correlation.toFixed(3)}
+        `)
+        .style('visibility', 'visible')
+        .style('left', (event.pageX + 10) + 'px')
+        .style('top', (event.pageY - 10) + 'px');
+    })
+    .on('mouseout', function() {
+        d3.select(this)
+            .attr('fill-opacity', 0.67)
+            .attr('stroke-width', 0.5);
+        
+        tooltip.style('visibility', 'hidden');
+    });
+}
+
 // Load and process the data
 fetch('https://raw.githubusercontent.com/aliciatay/CS5346/main/final_df_cleaned.csv')
     .then(response => {
@@ -74,8 +185,8 @@ fetch('https://raw.githubusercontent.com/aliciatay/CS5346/main/final_df_cleaned.
             throw new Error('Missing columns: ' + missingColumns.join(', '));
         }
 
-        // Process the data to ensure all features are numeric
-        const processedData = data.map(d => {
+        // Process all data
+        processedData = data.map(d => {
             const processed = {};
             features.forEach(feature => {
                 const value = +d[feature];
@@ -89,106 +200,15 @@ fetch('https://raw.githubusercontent.com/aliciatay/CS5346/main/final_df_cleaned.
             processed.hitPlatforms = platforms.filter(platform => d[platform] === 'True').length;
             return processed;
         });
-        
-        // Filter for hit songs (success on 5 or more platforms)
-        const hitSongs = processedData.filter(d => d.hitPlatforms >= 5);
-        console.log('Hit songs:', hitSongs.length);
-        
-        if (hitSongs.length === 0) {
-            throw new Error('No hit songs found in the data');
-        }
-        
-        // Calculate correlation matrix
-        const matrix = calculateCorrelationMatrix(hitSongs, features);
-        console.log('Correlation matrix calculated:', matrix);
-        
-        // Create chord layout
-        const chord = d3.chordDirected()  // Use chordDirected for better control
-            .padAngle(0.04)
-            .sortSubgroups(d3.descending)
-            .sortChords(d3.descending)  // Sort chords by size
-            (matrix);
 
-        // Add the groups
-        const group = svg.append('g')
-            .attr('class', 'groups')
-            .selectAll('g')
-            .data(chord.groups)
-            .join('g');
-
-        // Draw the outer arcs
-        group.append('path')
-            .attr('fill', d => {
-                const featureName = features[d.index];
-                return musicalCharacteristics.includes(featureName) ? groupColors.musical : groupColors.technical;
-            })
-            .attr('stroke', '#fff')  // Add white stroke for better separation
-            .attr('d', d3.arc()
-                .innerRadius(innerRadius)
-                .outerRadius(outerRadius)
-            );
-
-        // Add labels with better positioning
-        group.append('text')
-            .each(d => { d.angle = (d.startAngle + d.endAngle) / 2; })
-            .attr('dy', '.35em')
-            .attr('transform', d => {
-                const rotation = (d.angle * 180 / Math.PI - 90);
-                const translation = outerRadius + 10;
-                return `
-                    rotate(${rotation})
-                    translate(${translation})
-                    ${d.angle > Math.PI ? 'rotate(180)' : ''}
-                `;
-            })
-            .attr('text-anchor', d => d.angle > Math.PI ? 'end' : 'start')
-            .text(d => features[d.index])
-            .style('font-size', '10px')  // Smaller font size
-            .style('fill', d => {
-                const featureName = features[d.index];
-                return musicalCharacteristics.includes(featureName) ? groupColors.musical : groupColors.technical;
-            });
-
-        // Add the chords with better styling
-        const chords = svg.append('g')
-            .attr('class', 'chords')
-            .selectAll('path')
-            .data(chord)
-            .join('path')
-            .attr('d', d3.ribbon()
-                .radius(innerRadius)
-            )
-            .attr('fill', d => correlationColors(matrix[d.source.index][d.target.index]))
-            .attr('stroke', '#fff')  // Add white stroke
-            .attr('stroke-width', 0.5)
-            .attr('fill-opacity', 0.67);  // Slightly more transparent
-
-        // Enhanced mouseover interactions
-        chords.on('mouseover', function(event, d) {
-            const correlation = matrix[d.source.index][d.target.index];
-            
-            // Highlight the current chord
-            d3.select(this)
-                .attr('fill-opacity', 1)
-                .attr('stroke-width', 2);
-            
-            // Show tooltip with more information
-            tooltip.html(`
-                <strong>${features[d.source.index]} → ${features[d.target.index]}</strong><br>
-                Correlation: ${correlation.toFixed(3)}
-            `)
-            .style('visibility', 'visible')
-            .style('left', (event.pageX + 10) + 'px')
-            .style('top', (event.pageY - 10) + 'px');
-        })
-        .on('mouseout', function() {
-            // Reset chord appearance
-            d3.select(this)
-                .attr('fill-opacity', 0.67)
-                .attr('stroke-width', 0.5);
-            
-            tooltip.style('visibility', 'hidden');
+        // Set up filter change listener
+        d3.select('#platform-filter').on('change', function() {
+            const minPlatforms = +this.value;
+            updateVisualization(minPlatforms);
         });
+
+        // Initial visualization with all songs
+        updateVisualization(0);
     })
     .catch(error => {
         console.error('Error loading or processing data:', error);
