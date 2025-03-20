@@ -88,6 +88,26 @@
             font-style: italic;
             color: #666;
         }
+        .correlation-legend, .feature-groups-legend {
+            text-align: left;
+        }
+        .correlation-legend h3, .feature-groups-legend h3 {
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin: 5px 0;
+        }
+        .legend-box {
+            width: 40px;
+            height: 20px;
+            margin-right: 10px;
+        }
+        .legend-item span {
+            font-size: 14px;
+        }
     </style>
 </head>
 <body>
@@ -148,29 +168,37 @@
             <div id="error-message" style="display: none; color: #721c24; background-color: #f8d7da; padding: 15px; border-radius: 4px; margin: 20px 0; text-align: center;"></div>
         </div>
 
-        <div class="legend">
-            <div class="legend-item">
-                <div class="legend-color" style="background-color: #3498db"></div>
-                <span>Positive Correlation</span>
+        <div style="display: flex; justify-content: space-between; margin: 40px 20px;">
+            <div class="correlation-legend">
+                <h3>Correlation Strength:</h3>
+                <div class="legend-item">
+                    <div class="legend-box" style="border: 1px solid #000; background-color: #fff"></div>
+                    <span>Weak (0.1)</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-box" style="border: 1px solid #000; background-color: #ffb6c1"></div>
+                    <span>Medium (0.5)</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-box" style="border: 1px solid #000; background-color: #ff0000"></div>
+                    <span>Strong (1.0)</span>
+                </div>
             </div>
-            <div class="legend-item">
-                <div class="legend-color" style="background-color: #e74c3c"></div>
-                <span>Negative Correlation</span>
-            </div>
-        </div>
 
-        <div class="feature-type-legend" style="text-align: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid #eee;">
-            <div class="legend-item">
-                <div class="legend-color" style="background-color: #2ecc71"></div>
-                <span>Musical Characteristics</span>
-            </div>
-            <div class="legend-item">
-                <div class="legend-color" style="background-color: #9b59b6"></div>
-                <span>Technical Features</span>
+            <div class="feature-groups-legend">
+                <h3>Feature Groups:</h3>
+                <div class="legend-item">
+                    <div class="legend-box" style="background-color: #ffb6c1"></div>
+                    <span>Musical Characteristics</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-box" style="background-color: #add8e6"></div>
+                    <span>Technical Audio Features</span>
+                </div>
             </div>
         </div>
         
-        <div class="version">Version: 1.0.3</div>
+        <div class="version">Version: 1.0.4</div>
     </div>
     <script>
         // Add error handling for the script loading

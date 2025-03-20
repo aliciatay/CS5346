@@ -15,19 +15,19 @@ const features = [...musicalCharacteristics, ...technicalFeatures];
 
 // Color scales
 const groupColors = {
-    'musical': '#2ecc71',  // Bright green
-    'technical': '#9b59b6'  // Purple
+    'musical': '#ffb6c1',  // Light pink for Musical Characteristics
+    'technical': '#add8e6'  // Light blue for Technical Features
 };
 
 const correlationColors = d3.scaleLinear()
     .domain([-1, -0.5, 0, 0.5, 1])
-    .range(['#e74c3c', '#f39c12', '#ecf0f1', '#3498db', '#2980b9']);  // Red -> Orange -> White -> Light Blue -> Dark Blue
+    .range(['#ff0000', '#ffb6c1', '#ffffff', '#add8e6', '#0000ff']);  // Red -> Pink -> White -> Light Blue -> Blue
 
 // Set up the chord diagram dimensions
-const width = 900;  // Slightly larger
-const height = 900;
-const innerRadius = Math.min(width, height) * 0.35;  // Slightly smaller inner radius
-const outerRadius = innerRadius * 1.15;  // Slightly larger outer radius
+const width = 1000;  // Larger for better visibility
+const height = 1000;
+const innerRadius = Math.min(width, height) * 0.32;  // Slightly smaller inner radius
+const outerRadius = innerRadius * 1.1;  // Slightly larger outer radius
 
 // Create the SVG container
 const svg = d3.select('#chord-diagram')
@@ -100,13 +100,13 @@ function updateVisualization(minPlatforms) {
             .outerRadius(outerRadius)
         );
 
-    // Add labels
+    // Add labels with better positioning and styling
     group.append('text')
         .each(d => { d.angle = (d.startAngle + d.endAngle) / 2; })
         .attr('dy', '.35em')
         .attr('transform', d => {
             const rotation = (d.angle * 180 / Math.PI - 90);
-            const translation = outerRadius + 10;
+            const translation = outerRadius + 20;  // Move labels further out
             return `
                 rotate(${rotation})
                 translate(${translation})
@@ -115,13 +115,11 @@ function updateVisualization(minPlatforms) {
         })
         .attr('text-anchor', d => d.angle > Math.PI ? 'end' : 'start')
         .text(d => features[d.index])
-        .style('font-size', '10px')
-        .style('fill', d => {
-            const featureName = features[d.index];
-            return musicalCharacteristics.includes(featureName) ? groupColors.musical : groupColors.technical;
-        });
+        .style('font-size', '12px')  // Slightly larger font
+        .style('font-weight', 'bold')  // Make text bold
+        .style('fill', '#000');  // Black text for better readability
 
-    // Add the chords
+    // Add the chords with updated styling
     const chords = svg.append('g')
         .attr('class', 'chords')
         .selectAll('path')
@@ -131,9 +129,8 @@ function updateVisualization(minPlatforms) {
             .radius(innerRadius)
         )
         .attr('fill', d => correlationColors(currentMatrix[d.source.index][d.target.index]))
-        .attr('stroke', '#fff')
-        .attr('stroke-width', 0.5)
-        .attr('fill-opacity', 0.67);
+        .attr('stroke', 'none')  // Remove stroke
+        .attr('fill-opacity', 0.8);  // Slightly more opaque
 
     // Add mouseover interactions
     chords.on('mouseover', function(event, d) {
