@@ -35,6 +35,9 @@ svg.call(d3.zoom()
         g.attr('transform', event.transform);
     }));
 
+// Add simulation as a global variable so it persists between updates
+let simulation;
+
 // Function to update visualization
 function updateVisualization(minPlatforms, selectedGenre = 'All') {
     // Filter data based on minimum platforms and genre
@@ -102,7 +105,7 @@ function updateVisualization(minPlatforms, selectedGenre = 'All') {
                 .filter(d => d.value > 0)
                 .map(d => `
                     <div class="correlation-item">
-                        <span class="feature-pair">${d.source.id} ↔ ${d.target.id}</span>
+                        <span class="feature-pair">${d.source} ↔ ${d.target}</span>
                         <span class="correlation-value" style="color: #1976d2">${d.value.toFixed(3)}</span>
                     </div>
                 `).join('')}
@@ -113,7 +116,7 @@ function updateVisualization(minPlatforms, selectedGenre = 'All') {
                 .filter(d => d.value < 0)
                 .map(d => `
                     <div class="correlation-item">
-                        <span class="feature-pair">${d.source.id} ↔ ${d.target.id}</span>
+                        <span class="feature-pair">${d.source} ↔ ${d.target}</span>
                         <span class="correlation-value" style="color: #d32f2f">${d.value.toFixed(3)}</span>
                     </div>
                 `).join('')}
@@ -124,7 +127,7 @@ function updateVisualization(minPlatforms, selectedGenre = 'All') {
     g.selectAll('*').remove();
 
     // Create force simulation
-    const simulation = d3.forceSimulation(nodes)
+    simulation = d3.forceSimulation(nodes)
         .force('link', d3.forceLink(edges)
             .id(d => d.id)
             .distance(100))
@@ -229,6 +232,9 @@ function updateVisualization(minPlatforms, selectedGenre = 'All') {
     });
 
     // Update simulation
+    simulation.nodes(nodes);
+    simulation.force('link').links(edges);
+    
     simulation.on('tick', () => {
         links
             .attr('x1', d => d.source.x)
@@ -294,9 +300,9 @@ function updateVisualization(minPlatforms, selectedGenre = 'All') {
         .text(d => d.label);
 }
 
-// Drag functions
+// Update drag functions to use the global simulation
 function dragstarted(event, d) {
-    if (!event.active) simulation.alphaTarget(0.3).restart();
+    if (!event.active && simulation) simulation.alphaTarget(0.3).restart();
     d.fx = d.x;
     d.fy = d.y;
 }
@@ -307,7 +313,7 @@ function dragged(event, d) {
 }
 
 function dragended(event, d) {
-    if (!event.active) simulation.alphaTarget(0);
+    if (!event.active && simulation) simulation.alphaTarget(0);
     d.fx = null;
     d.fy = null;
 }
