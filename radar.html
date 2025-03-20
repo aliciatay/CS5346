@@ -195,12 +195,14 @@
             <button class="download-btn" onclick="saveVisualization()">Download Visualization</button>
         </div>
 
-        <div id="radar-chart" class="chart-container"></div>
-        <div id="no-data" class="no-data-message" style="display: none;">
-            No data available for the selected year and genre
+        <div class="chart-container">
+            <div id="no-data" class="no-data-message" style="display: none;">
+                No data available for the selected year and genre
+            </div>
+            <div id="radar-chart"></div>
         </div>
         <div class="version" style="text-align: right; font-size: 10px; color: #666; margin-top: 10px;">
-            Version: 1.0.1
+            Version: 1.0.2
         </div>
     </div>
     <script src="radar_chart.js"></script>

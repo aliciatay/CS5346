@@ -233,24 +233,35 @@ function updateVisualization(data, year, genre) {
 
     console.log('Filtered data points:', filteredData.length);
 
-    // Always clear the chart and hide the no-data message first
+    // Always clear both the chart and the no-data message first
     d3.select('#radar-chart').html('');
     d3.select('#no-data').style('display', 'none');
 
     // Check if we have any data
     if (filteredData.length === 0) {
-        d3.select('#no-data').style('display', 'block')
+        // Move the no-data message to the top of the chart container
+        const chartContainer = d3.select('.chart-container');
+        const noDataDiv = d3.select('#no-data')
+            .style('display', 'block')
             .style('text-align', 'center')
-            .style('margin-top', '20px')
+            .style('margin', '20px auto')
             .style('font-size', '16px')
             .style('color', '#721c24')
             .style('background-color', '#f8d7da')
             .style('padding', '15px')
-            .style('border-radius', '4px');
+            .style('border-radius', '4px')
+            .style('position', 'relative')
+            .style('top', '0')
+            .style('left', '0')
+            .style('right', '0')
+            .style('z-index', '1000');
+            
+        // Ensure the chart area is completely blank
+        chartContainer.style('background-color', 'transparent');
         return;  // Exit early if no data
     }
 
-    // Split into hits and non-hits
+    // If we have data, proceed with visualization
     const hits = filteredData.filter(d => d.hitPlatforms >= 5);
     const nonHits = filteredData.filter(d => d.hitPlatforms < 5);
 
