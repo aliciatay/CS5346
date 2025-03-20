@@ -79,6 +79,7 @@ function updateVisualization(minPlatforms) {
         .padAngle(0.02)  // Reduce padding between segments
         .sortSubgroups((a, b) => Math.abs(b) - Math.abs(a))  // Sort by absolute correlation strength
         .sortChords((a, b) => Math.abs(b.source.value) - Math.abs(a.source.value))
+        .threshold(0.1)  // Only show correlations stronger than 0.1
         (currentMatrix);
 
     // Add the groups
@@ -96,7 +97,7 @@ function updateVisualization(minPlatforms) {
             return color;
         })
         .attr('stroke', '#fff')
-        .attr('stroke-width', 1)  // Add thin white stroke
+        .attr('stroke-width', 1)
         .attr('d', d3.arc()
             .innerRadius(innerRadius)
             .outerRadius(outerRadius)
@@ -108,7 +109,7 @@ function updateVisualization(minPlatforms) {
         .attr('dy', '.35em')
         .attr('transform', d => {
             const rotation = (d.angle * 180 / Math.PI - 90);
-            const translation = outerRadius + 25;  // Move labels slightly further out
+            const translation = outerRadius + 25;
             return `
                 rotate(${rotation})
                 translate(${translation})
@@ -117,7 +118,7 @@ function updateVisualization(minPlatforms) {
         })
         .attr('text-anchor', d => d.angle > Math.PI ? 'end' : 'start')
         .text(d => features[d.index])
-        .style('font-size', '11px')  // Slightly smaller font
+        .style('font-size', '11px')
         .style('font-weight', 'bold')
         .style('fill', '#000');
 
@@ -140,22 +141,36 @@ function updateVisualization(minPlatforms) {
             return 0.4 + (correlation * 0.6);  // Opacity based on correlation strength
         });
 
-    // Add mouseover interactions
+    // Add mouseover interactions with enhanced tooltip
     chords.on('mouseover', function(event, d) {
         const correlation = currentMatrix[d.source.index][d.target.index];
+        const source = features[d.source.index];
+        const target = features[d.target.index];
         
         d3.select(this)
             .attr('fill-opacity', 1)
             .attr('stroke', '#000')
             .attr('stroke-width', 1);
         
+        // Create a more visible tooltip
         tooltip.html(`
-            <strong>${features[d.source.index]} ↔ ${features[d.target.index]}</strong><br>
-            Correlation: ${correlation.toFixed(3)}
+            <div style="background: white; padding: 10px; border: 2px solid #333; border-radius: 5px; box-shadow: 0 2px 4px rgba(0,0,0,0.2);">
+                <div style="font-size: 14px; margin-bottom: 5px;">
+                    <strong>${source}</strong> ↔ <strong>${target}</strong>
+                </div>
+                <div style="font-size: 16px; color: ${correlation < 0 ? '#ff0000' : '#0000ff'};">
+                    Correlation: ${correlation.toFixed(3)}
+                </div>
+                <div style="font-size: 12px; color: #666; margin-top: 5px;">
+                    ${Math.abs(correlation) > 0.7 ? 'Strong' : Math.abs(correlation) > 0.3 ? 'Moderate' : 'Weak'} 
+                    ${correlation < 0 ? 'Negative' : 'Positive'} Correlation
+                </div>
+            </div>
         `)
         .style('visibility', 'visible')
         .style('left', (event.pageX + 10) + 'px')
-        .style('top', (event.pageY - 10) + 'px');
+        .style('top', (event.pageY - 10) + 'px')
+        .style('pointer-events', 'none');  // Prevent tooltip from interfering with interactions
     })
     .on('mouseout', function(event, d) {
         const correlation = Math.abs(currentMatrix[d.source.index][d.target.index]);
