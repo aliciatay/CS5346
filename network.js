@@ -251,7 +251,7 @@ function updateVisualization(minPlatforms, selectedGenre = 'All') {
 
     // Add legend with more space
     const legend = svg.append('g')
-        .attr('transform', `translate(${width - 300}, 20)`);  // Move legend to right side
+        .attr('transform', `translate(20, 20)`);  // Move legend back to left side
 
     // Feature type legend with feature lists
     const featureTypes = [
@@ -271,17 +271,17 @@ function updateVisualization(minPlatforms, selectedGenre = 'All') {
         .data(featureTypes)
         .join('g')
         .attr('class', 'legend-item')
-        .attr('transform', (d, i) => `translate(0, ${i * (25 + d.features.length * 18)})`);  // Reduced spacing
+        .attr('transform', (d, i) => `translate(0, ${i * (25 + d.features.length * 18)})`);
 
     // Add main category circle and label
     legendItems.append('circle')
-        .attr('r', 5)  // Slightly smaller circles
+        .attr('r', 5)
         .attr('fill', d => d.color);
 
     legendItems.append('text')
-        .attr('x', 12)  // Slightly reduced spacing
+        .attr('x', 12)
         .attr('y', 4)
-        .style('font-size', '13px')  // Smaller font
+        .style('font-size', '13px')
         .style('font-weight', 'bold')
         .text(d => d.type);
 
@@ -292,50 +292,11 @@ function updateVisualization(minPlatforms, selectedGenre = 'All') {
             .data(d.features)
             .join('text')
             .attr('class', 'feature-item')
-            .attr('x', 15)  // Slightly reduced indent
-            .attr('y', (_, i) => 22 + i * 18)  // Reduced spacing
+            .attr('x', 15)
+            .attr('y', (_, i) => 22 + i * 18)
             .style('font-size', '12px')
             .text(f => f);
     });
-
-    // Calculate total height of feature lists for positioning correlation legend
-    const totalFeatureHeight = Math.max(musicalCharacteristics.length, technicalFeatures.length) * 18;  // Reduced spacing
-
-    // Add correlation legend title
-    legend.append('text')
-        .attr('x', 0)
-        .attr('y', totalFeatureHeight + 60)  // Reduced padding
-        .style('font-size', '13px')
-        .style('font-weight', 'bold')
-        .text('Correlation Strength');
-
-    // Correlation legend
-    const correlationTypes = [
-        { label: 'Strong Negative', value: -0.7, color: '#ff0000' },
-        { label: 'Moderate Negative', value: -0.4, color: '#ff0000' },
-        { label: 'Moderate Positive', value: 0.4, color: '#0000ff' },
-        { label: 'Strong Positive', value: 0.7, color: '#0000ff' }
-    ];
-
-    const correlationItems = legend.selectAll('.correlation-item')
-        .data(correlationTypes)
-        .join('g')
-        .attr('class', 'correlation-item')
-        .attr('transform', (d, i) => `translate(0, ${totalFeatureHeight + 75 + i * 25})`);  // Reduced spacing
-
-    correlationItems.append('line')
-        .attr('x1', 0)
-        .attr('y1', 5)
-        .attr('x2', 35)  // Slightly shorter lines
-        .attr('y2', 5)
-        .attr('stroke', d => d.color)
-        .attr('stroke-width', d => edgeScale(Math.abs(d.value)));
-
-    correlationItems.append('text')
-        .attr('x', 45)  // Reduced spacing
-        .attr('y', 9)
-        .style('font-size', '12px')  // Smaller font
-        .text(d => d.label);
 }
 
 // Update drag functions to use the global simulation

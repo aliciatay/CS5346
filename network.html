@@ -35,6 +35,32 @@
             line-height: 1.5;
         }
 
+        .correlation-legend {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 15px;
+            padding: 10px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 4px;
+        }
+
+        .correlation-legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .correlation-legend-line {
+            width: 30px;
+            height: 2px;
+        }
+
+        .correlation-legend-text {
+            font-size: 13px;
+            color: #555;
+        }
+
         .controls {
             margin: 20px 0;
             text-align: center;
@@ -76,12 +102,13 @@
             top: 20px;
             right: 20px;
             width: 300px;
-            background-color: rgba(255, 255, 255, 0.95);
+            max-height: 80vh;
+            overflow-y: auto;
+            background-color: white;
             padding: 15px;
-            border: 1px solid #eee;
+            border: 1px solid #ddd;
             border-radius: 4px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-            font-size: 13px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
 
         .correlation-item {
@@ -180,6 +207,24 @@
         <div class="description">
             Explore relationships between musical characteristics and technical features of songs.
             The network visualizes correlations between different aspects of music, helping identify patterns in successful songs.
+            <div class="correlation-legend">
+                <div class="correlation-legend-item">
+                    <div class="correlation-legend-line" style="background: #ff0000; height: 4px;"></div>
+                    <span class="correlation-legend-text">Strong Negative</span>
+                </div>
+                <div class="correlation-legend-item">
+                    <div class="correlation-legend-line" style="background: #ff0000; height: 2px;"></div>
+                    <span class="correlation-legend-text">Moderate Negative</span>
+                </div>
+                <div class="correlation-legend-item">
+                    <div class="correlation-legend-line" style="background: #0000ff; height: 2px;"></div>
+                    <span class="correlation-legend-text">Moderate Positive</span>
+                </div>
+                <div class="correlation-legend-item">
+                    <div class="correlation-legend-line" style="background: #0000ff; height: 4px;"></div>
+                    <span class="correlation-legend-text">Strong Positive</span>
+                </div>
+            </div>
         </div>
 
         <div class="instructions">
