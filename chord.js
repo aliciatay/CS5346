@@ -92,7 +92,8 @@ function updateVisualization(minPlatforms) {
     group.append('path')
         .attr('fill', d => {
             const featureName = features[d.index];
-            return musicalCharacteristics.includes(featureName) ? groupColors.musical : groupColors.technical;
+            const color = musicalCharacteristics.includes(featureName) ? groupColors.musical : groupColors.technical;
+            return color;  // Explicitly return the color
         })
         .attr('stroke', '#fff')
         .attr('d', d3.arc()
@@ -129,7 +130,7 @@ function updateVisualization(minPlatforms) {
             .radius(innerRadius)
         )
         .attr('fill', d => correlationColors(currentMatrix[d.source.index][d.target.index]))
-        .attr('stroke', 'none')  // Remove stroke
+        .attr('stroke', 'none')
         .attr('fill-opacity', 0.8);  // Slightly more opaque
 
     // Add mouseover interactions
