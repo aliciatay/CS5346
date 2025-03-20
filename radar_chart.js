@@ -233,15 +233,22 @@ function updateVisualization(data, year, genre) {
 
     console.log('Filtered data points:', filteredData.length);
 
-    // Clear existing chart
+    // Always clear the chart and hide the no-data message first
     d3.select('#radar-chart').html('');
-
-    if (filteredData.length === 0) {
-        d3.select('#no-data').style('display', 'block');
-        return;
-    }
-
     d3.select('#no-data').style('display', 'none');
+
+    // Check if we have any data
+    if (filteredData.length === 0) {
+        d3.select('#no-data').style('display', 'block')
+            .style('text-align', 'center')
+            .style('margin-top', '20px')
+            .style('font-size', '16px')
+            .style('color', '#721c24')
+            .style('background-color', '#f8d7da')
+            .style('padding', '15px')
+            .style('border-radius', '4px');
+        return;  // Exit early if no data
+    }
 
     // Split into hits and non-hits
     const hits = filteredData.filter(d => d.hitPlatforms >= 5);
