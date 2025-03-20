@@ -20,8 +20,8 @@ const groupColors = {
 };
 
 const correlationColors = d3.scaleLinear()
-    .domain([-1, -0.5, 0, 0.5, 1])
-    .range(['#ff0000', '#ffb6c1', '#ffffff', '#add8e6', '#0000ff']);  // Red -> Pink -> White -> Light Blue -> Blue
+    .domain([-1, -0.5, -0.1, 0, 0.1, 0.5, 1])
+    .range(['#ff0000', '#ff8080', '#ffcccc', '#ffffff', '#cce5ff', '#80b3ff', '#0000ff']);  // More granular color scale
 
 // Set up the chord diagram dimensions
 const width = 1000;  // Larger for better visibility
@@ -235,9 +235,21 @@ function calculateCorrelationMatrix(data, features) {
             
             // Calculate correlation
             const correlation = calculateCorrelation(values1, values2);
+            
+            // Log correlations that are very strong (for debugging)
+            if (Math.abs(correlation) > 0.7) {
+                console.log(`Strong correlation between ${feature1} and ${feature2}: ${correlation.toFixed(3)}`);
+            }
+            
             matrix[i][j] = correlation;
         }
     }
+    
+    // Log the range of correlations
+    const allCorrelations = matrix.flat().filter(v => v !== 1);  // Exclude self-correlations
+    const minCorr = Math.min(...allCorrelations);
+    const maxCorr = Math.max(...allCorrelations);
+    console.log(`Correlation range: ${minCorr.toFixed(3)} to ${maxCorr.toFixed(3)}`);
     
     return matrix;
 }
@@ -266,6 +278,15 @@ function calculateCorrelation(x, y) {
     xStdDev = Math.sqrt(xStdDev / n);
     yStdDev = Math.sqrt(yStdDev / n);
     
+    // Check for zero standard deviation
+    if (xStdDev === 0 || yStdDev === 0) {
+        console.warn('Zero standard deviation detected in correlation calculation');
+        return 0;
+    }
+    
     // Return correlation coefficient
-    return covariance / (n * xStdDev * yStdDev);
+    const correlation = covariance / (n * xStdDev * yStdDev);
+    
+    // Ensure correlation is within valid range
+    return Math.max(-1, Math.min(1, correlation));
 }
