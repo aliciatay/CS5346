@@ -60,7 +60,9 @@ function updateVisualization(minPlatforms) {
         for (let j = 0; j < features.length; j++) {
             const values1 = filteredData.map(d => d[features[i]]);
             const values2 = filteredData.map(d => d[features[j]]);
-            matrix[i][j] = calculateCorrelation(values1, values2);
+            const correlation = calculateCorrelation(values1, values2);
+            // Only include correlations stronger than threshold
+            matrix[i][j] = Math.abs(correlation) >= 0.3 ? correlation : 0;
         }
     }
 
@@ -69,7 +71,6 @@ function updateVisualization(minPlatforms) {
         .padAngle(0.02)
         .sortSubgroups((a, b) => Math.abs(b) - Math.abs(a))
         .sortChords((a, b) => Math.abs(b.source.value) - Math.abs(a.source.value))
-        .threshold(0.3)  // Only show correlations stronger than 0.3
         (matrix);
 
     // Clear previous visualization
