@@ -39,8 +39,14 @@ const svg = d3.select('#chord-diagram')
 
 // Load and process the data
 fetch('https://raw.githubusercontent.com/aliciatay/CS5346/main/final_df_cleaned.csv')
-    .then(response => response.text())
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.text();
+    })
     .then(csvText => {
+        console.log('CSV text received, length:', csvText.length);
         const data = d3.csvParse(csvText);
         console.log('Data loaded:', data.length, 'rows');
         console.log('Sample row:', data[0]);
@@ -90,7 +96,7 @@ fetch('https://raw.githubusercontent.com/aliciatay/CS5346/main/final_df_cleaned.
         console.log('Correlation matrix calculated:', matrix);
         
         // Create chord layout
-        const chord = d3.chordDirected()
+        const chord = d3.chord()
             .padAngle(0.05)
             .sortSubgroups(d3.descending)
             (matrix);
@@ -172,6 +178,11 @@ fetch('https://raw.githubusercontent.com/aliciatay/CS5346/main/final_df_cleaned.
                     .attr('fill-opacity', 0.75);
                 tooltip.style('visibility', 'hidden');
             });
+    })
+    .catch(error => {
+        console.error('Error loading or processing data:', error);
+        document.getElementById('error-message').style.display = 'block';
+        document.getElementById('error-message').innerText = `Error: ${error.message}`;
     });
 
 // Function to calculate correlation matrix
