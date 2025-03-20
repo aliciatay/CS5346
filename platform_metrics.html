@@ -272,7 +272,7 @@
                 .attr("value", d => d);
 
             // Set up the dimensions of the canvas
-            const margin = {top: 120, right: 100, bottom: 50, left: 100};
+            const margin = {top: 80, right: 100, bottom: 50, left: 100};  // Reduced top margin
             const width = 1400 - margin.left - margin.right;
             const height = 700 - margin.top - margin.bottom;
 
@@ -493,19 +493,24 @@
                 const axis = svg.append("g")
                     .attr("transform", `translate(${x(metric)},0)`);
 
-                // Reduce number of ticks to 4
-                const tickCount = 4;
+                // Reduce number of ticks and use log scale ticks
+                const logScale = y[metric];
+                const domain = logScale.domain();
+                const logDomain = [Math.log10(domain[0]), Math.log10(domain[1])];
+                const tickValues = d3.range(Math.ceil(logDomain[0]), Math.floor(logDomain[1]) + 1)
+                    .filter(d => d % 2 === 0)  // Only show every other power of 10
+                    .map(d => Math.pow(10, d));
                 
                 axis.call(
-                    d3.axisLeft(y[metric])
-                        .ticks(tickCount)
+                    d3.axisLeft(logScale)
+                        .tickValues(tickValues)
                         .tickFormat(format)
                 );
 
                 // Add platform name at top
                 axis.append("text")
                     .attr("class", "axis-label")
-                    .attr("y", -100)
+                    .attr("y", -45)  // Brought closer to chart
                     .attr("x", 0)
                     .attr("text-anchor", "middle")
                     .text(platform)
@@ -516,7 +521,7 @@
                 // Add metric name below platform name
                 axis.append("text")
                     .attr("class", "axis-title")
-                    .attr("y", -75)
+                    .attr("y", -25)  // Brought closer to chart
                     .attr("x", 0)
                     .attr("text-anchor", "middle")
                     .text(metric)
