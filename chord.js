@@ -7,7 +7,7 @@ const musicalCharacteristics = [
 const technicalFeatures = [
     'spectral_centroid', 'spectral_bandwidth', 'spectral_rolloff',
     'zero_crossing_rate', 'chroma_stft', 'beat_strength',
-    'harmonic_percussive', 'speech_to_music_ratio', 'tempogram'
+    'harmonic_to_percussive_ratio', 'speech_to_music_ratio', 'tempogram'
 ];
 
 // All features combined
