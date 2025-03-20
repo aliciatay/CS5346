@@ -1,5 +1,5 @@
 // Set up dimensions
-const margin = { top: 40, right: 120, bottom: 60, left: 60 };
+const margin = { top: 40, right: 120, bottom: 60, left: 80 };  // Increased left margin for axis label
 const width = 960 - margin.left - margin.right;
 const height = 500 - margin.top - margin.bottom;
 
@@ -8,6 +8,8 @@ const svg = d3.select("#chart")
     .append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
+    .style("display", "block")  // Center the SVG
+    .style("margin", "auto")    // Center the SVG
     .append("g")
     .attr("transform", `translate(${margin.left},${margin.top})`);
 
@@ -27,13 +29,47 @@ const platformColors = {
 };
 
 // Success categories
-const successCategories = ["Successful", "Unsuccessful"];
+const successCategories = ["Hit", "Non-Hit"];
+
+// Function to create gradient color for hits
+function createGradient(svg) {
+    // Define gradient
+    const gradient = svg.append("defs")
+        .append("linearGradient")
+        .attr("id", "hit-gradient")
+        .attr("x1", "0%")
+        .attr("y1", "0%")
+        .attr("x2", "100%")
+        .attr("y2", "0%");
+
+    // Add colors to gradient
+    gradient.append("stop")
+        .attr("offset", "0%")
+        .attr("stop-color", platformColors.Spotify);
+    gradient.append("stop")
+        .attr("offset", "25%")
+        .attr("stop-color", platformColors.YouTube);
+    gradient.append("stop")
+        .attr("offset", "50%")
+        .attr("stop-color", platformColors.TikTok);
+    gradient.append("stop")
+        .attr("offset", "75%")
+        .attr("stop-color", platformColors.Deezer);
+    gradient.append("stop")
+        .attr("offset", "100%")
+        .attr("stop-color", platformColors.Amazon);
+
+    return "url(#hit-gradient)";
+}
 
 // Function to update the chart
 async function updateChart() {
     // Clear existing content
     svg.selectAll("*").remove();
     d3.select("#error-message").style("display", "none");
+
+    // Create gradient
+    const hitColor = createGradient(svg);
 
     try {
         // Get selected feature
@@ -60,7 +96,7 @@ async function updateChart() {
             const scores = data.map(d => +d[compositeColumn]).filter(score => !isNaN(score));
             const medianScore = d3.median(scores);
 
-            // Split songs into successful and unsuccessful based on composite score
+            // Split songs into hits and non-hits based on composite score
             const successfulSongs = data.filter(d => +d[compositeColumn] > medianScore);
             const unsuccessfulSongs = data.filter(d => +d[compositeColumn] <= medianScore);
 
@@ -95,6 +131,14 @@ async function updateChart() {
             .selectAll("text")
             .style("text-anchor", "middle");
 
+        // Add X axis label
+        svg.append("text")
+            .attr("x", width / 2)
+            .attr("y", height + margin.bottom - 10)
+            .style("text-anchor", "middle")
+            .attr("class", "axis-label")
+            .text("Platforms");
+
         // Add Y axis
         svg.append("g")
             .call(d3.axisLeft(y));
@@ -102,12 +146,12 @@ async function updateChart() {
         // Add Y axis label
         svg.append("text")
             .attr("transform", "rotate(-90)")
-            .attr("y", 0 - margin.left)
+            .attr("y", 0 - margin.left + 20)
             .attr("x", 0 - (height / 2))
             .attr("dy", "1em")
             .style("text-anchor", "middle")
             .attr("class", "axis-label")
-            .text(selectedFeature.charAt(0).toUpperCase() + selectedFeature.slice(1));
+            .text(`Average ${selectedFeature.charAt(0).toUpperCase() + selectedFeature.slice(1)} Value`);
 
         // Add bars
         const platformGroups = svg.selectAll(".platform-group")
@@ -116,21 +160,18 @@ async function updateChart() {
             .attr("class", "platform-group")
             .attr("transform", d => `translate(${x0(d.platform)},0)`);
 
-        // Add bars for successful and unsuccessful
+        // Add bars for hits and non-hits
         platformGroups.selectAll("rect")
             .data(d => [
-                { category: "Successful", value: d.successful[selectedFeature] },
-                { category: "Unsuccessful", value: d.unsuccessful[selectedFeature] }
+                { category: "Hit", value: d.successful[selectedFeature] },
+                { category: "Non-Hit", value: d.unsuccessful[selectedFeature] }
             ])
             .join("rect")
             .attr("x", d => x1(d.category))
             .attr("y", d => y(d.value))
             .attr("width", x1.bandwidth())
             .attr("height", d => height - y(d.value))
-            .attr("fill", (d, i, nodes) => {
-                const platformData = d3.select(nodes[i].parentNode).datum();
-                return i === 0 ? platformColors[platformData.platform] : "#cccccc";
-            })
+            .attr("fill", (d, i) => i === 0 ? hitColor : "#cccccc")
             .on("mouseover", function(event, d) {
                 const platformData = d3.select(this.parentNode).datum();
                 tooltip.transition()
@@ -155,9 +196,9 @@ async function updateChart() {
             .attr("class", "legend")
             .attr("transform", `translate(${width + 10}, 0)`);
 
-        // Success/Unsuccessful legend
+        // Hit/Non-Hit legend
         const legendItems = legend.selectAll(".legend-item")
-            .data(["Successful", "Unsuccessful"])
+            .data(["Hit", "Non-Hit"])
             .join("g")
             .attr("class", "legend-item")
             .attr("transform", (d, i) => `translate(0,${i * 20})`);
@@ -166,7 +207,7 @@ async function updateChart() {
             .attr("x", 0)
             .attr("width", 18)
             .attr("height", 18)
-            .attr("fill", (d, i) => i === 0 ? "#1DB954" : "#cccccc");
+            .attr("fill", (d, i) => i === 0 ? hitColor : "#cccccc");
 
         legendItems.append("text")
             .attr("x", 24)
