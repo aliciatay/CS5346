@@ -89,16 +89,12 @@ async function updateChart() {
                 unsuccessful: {}
             };
 
-            // Get composite score column name
-            const compositeColumn = `${platform}_Composite`;
+            // Use platform-specific Hit indicator
+            const hitColumn = `${platform}_Hit`;
             
-            // Calculate median composite score to determine success threshold
-            const scores = data.map(d => +d[compositeColumn]).filter(score => !isNaN(score));
-            const medianScore = d3.median(scores);
-
-            // Split songs into hits and non-hits based on composite score
-            const successfulSongs = data.filter(d => +d[compositeColumn] > medianScore);
-            const unsuccessfulSongs = data.filter(d => +d[compositeColumn] <= medianScore);
+            // Split songs into hits and non-hits based on Hit indicator
+            const successfulSongs = data.filter(d => d[hitColumn] === 'True');
+            const unsuccessfulSongs = data.filter(d => d[hitColumn] === 'False');
 
             // Calculate average feature values
             platformData.successful[selectedFeature] = d3.mean(successfulSongs, d => +d[selectedFeature]) || 0;
