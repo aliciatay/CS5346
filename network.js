@@ -51,10 +51,13 @@ function updateVisualization(minPlatforms, selectedGenre = 'All') {
     document.getElementById('song-count').textContent = 
         `Analyzing ${filteredData.length} songs with ${minPlatforms}+ successful platforms${selectedGenre !== 'All' ? ` in ${selectedGenre} genre` : ''}`;
 
+    // Always hide error message first
+    document.getElementById('error-message').style.display = 'none';
+
     if (filteredData.length === 0) {
         document.getElementById('error-message').style.display = 'block';
         document.getElementById('error-message').innerText = 
-            `No songs found with ${minPlatforms} or more successful platforms`;
+            `No songs found with ${minPlatforms} or more successful platforms${selectedGenre !== 'All' ? ` in ${selectedGenre} genre` : ''}`;
         return;
     }
 
