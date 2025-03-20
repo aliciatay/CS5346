@@ -40,7 +40,7 @@ async function updateChart() {
         const selectedFeature = document.getElementById("feature-select").value;
 
         // Load and process data
-        const data = await d3.csv("spotify_data.csv");
+        const data = await d3.csv("final_df_cleaned.csv");
         
         // Process data to get average feature values for successful/unsuccessful songs per platform
         const platforms = ["Spotify", "YouTube", "TikTok", "Deezer", "Amazon"];
@@ -53,10 +53,18 @@ async function updateChart() {
                 unsuccessful: {}
             };
 
-            // Calculate average feature value for successful songs
-            const successfulSongs = data.filter(d => d[`${platform.toLowerCase()}_success`] === "1");
-            const unsuccessfulSongs = data.filter(d => d[`${platform.toLowerCase()}_success`] === "0");
+            // Get composite score column name
+            const compositeColumn = `${platform}_Composite`;
+            
+            // Calculate median composite score to determine success threshold
+            const scores = data.map(d => +d[compositeColumn]).filter(score => !isNaN(score));
+            const medianScore = d3.median(scores);
 
+            // Split songs into successful and unsuccessful based on composite score
+            const successfulSongs = data.filter(d => +d[compositeColumn] > medianScore);
+            const unsuccessfulSongs = data.filter(d => +d[compositeColumn] <= medianScore);
+
+            // Calculate average feature values
             platformData.successful[selectedFeature] = d3.mean(successfulSongs, d => +d[selectedFeature]) || 0;
             platformData.unsuccessful[selectedFeature] = d3.mean(unsuccessfulSongs, d => +d[selectedFeature]) || 0;
 
@@ -119,7 +127,10 @@ async function updateChart() {
             .attr("y", d => y(d.value))
             .attr("width", x1.bandwidth())
             .attr("height", d => height - y(d.value))
-            .attr("fill", (d, i) => i === 0 ? platformColors[d3.select(d3.select(this).node().parentNode).datum().platform] : "#cccccc")
+            .attr("fill", (d, i, nodes) => {
+                const platformData = d3.select(nodes[i].parentNode).datum();
+                return i === 0 ? platformColors[platformData.platform] : "#cccccc";
+            })
             .on("mouseover", function(event, d) {
                 const platformData = d3.select(this.parentNode).datum();
                 tooltip.transition()
