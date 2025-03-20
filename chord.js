@@ -62,10 +62,6 @@ fetch('https://raw.githubusercontent.com/aliciatay/CS5346/main/final_df_cleaned.
             throw new Error('Missing columns: ' + missingColumns.join(', '));
         }
 
-        if (!('hitPlatforms' in data[0])) {
-            throw new Error('Missing hitPlatforms column');
-        }
-        
         // Process the data to ensure all features are numeric
         const processedData = data.map(d => {
             const processed = {};
@@ -77,9 +73,8 @@ fetch('https://raw.githubusercontent.com/aliciatay/CS5346/main/final_df_cleaned.
                 processed[feature] = value || 0;
             });
             // Count platforms where the song is a hit
-            processed.hitPlatforms = ['spotify_hit', 'youtube_hit', 'tiktok_hit', 'deezer_hit', 'amazon_hit']
-                .filter(platform => d[platform] === '1')
-                .length;
+            const platforms = ['Spotify_Hit', 'YouTube_Hit', 'TikTok_Hit', 'Deezer_Hit', 'Amazon_Hit'];
+            processed.hitPlatforms = platforms.filter(platform => d[platform] === 'True').length;
             return processed;
         });
         
