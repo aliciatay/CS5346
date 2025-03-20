@@ -38,7 +38,7 @@ const svg = d3.select('#chord-diagram')
     .attr('transform', `translate(${width/2},${height/2})`);
 
 // Load and process the data
-d3.csv('processed_data.csv')
+d3.csv('data/processed_data.csv')
     .then(data => {
         console.log('Data loaded:', data.length, 'rows');
         console.log('Sample row:', data[0]);
