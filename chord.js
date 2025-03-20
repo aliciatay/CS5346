@@ -1,14 +1,13 @@
 // Define feature groups
 const musicalCharacteristics = [
-    'danceability', 'energy', 'key', 'loudness', 'speechiness',
+    'danceability', 'energy', 'loudness', 'speechiness',
     'acousticness', 'instrumentalness', 'liveness', 'valence', 'time_signature'
 ];
 
 const technicalFeatures = [
     'spectral_centroid', 'spectral_bandwidth', 'spectral_rolloff',
     'zero_crossing_rate', 'chroma_stft', 'beat_strength',
-    'harmonic_percussive', 'harmonic_to_percussive_ratio',
-    'speech_to_music_ratio', 'tempogram'
+    'harmonic_percussive', 'speech_to_music_ratio', 'tempogram'
 ];
 
 // All features combined
@@ -40,11 +39,31 @@ const svg = d3.select('#chord-diagram')
 
 // Load and process the data
 d3.csv('processed_data.csv').then(data => {
+    console.log('Data loaded:', data.length, 'rows');
+    console.log('Sample row:', data[0]);
+    
+    // Process the data to ensure all features are numeric
+    const processedData = data.map(d => {
+        const processed = {};
+        features.forEach(feature => {
+            processed[feature] = +d[feature] || 0;
+        });
+        processed.hitPlatforms = +d.hitPlatforms || 0;
+        return processed;
+    });
+    
     // Filter for hit songs (success on 5 or more platforms)
-    const hitSongs = data.filter(d => +d.hitPlatforms >= 5);
+    const hitSongs = processedData.filter(d => d.hitPlatforms >= 5);
+    console.log('Hit songs:', hitSongs.length);
+    
+    if (hitSongs.length === 0) {
+        console.error('No hit songs found in the data');
+        return;
+    }
     
     // Calculate correlation matrix
     const matrix = calculateCorrelationMatrix(hitSongs, features);
+    console.log('Correlation matrix calculated');
     
     // Create chord layout
     const chord = d3.chordDirected()
@@ -147,8 +166,8 @@ function calculateCorrelationMatrix(data, features) {
             const feature2 = features[j];
             
             // Extract values for both features
-            const values1 = data.map(d => +d.features[feature1]).filter(v => !isNaN(v));
-            const values2 = data.map(d => +d.features[feature2]).filter(v => !isNaN(v));
+            const values1 = data.map(d => d[feature1]).filter(v => !isNaN(v));
+            const values2 = data.map(d => d[feature2]).filter(v => !isNaN(v));
             
             // Calculate correlation
             const correlation = calculateCorrelation(values1, values2);
