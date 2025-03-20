@@ -294,7 +294,7 @@ function updateRadarChart(hitsAvg, nonHitsAvg) {
     // Update legend position and size
     const legend = svg.append('g')
         .attr('class', 'legend')
-        .attr('transform', `translate(${config.width + config.margin - 150}, 50)`);
+        .attr('transform', `translate(${config.width + config.margin - 50}, 50)`);
 
     ['Hits', 'Non-Hits'].forEach((label, i) => {
         const color = label === 'Hits' ? colors.hits : colors.nonHits;
