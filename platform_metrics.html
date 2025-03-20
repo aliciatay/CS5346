@@ -493,13 +493,19 @@
                 const axis = svg.append("g")
                     .attr("transform", `translate(${x(metric)},0)`);
 
-                // Reduce number of ticks and use log scale ticks
+                // Generate tick values at powers of 10 and their midpoints
                 const logScale = y[metric];
                 const domain = logScale.domain();
                 const logDomain = [Math.log10(domain[0]), Math.log10(domain[1])];
-                const tickValues = d3.range(Math.ceil(logDomain[0]), Math.floor(logDomain[1]) + 1)
-                    .filter(d => d % 2 === 0)  // Only show every other power of 10
-                    .map(d => Math.pow(10, d));
+                const tickValues = [];
+                
+                // Add ticks for each power of 10 and its midpoint
+                for (let i = Math.ceil(logDomain[0]); i <= Math.floor(logDomain[1]); i++) {
+                    tickValues.push(Math.pow(10, i));  // Power of 10 (1M, 10M, 100M, etc)
+                    if (i < Math.floor(logDomain[1])) {
+                        tickValues.push(5 * Math.pow(10, i));  // Midpoint (5M, 50M, 500M, etc)
+                    }
+                }
                 
                 axis.call(
                     d3.axisLeft(logScale)
@@ -510,7 +516,7 @@
                 // Add platform name at top
                 axis.append("text")
                     .attr("class", "axis-label")
-                    .attr("y", -45)  // Brought closer to chart
+                    .attr("y", -45)
                     .attr("x", 0)
                     .attr("text-anchor", "middle")
                     .text(platform)
@@ -521,7 +527,7 @@
                 // Add metric name below platform name
                 axis.append("text")
                     .attr("class", "axis-title")
-                    .attr("y", -25)  // Brought closer to chart
+                    .attr("y", -25)
                     .attr("x", 0)
                     .attr("text-anchor", "middle")
                     .text(metric)
