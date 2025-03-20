@@ -111,17 +111,10 @@
 
         <div class="chart-container">
             <div id="chord-diagram"></div>
+            <div id="error-message" style="display: none; color: #721c24; background-color: #f8d7da; padding: 15px; border-radius: 4px; margin: 20px 0; text-align: center;"></div>
         </div>
 
         <div class="legend">
-            <div class="legend-item">
-                <div class="legend-color" style="background-color: #2ecc71"></div>
-                <span>Musical Characteristics</span>
-            </div>
-            <div class="legend-item">
-                <div class="legend-color" style="background-color: #9b59b6"></div>
-                <span>Technical Features</span>
-            </div>
             <div class="legend-item">
                 <div class="legend-color" style="background-color: #3498db"></div>
                 <span>Positive Correlation</span>
@@ -131,9 +124,29 @@
                 <span>Negative Correlation</span>
             </div>
         </div>
+
+        <div class="feature-type-legend" style="text-align: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid #eee;">
+            <div class="legend-item">
+                <div class="legend-color" style="background-color: #2ecc71"></div>
+                <span>Musical Characteristics</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background-color: #9b59b6"></div>
+                <span>Technical Features</span>
+            </div>
+        </div>
         
-        <div class="version">Version: 1.0.1</div>
+        <div class="version">Version: 1.0.2</div>
     </div>
+    <script>
+        // Add error handling for the script loading
+        window.onerror = function(msg, url, lineNo, columnNo, error) {
+            console.error('Error: ' + msg + '\nURL: ' + url + '\nLine: ' + lineNo + '\nColumn: ' + columnNo + '\nError object: ' + JSON.stringify(error));
+            document.getElementById('error-message').style.display = 'block';
+            document.getElementById('error-message').innerText = 'Error loading visualization. Please check console for details.';
+            return false;
+        };
+    </script>
     <script src="chord.js"></script>
 </body>
 </html> 
