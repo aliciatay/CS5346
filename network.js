@@ -253,18 +253,27 @@ function updateVisualization(minPlatforms, selectedGenre = 'All') {
     const legend = svg.append('g')
         .attr('transform', `translate(20, 20)`);
 
-    // Feature type legend
+    // Feature type legend with feature lists
     const featureTypes = [
-        { type: 'Musical Characteristics', color: nodeColors.musical },
-        { type: 'Technical Features', color: nodeColors.technical }
+        { 
+            type: 'Musical Characteristics', 
+            color: nodeColors.musical,
+            features: musicalCharacteristics
+        },
+        { 
+            type: 'Technical Features', 
+            color: nodeColors.technical,
+            features: technicalFeatures
+        }
     ];
 
     const legendItems = legend.selectAll('.legend-item')
         .data(featureTypes)
         .join('g')
         .attr('class', 'legend-item')
-        .attr('transform', (d, i) => `translate(0, ${i * 30})`);  // Increased spacing from 25 to 30
+        .attr('transform', (d, i) => `translate(0, ${i * (30 + d.features.length * 20)})`);  // Adjust spacing for feature lists
 
+    // Add main category circle and label
     legendItems.append('circle')
         .attr('r', 6)
         .attr('fill', d => d.color);
@@ -272,12 +281,26 @@ function updateVisualization(minPlatforms, selectedGenre = 'All') {
     legendItems.append('text')
         .attr('x', 15)
         .attr('y', 5)
-        .style('font-size', '14px')  // Increased font size
+        .style('font-size', '14px')
+        .style('font-weight', 'bold')
         .text(d => d.type);
 
-    // Correlation legend with more space
+    // Add feature lists
+    legendItems.each(function(d) {
+        const featureList = d3.select(this)
+            .selectAll('.feature-item')
+            .data(d.features)
+            .join('text')
+            .attr('class', 'feature-item')
+            .attr('x', 20)
+            .attr('y', (_, i) => 25 + i * 20)
+            .style('font-size', '12px')
+            .text(f => f);
+    });
+
+    // Correlation legend with more space - moved down to accommodate feature lists
     const correlationLegend = svg.append('g')
-        .attr('transform', `translate(${width - 250}, 20)`);  // Moved left by 50px
+        .attr('transform', `translate(${width - 250}, ${Math.max(musicalCharacteristics.length, technicalFeatures.length) * 20 + 60})`);
 
     const correlationTypes = [
         { label: 'Strong Negative', value: -0.7, color: '#ff0000' },
