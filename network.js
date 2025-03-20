@@ -36,13 +36,17 @@ svg.call(d3.zoom()
     }));
 
 // Function to update visualization
-function updateVisualization(minPlatforms) {
-    // Filter data based on minimum platforms
-    const filteredData = processedData.filter(d => d.hitPlatforms >= minPlatforms);
+function updateVisualization(minPlatforms, selectedGenre = 'All') {
+    // Filter data based on minimum platforms and genre
+    let filteredData = processedData.filter(d => d.hitPlatforms >= minPlatforms);
+    
+    if (selectedGenre !== 'All') {
+        filteredData = filteredData.filter(d => d.genre === selectedGenre);
+    }
     
     // Update song count display
     document.getElementById('song-count').textContent = 
-        `Analyzing ${filteredData.length} songs with ${minPlatforms}+ successful platforms`;
+        `Analyzing ${filteredData.length} songs with ${minPlatforms}+ successful platforms${selectedGenre !== 'All' ? ` in ${selectedGenre} genre` : ''}`;
 
     if (filteredData.length === 0) {
         document.getElementById('error-message').style.display = 'block';
@@ -83,6 +87,39 @@ function updateVisualization(minPlatforms) {
         }
     }
 
+    // After creating edges, generate correlation summary
+    const strongCorrelations = edges
+        .filter(d => Math.abs(d.value) >= 0.4)  // Only show moderate to strong correlations
+        .sort((a, b) => Math.abs(b.value) - Math.abs(a.value));  // Sort by absolute correlation strength
+
+    // Update correlation summary panel
+    const summaryPanel = d3.select('#correlation-summary');
+    summaryPanel.html(`
+        <h3>Strong Correlations</h3>
+        <div class="summary-section">
+            <h4>Positive Correlations</h4>
+            ${strongCorrelations
+                .filter(d => d.value > 0)
+                .map(d => `
+                    <div class="correlation-item">
+                        <span class="feature-pair">${d.source.id} ↔ ${d.target.id}</span>
+                        <span class="correlation-value" style="color: #1976d2">${d.value.toFixed(3)}</span>
+                    </div>
+                `).join('')}
+        </div>
+        <div class="summary-section">
+            <h4>Negative Correlations</h4>
+            ${strongCorrelations
+                .filter(d => d.value < 0)
+                .map(d => `
+                    <div class="correlation-item">
+                        <span class="feature-pair">${d.source.id} ↔ ${d.target.id}</span>
+                        <span class="correlation-value" style="color: #d32f2f">${d.value.toFixed(3)}</span>
+                    </div>
+                `).join('')}
+        </div>
+    `);
+
     // Clear previous visualization
     g.selectAll('*').remove();
 
@@ -95,10 +132,10 @@ function updateVisualization(minPlatforms) {
         .force('center', d3.forceCenter(width / 2, height / 2))
         .force('collision', d3.forceCollide().radius(d => d.radius + 20));
 
-    // Create edge scale for width
+    // Create edge scale for width - Increased contrast
     const edgeScale = d3.scaleLinear()
         .domain([0.3, 1])
-        .range([1, 5]);
+        .range([2, 8]);  // Changed from [1, 5] to [2, 8] for more contrast
 
     // Draw edges
     const links = g.append('g')
@@ -129,14 +166,11 @@ function updateVisualization(minPlatforms) {
     // Add labels
     nodes_g.append('text')
         .text(d => d.id)
-        .attr('x', d => d.radius + 4)
-        .attr('y', '0.31em')
+        .attr('x', d => d.radius + 8)  // Increased spacing
+        .attr('y', (d, i) => i % 2 === 0 ? '0.31em' : '-0.31em')  // Alternate above/below
         .style('font-size', '12px')
         .style('font-weight', 'bold')
-        .clone(true).lower()
-        .attr('fill', 'none')
-        .attr('stroke', 'white')
-        .attr('stroke-width', 3);
+        .style('text-shadow', '2px 2px 4px white, -2px -2px 4px white, 2px -2px 4px white, -2px 2px 4px white');  // Add text shadow for better readability
 
     // Add hover interactions
     nodes_g.on('mouseover', function(event, d) {
@@ -292,16 +326,33 @@ fetch('https://raw.githubusercontent.com/aliciatay/CS5346/main/final_df_cleaned.
             });
             const platforms = ['Spotify_Hit', 'YouTube_Hit', 'TikTok_Hit', 'Deezer_Hit', 'Amazon_Hit'];
             processed.hitPlatforms = platforms.filter(platform => d[platform] === 'True').length;
+            processed.genre = d.genre || 'Unknown';  // Add genre information
             return processed;
         });
 
-        // Set up filter change listener
-        d3.select('#platform-filter').on('change', function() {
-            updateVisualization(+this.value);
-        });
+        // Get unique genres for the filter
+        const genres = ['All', ...new Set(processedData.map(d => d.genre))].filter(Boolean);
+        
+        // Set up genre filter
+        const genreSelect = d3.select('#genre-filter')
+            .selectAll('option')
+            .data(genres)
+            .join('option')
+            .attr('value', d => d)
+            .text(d => d);
+
+        // Set up filter change listeners
+        d3.select('#platform-filter').on('change', updateFilters);
+        d3.select('#genre-filter').on('change', updateFilters);
+
+        function updateFilters() {
+            const platforms = +d3.select('#platform-filter').property('value');
+            const genre = d3.select('#genre-filter').property('value');
+            updateVisualization(platforms, genre);
+        }
 
         // Initial visualization
-        updateVisualization(0);
+        updateVisualization(0, 'All');
     })
     .catch(error => {
         console.error('Error loading data:', error);

@@ -38,6 +38,15 @@
         .controls {
             margin: 20px 0;
             text-align: center;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .filter-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
         select {
@@ -45,16 +54,52 @@
             font-size: 14px;
             border: 1px solid #ddd;
             border-radius: 4px;
-            margin-left: 10px;
+        }
+
+        .visualization-container {
+            display: flex;
+            gap: 20px;
+            margin-top: 20px;
         }
 
         #network {
-            width: 100%;
+            flex: 1;
             height: 800px;
             border: 1px solid #ddd;
             border-radius: 4px;
             background-color: white;
             position: relative;
+        }
+
+        #correlation-summary {
+            width: 300px;
+            padding: 20px;
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            overflow-y: auto;
+            height: 800px;
+        }
+
+        .summary-section {
+            margin-bottom: 20px;
+        }
+
+        .correlation-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .feature-pair {
+            font-size: 14px;
+        }
+
+        .correlation-value {
+            font-weight: bold;
+            font-size: 14px;
         }
 
         #tooltip {
@@ -126,28 +171,40 @@
                 <li><strong>Nodes:</strong> Light red circles represent musical characteristics, light blue circles represent technical features.</li>
                 <li><strong>Edges:</strong> Lines connecting nodes show correlations - blue for positive, red for negative. Thicker lines indicate stronger correlations.</li>
                 <li><strong>Interaction:</strong> Hover over nodes to highlight connections, drag nodes to rearrange, use mouse wheel to zoom.</li>
-                <li><strong>Filtering:</strong> Use the dropdown to filter songs based on their success across platforms.</li>
+                <li><strong>Filtering:</strong> Use the dropdowns to filter songs based on their success across platforms and genres.</li>
             </ul>
         </div>
 
         <div class="controls">
-            <label for="platform-filter">Show correlations for songs successful on:</label>
-            <select id="platform-filter">
-                <option value="0">All Songs</option>
-                <option value="1">≥ 1 Platform</option>
-                <option value="2">≥ 2 Platforms</option>
-                <option value="3">≥ 3 Platforms</option>
-                <option value="4">≥ 4 Platforms</option>
-                <option value="5">≥ 5 Platforms</option>
-            </select>
+            <div class="filter-group">
+                <label for="platform-filter">Success on:</label>
+                <select id="platform-filter">
+                    <option value="0">All Songs</option>
+                    <option value="1">≥ 1 Platform</option>
+                    <option value="2">≥ 2 Platforms</option>
+                    <option value="3">≥ 3 Platforms</option>
+                    <option value="4">≥ 4 Platforms</option>
+                    <option value="5">≥ 5 Platforms</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label for="genre-filter">Genre:</label>
+                <select id="genre-filter">
+                    <option value="All">All Genres</option>
+                </select>
+            </div>
         </div>
 
         <div id="song-count"></div>
         <div id="error-message"></div>
-        <div id="network"></div>
+        
+        <div class="visualization-container">
+            <div id="network"></div>
+            <div id="correlation-summary"></div>
+        </div>
         <div id="tooltip"></div>
 
-        <div class="version">Version: 1.0.0</div>
+        <div class="version">Version: 1.1.0</div>
     </div>
 
     <script src="network.js"></script>
