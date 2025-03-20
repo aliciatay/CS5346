@@ -116,13 +116,16 @@ function initializeChart() {
         const labelX = radius * config.labelFactor * Math.cos(angleSlice * i - Math.PI/2);
         const labelY = radius * config.labelFactor * Math.sin(angleSlice * i - Math.PI/2);
         
+        // Determine if this is a technical feature
+        const isTechnicalFeature = Object.keys(technicalFeatures).includes(feature);
+        
         axisGrid.append('text')
             .attr('class', 'axis-label')
             .attr('x', labelX)
             .attr('y', labelY)
             .style('text-anchor', 'middle')
             .style('font-size', '14px')
-            .style('fill', '#333')
+            .style('fill', isTechnicalFeature ? colors.categories['Technical Features'] : colors.categories['Musical Characteristics'])
             .text(allFeatures[feature]);
     });
 
@@ -230,14 +233,15 @@ function updateVisualization(data, year, genre) {
 
     console.log('Filtered data points:', filteredData.length);
 
+    // Clear existing chart
+    d3.select('#radar-chart').html('');
+
     if (filteredData.length === 0) {
         d3.select('#no-data').style('display', 'block');
-        d3.selectAll('.viz-section').style('display', 'none');
         return;
     }
 
     d3.select('#no-data').style('display', 'none');
-    d3.selectAll('.viz-section').style('display', 'block');
 
     // Split into hits and non-hits
     const hits = filteredData.filter(d => d.hitPlatforms >= 5);
@@ -291,10 +295,10 @@ function updateRadarChart(hitsAvg, nonHitsAvg) {
         .style('stroke', colors.nonHits.stroke)
         .style('stroke-width', config.strokeWidth + 'px');
 
-    // Update legend position and size
+    // Update legend position to be further right
     const legend = svg.append('g')
         .attr('class', 'legend')
-        .attr('transform', `translate(${config.width + config.margin - 50}, 50)`);
+        .attr('transform', `translate(${config.width + config.margin + 50}, 50)`);
 
     ['Hits', 'Non-Hits'].forEach((label, i) => {
         const color = label === 'Hits' ? colors.hits : colors.nonHits;
