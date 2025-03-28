@@ -6,20 +6,12 @@ Promise.all([
 ]).then(function(data) {
     const filters = data[0];
     const factorNames = data[1];
-    const correlationData = data[2];
+    const rawData = data[2];
     
-    // Convert numeric strings to numbers for proper comparisons
-    correlationData.forEach(d => {
-        d.correlation = +d.correlation;
-        // Keep year as string for consistent comparison
-    });
-    
-    // Enhanced debugging
-    console.log("LOADED DATA ANALYSIS:");
-    console.log("Total records:", correlationData.length);
-    console.log("Unique years:", [...new Set(correlationData.map(d => d.year))].sort());
-    console.log("Year data breakdown:", d3.rollup(correlationData, v => v.length, d => d.year));
-    console.log("Sample records by year:", d3.group(correlationData.slice(0, 20), d => d.year));
+    // Log the raw data to see what we're working with
+    console.log("RAW DATA SAMPLE:", rawData.slice(0, 10));
+    console.log("Total records:", rawData.length);
+    console.log("Years available:", [...new Set(rawData.map(d => d.year))].sort());
     
     // Initialize the visualization
     initFilters(filters);
@@ -33,7 +25,7 @@ Promise.all([
     d3.select('#region-select').on('change', updateChart);
     d3.select('#country-select').on('change', updateChart);
     d3.select('#year-select').on('change', function() {
-        console.log("Year selection changed to:", this.value);
+        console.log("Year changed to:", this.value);
         updateChart();
     });
     
@@ -87,123 +79,100 @@ Promise.all([
         }
     }
     
-    // Get filtered data based on current selections
-    function getFilteredData() {
+    // Create or update the spider chart
+    function updateChart() {
+        console.log("UPDATING CHART");
+        
+        // Get current filter values
         const level = d3.select('#level-select').property('value');
         const selectedRegion = d3.select('#region-select').property('value');
         const selectedCountry = d3.select('#country-select').property('value');
         const selectedYear = d3.select('#year-select').property('value');
         
-        console.log("CURRENT FILTER SELECTIONS:", { 
-            level, 
-            region: selectedRegion, 
-            country: selectedCountry, 
-            year: selectedYear 
-        });
+        console.log("Filters:", { level, region: selectedRegion, country: selectedCountry, year: selectedYear });
         
-        // Start with a completely new copy of the data
-        let filtered = JSON.parse(JSON.stringify(correlationData));
+        // Filter the data based on current selections
+        let filteredData = rawData.filter(d => d.level === level);
         
-        // First filter by level (region/country)
-        filtered = filtered.filter(d => d.level === level);
-        console.log("After level filter:", filtered.length, "records remain");
-        
-        // Then apply location filter
+        // Apply location filter
         if (level === 'By Region') {
             if (selectedRegion !== 'All') {
-                filtered = filtered.filter(d => d.region === selectedRegion);
-                console.log("After region filter:", filtered.length, "records remain");
+                filteredData = filteredData.filter(d => d.region === selectedRegion);
             }
         } else { // By Country
             if (selectedCountry !== 'All') {
-                filtered = filtered.filter(d => d.country === selectedCountry);
-                console.log("After country filter:", filtered.length, "records remain");
+                filteredData = filteredData.filter(d => d.country === selectedCountry);
             }
         }
         
-        // Apply year filter - COMPLETELY REWRITTEN
+        // Apply year filter
         if (selectedYear !== 'All') {
-            // Check if we have any records for this exact year
-            const exactYearData = filtered.filter(d => d.year === selectedYear);
-            console.log(`Found ${exactYearData.length} records matching exact year "${selectedYear}"`);
+            // First look for exact year matches
+            const exactYearMatches = filteredData.filter(d => d.year === selectedYear);
             
-            if (exactYearData.length > 0) {
-                filtered = exactYearData;
+            if (exactYearMatches.length > 0) {
+                console.log(`Found ${exactYearMatches.length} exact matches for year ${selectedYear}`);
+                filteredData = exactYearMatches;
             } else {
-                // If no exact year match, use 'All' years data
-                const allYearsData = filtered.filter(d => d.year === 'All');
-                console.log(`Falling back to ${allYearsData.length} 'All' years records`);
-                filtered = allYearsData;
+                // As a fallback, use data marked as 'All' years
+                console.log(`No exact matches for year ${selectedYear}, falling back to 'All' years data`);
+                filteredData = filteredData.filter(d => d.year === 'All');
             }
         }
         
-        // Detailed report on what data we're using
-        console.log("FILTERED DATA REPORT:");
-        console.log("Final count:", filtered.length);
-        console.log("Years in final data:", [...new Set(filtered.map(d => d.year))]);
+        console.log("Filtered data count:", filteredData.length);
         
-        if (filtered.length > 0) {
-            console.log("Sample of filtered data:", filtered.slice(0, 3));
-            console.log("Factors included:", [...new Set(filtered.map(d => d.factor))].sort());
-        } else {
-            console.log("NO DATA MATCHES THE CURRENT FILTERS");
-        }
-        
-        return filtered;
-    }
-    
-    // Create or update the spider chart
-    function updateChart() {
-        console.log("------ UPDATING CHART ------");
-        
-        const filteredData = getFilteredData();
-        const level = d3.select('#level-select').property('value');
-        
-        // Check if we have data to display
+        // Check if we have any data after filtering
         if (filteredData.length === 0) {
-            console.log("No data to display - showing message");
+            console.log("No data to display");
             showNoDataMessage();
             return;
         }
         
-        // Group data appropriately based on level
-        let groupedData;
+        // Group the data for display
+        const groupedData = {};
+        
         if (level === 'By Region') {
-            groupedData = d3.group(filteredData, d => d.region);
-        } else { // By Country
-            groupedData = d3.group(filteredData, d => d.country);
+            // Group by region
+            filteredData.forEach(d => {
+                const region = d.region;
+                if (!groupedData[region]) {
+                    groupedData[region] = {};
+                }
+                // Store the correlation value for this factor
+                groupedData[region][d.factor] = +d.correlation;
+            });
+        } else {
+            // Group by country
+            filteredData.forEach(d => {
+                const country = d.country;
+                if (!groupedData[country]) {
+                    groupedData[country] = {};
+                }
+                // Store the correlation value for this factor
+                groupedData[country][d.factor] = +d.correlation;
+            });
         }
         
-        // Format data for radar chart
+        console.log("Grouped data:", groupedData);
+        
+        // Format the data for the chart
         const chartData = [];
-        console.log("Creating chart data for:", [...groupedData.keys()]);
-        
-        groupedData.forEach((values, key) => {
-            const item = { name: key };
-            const factorMap = {};
-            
-            // Log values for this group
-            console.log(`Data for ${key}:`, values.length, "records");
-            
-            values.forEach(d => {
-                factorMap[d.factor] = +d.correlation;
+        for (const entityName in groupedData) {
+            const dataPoint = { name: entityName };
+            // Add all factor values
+            Object.keys(groupedData[entityName]).forEach(factor => {
+                dataPoint[factor] = groupedData[entityName][factor];
             });
-            
-            // Add factors to chart data
-            Object.keys(factorMap).forEach(factor => {
-                item[factor] = factorMap[factor];
-            });
-            
-            chartData.push(item);
-            console.log(`${key} factors:`, Object.keys(factorMap).length);
-        });
+            chartData.push(dataPoint);
+        }
         
-        console.log("Final chart data:", chartData);
+        console.log("Chart data:", chartData);
         
-        // Get the unique factors from the data
+        // Get the factors to display
         const factors = Object.keys(factorNames);
         
-        // Draw or update the radar chart
+        // Create the chart
         drawRadarChart(chartData, factors);
     }
     
@@ -338,7 +307,7 @@ Promise.all([
         
         // Draw the radar chart paths for each data point
         data.forEach((d, i) => {
-            console.log(`Creating shape for ${d.name} with color ${color(i)}`);
+            console.log(`Drawing ${d.name}`);
             
             const dataValues = factors.map(factor => {
                 const value = d[factor] || 0;
