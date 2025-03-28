@@ -1,0 +1,208 @@
+/* Import Berton Sans Book font */
+@font-face {
+    font-family: 'Berton Sans Book';
+    src: url('https://fonts.cdnfonts.com/css/berton-sans') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* Apply Berton Sans Book font to all elements */
+* {
+    font-family: 'Berton Sans Book', Arial, sans-serif;
+}
+
+body {
+    margin: 0;
+    padding: 20px;
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+    margin-top: 0;
+    font-size: 24px;
+    font-weight: 500;
+}
+
+.description {
+    text-align: center;
+    color: #666;
+    margin-bottom: 25px;
+    font-size: 14px;
+}
+
+.version {
+    color: #999;
+    font-size: 12px;
+}
+
+.filters {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 30px;
+    padding: 15px;
+    background-color: #f5f5f5;
+    border-radius: 6px;
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    min-width: 120px;
+}
+
+.filter-group label {
+    margin-bottom: 5px;
+    font-size: 14px;
+    color: #555;
+}
+
+select {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: white;
+    font-size: 14px;
+    color: #333;
+    cursor: pointer;
+}
+
+select:focus {
+    outline: none;
+    border-color: #76b7b2;
+    box-shadow: 0 0 0 2px rgba(118, 183, 178, 0.2);
+}
+
+/* Year slider styles */
+.year-slider-container {
+    min-width: 180px;
+}
+
+.slider-container {
+    margin: 5px 0;
+    width: 100%;
+}
+
+.slider {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 8px;
+    border-radius: 4px;
+    background: #ddd;
+    outline: none;
+    cursor: pointer;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #4e79a7;
+    cursor: pointer;
+    border: 2px solid white;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+.slider::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #4e79a7;
+    cursor: pointer;
+    border: 2px solid white;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+.year-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5px;
+    font-size: 12px;
+    color: #666;
+}
+
+#year-value {
+    font-weight: bold;
+    color: #4e79a7;
+}
+
+.chart-container {
+    margin: 20px 0;
+}
+
+#spider-chart {
+    min-height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.legend {
+    margin-top: 20px;
+    padding: 10px;
+}
+
+.notes {
+    margin-top: 30px;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-radius: 6px;
+    font-size: 13px;
+    color: #666;
+    line-height: 1.4;
+}
+
+.notes p {
+    margin: 0.5em 0;
+}
+
+.notes strong {
+    color: #555;
+}
+
+.error-message, .no-data-message {
+    text-align: center;
+    padding: 50px 20px;
+    color: #e15759;
+    font-size: 16px;
+}
+
+/* SVG text elements */
+text, .axis-label, .circle-label {
+    font-family: 'Berton Sans Book', Arial, sans-serif !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+    }
+    
+    .filters {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .filter-group {
+        width: 100%;
+    }
+    
+    h1 {
+        font-size: 20px;
+    }
+}
