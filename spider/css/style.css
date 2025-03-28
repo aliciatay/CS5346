@@ -2,10 +2,16 @@
 @font-face {
     font-family: 'Berton Sans Book';
     src: url('https://fonts.cdnfonts.com/css/berton-sans') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* Apply Berton Sans Book font to all elements */
+* {
+    font-family: 'Berton Sans Book', Arial, sans-serif;
 }
 
 body {
-    font-family: 'Berton Sans Book', Arial, Helvetica, sans-serif;
     margin: 0;
     padding: 20px;
     background-color: #f9f9f9;
@@ -69,7 +75,6 @@ select {
     border: 1px solid #ddd;
     border-radius: 4px;
     background-color: white;
-    font-family: 'Berton Sans Book', Arial, Helvetica, sans-serif;
     font-size: 14px;
     color: #333;
     cursor: pointer;
@@ -120,6 +125,11 @@ select:focus {
     padding: 50px 20px;
     color: #e15759;
     font-size: 16px;
+}
+
+/* SVG text elements */
+text, .axis-label, .circle-label {
+    font-family: 'Berton Sans Book', Arial, sans-serif !important;
 }
 
 /* Responsive adjustments */

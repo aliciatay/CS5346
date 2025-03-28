@@ -135,6 +135,12 @@ document.addEventListener('DOMContentLoaded', function() {
             if (filters.year !== 'All') {
                 filteredData = filteredData.filter(d => d.year === filters.year);
                 console.log(`After year filter (${filters.year}): ${filteredData.length} records`);
+                
+                // If no data for this specific year, show message
+                if (filteredData.length === 0) {
+                    showNoDataMessage(`No data available for the year ${filters.year}. Please select a different year.`);
+                    return;
+                }
             }
             
             // Filter by region or country depending on level
@@ -147,12 +153,22 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (filters.country !== 'All') {
                     filteredData = filteredData.filter(d => d.country === filters.country);
                     console.log(`After country filter (${filters.country}): ${filteredData.length} records`);
+                    
+                    // If no data for this specific country in this year, show message
+                    if (filteredData.length === 0) {
+                        if (filters.year !== 'All') {
+                            showNoDataMessage(`No data available for ${filters.country} in ${filters.year}. Try selecting 'All' for year or choose a different country.`);
+                        } else {
+                            showNoDataMessage(`No data available for ${filters.country}. Please select a different country.`);
+                        }
+                        return;
+                    }
                 }
             }
             
             // Check if we have enough data
             if (filteredData.length < 2) {
-                showNoDataMessage();
+                showNoDataMessage('Insufficient data for correlation calculation (need at least 2 data points).');
                 return;
             }
             
@@ -228,8 +244,8 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         // Show a message when no data is available
-        function showNoDataMessage() {
-            console.log("NO DATA AVAILABLE FOR SELECTED FILTERS");
+        function showNoDataMessage(message = 'Insufficient data for the selected filters. Please try different filter options.') {
+            console.log("NO DATA AVAILABLE:", message);
             
             // Clear previous chart
             const container = d3.select('#spider-chart').html('');
@@ -241,7 +257,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 .style('padding', '100px 20px')
                 .style('color', '#666')
                 .style('font-size', '16px')
-                .text('Insufficient data for the selected filters. Please try different filter options.');
+                .style('font-family', "'Berton Sans Book', Arial, sans-serif")
+                .text(message);
                 
             // Clear the legend as well
             d3.select('#chart-legend').html('');
@@ -255,7 +272,7 @@ document.addEventListener('DOMContentLoaded', function() {
             d3.select('#spider-chart').html('');
             
             // Set up dimensions and layout
-            const margin = { top: 80, right: 80, bottom: 80, left: 80 };
+            const margin = { top: 100, right: 100, bottom: 100, left: 100 };
             const width = Math.min(700, window.innerWidth - 10) - margin.left - margin.right;
             const height = Math.min(width, window.innerHeight - margin.top - margin.bottom - 200);
             const radius = Math.min(width, height) / 2;
@@ -297,7 +314,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 .attr('y', d => -radialScale(d))
                 .text(d => d.toFixed(1))
                 .style('font-size', '10px')
-                .style('fill', '#666');
+                .style('fill', '#666')
+                .style('font-family', "'Berton Sans Book', Arial, sans-serif");
             
             // Add axis lines
             const axes = svg.selectAll('.axis')
@@ -337,10 +355,13 @@ document.addEventListener('DOMContentLoaded', function() {
                     if (angle < -Math.PI * 0.25 || angle > Math.PI * 0.25) return '0.3em';
                     else return '0';
                 })
-                .attr('x', (d, i) => radialScale(1.3) * Math.cos(angleSlice * i - Math.PI / 2))
-                .attr('y', (d, i) => radialScale(1.3) * Math.sin(angleSlice * i - Math.PI / 2))
+                .attr('x', (d, i) => radialScale(1.4) * Math.cos(angleSlice * i - Math.PI / 2)) // Increased distance for labels
+                .attr('y', (d, i) => radialScale(1.4) * Math.sin(angleSlice * i - Math.PI / 2)) // Increased distance for labels
+                .style('font-family', "'Berton Sans Book', Arial, sans-serif")
+                .style('font-size', '12px') // Increased font size
+                .style('fill', '#333')
                 .text(d => FACTOR_NAMES[d])
-                .call(wrap, 80);
+                .call(wrap, 100); // Increased wrap width
             
             // Create radar path function
             const radarLine = d3.lineRadial()
@@ -382,7 +403,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 .style('display', 'flex')
                 .style('flex-wrap', 'wrap')
                 .style('justify-content', 'center')
-                .style('margin-top', '20px');
+                .style('margin-top', '20px')
+                .style('font-family', "'Berton Sans Book', Arial, sans-serif");
             
             data.forEach((d, i) => {
                 const legendItem = legend.append('div')
@@ -397,7 +419,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     .style('margin-right', '5px');
                     
                 legendItem.append('span')
-                    .text(d.name);
+                    .text(d.name)
+                    .style('font-family', "'Berton Sans Book', Arial, sans-serif");
             });
             
             // Helper function to wrap text
@@ -419,7 +442,8 @@ document.addEventListener('DOMContentLoaded', function() {
                         .attr('x', x)
                         .attr('y', y)
                         .attr('text-anchor', textAnchor)
-                        .attr('dy', dy + 'em');
+                        .attr('dy', dy + 'em')
+                        .style('font-family', "'Berton Sans Book', Arial, sans-serif");
                     
                     while (word = words.pop()) {
                         line.push(word);
@@ -435,6 +459,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                 .attr('y', y)
                                 .attr('text-anchor', textAnchor)
                                 .attr('dy', ++lineNumber * lineHeight + dy + 'em')
+                                .style('font-family', "'Berton Sans Book', Arial, sans-serif")
                                 .text(word);
                         }
                     }
