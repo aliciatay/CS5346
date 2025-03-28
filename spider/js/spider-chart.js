@@ -8,6 +8,10 @@ Promise.all([
     const factorNames = data[1];
     const correlationData = data[2];
     
+    // Debug the loaded data
+    console.log("Loaded correlation data:", correlationData.slice(0, 5));
+    console.log("Years in data:", [...new Set(correlationData.map(d => d.year))]);
+    
     // Initialize the visualization
     initFilters(filters);
     updateChart();
@@ -78,13 +82,14 @@ Promise.all([
         const selectedCountry = d3.select('#country-select').property('value');
         const selectedYear = d3.select('#year-select').property('value');
         
-        console.log("Filtering with year:", selectedYear);
+        console.log("Filter selections:", { level, selectedRegion, selectedCountry, selectedYear });
         
         // Start with all data and apply filters
-        let filtered = correlationData;
+        let filtered = JSON.parse(JSON.stringify(correlationData)); // Deep copy to avoid reference issues
         
         // Apply level filter
         filtered = filtered.filter(d => d.level === level);
+        console.log("After level filter:", filtered.length);
         
         // Apply filters based on level
         if (level === 'By Region') {
@@ -98,16 +103,33 @@ Promise.all([
                 filtered = filtered.filter(d => d.country === selectedCountry);
             }
         }
+        console.log("After region/country filter:", filtered.length);
         
         // Apply year filter if not 'All'
         if (selectedYear !== 'All') {
-            filtered = filtered.filter(d => {
-                console.log("Comparing:", d.year, selectedYear, typeof d.year, typeof selectedYear);
-                return d.year === selectedYear || d.year === 'All';
-            });
+            // First check if there's any data with the exact year
+            const exactYearData = filtered.filter(d => String(d.year) === String(selectedYear));
+            
+            if (exactYearData.length > 0) {
+                filtered = exactYearData;
+            } else {
+                // If no exact match, include 'All' years data
+                filtered = filtered.filter(d => String(d.year) === 'All');
+            }
+            
+            // Log details for debugging
+            console.log("Year comparison examples:", filtered.slice(0, 3).map(d => ({
+                year: d.year,
+                selectedYear,
+                yearType: typeof d.year,
+                selectedYearType: typeof selectedYear,
+                isMatch: String(d.year) === String(selectedYear) 
+            })));
         }
         
-        console.log("Filtered data count:", filtered.length);
+        console.log("Final filtered data count:", filtered.length);
+        console.log("Sample filtered data:", filtered.slice(0, 3));
+        
         return filtered;
     }
     
@@ -130,15 +152,25 @@ Promise.all([
             groupedData = d3.group(filteredData, d => d.country);
         }
         
+        console.log("Grouped data:", [...groupedData.keys()]);
+        
         // Format data for radar chart
         const chartData = [];
         groupedData.forEach((values, key) => {
             const item = { name: key };
+            // Create a factor map to handle duplicate factors (take the last one)
+            const factorMap = {};
             values.forEach(d => {
-                item[d.factor] = +d.correlation;
+                factorMap[d.factor] = +d.correlation;
+            });
+            // Add all factors to the chart data
+            Object.keys(factorMap).forEach(factor => {
+                item[factor] = factorMap[factor];
             });
             chartData.push(item);
         });
+        
+        console.log("Chart data:", chartData);
         
         // Get the unique factors from the data
         const factors = Object.keys(factorNames);
