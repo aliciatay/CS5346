@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happiness Factors Correlation Spider Chart</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Happiness Factors Correlation Spider Chart</h1>
+        <p>This visualization shows how different factors correlate with happiness scores across regions, countries and years.</p>
+        
+        <div class="filters">
+            <div class="filter-group">
+                <label for="level-select">Level:</label>
+                <select id="level-select">
+                    <option value="By Region">Region</option>
+                    <option value="By Country">Country</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label for="region-select">Region:</label>
+                <select id="region-select"></select>
+            </div>
+            <div class="filter-group">
+                <label for="country-select">Country:</label>
+                <select id="country-select"></select>
+            </div>
+            <div class="filter-group">
+                <label for="year-select">Year:</label>
+                <select id="year-select"></select>
+            </div>
+        </div>
+        
+        <div class="chart-container">
+            <div id="spider-chart"></div>
+        </div>
+        
+        <div class="legend" id="chart-legend"></div>
+    </div>
+
+    <script src="js/spider-chart.js"></script>
+</body>
+</html>

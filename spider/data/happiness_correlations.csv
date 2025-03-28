@@ -1,0 +1,1315 @@
+level,year,region,country,factor,correlation
+By Country,All,Central and Eastern Europe,Albania,freedom_to_make_life_choices,0.804500745974131
+By Country,All,Central and Eastern Europe,Albania,gdp_per_capita,0.747314725888237
+By Country,All,Central and Eastern Europe,Albania,generosity,-0.6231925885513757
+By Country,All,Central and Eastern Europe,Albania,healthy_life_expectancy,-0.6359361160384354
+By Country,All,Central and Eastern Europe,Albania,perceptions_of_corruption,-0.1753902295066266
+By Country,All,Central and Eastern Europe,Albania,social_support,0.0211703028251474
+By Country,All,Central and Eastern Europe,Armenia,freedom_to_make_life_choices,0.9708453029854904
+By Country,All,Central and Eastern Europe,Armenia,gdp_per_capita,0.8577252653587774
+By Country,All,Central and Eastern Europe,Armenia,generosity,-0.5769510479360129
+By Country,All,Central and Eastern Europe,Armenia,healthy_life_expectancy,-0.5291523507804394
+By Country,All,Central and Eastern Europe,Armenia,perceptions_of_corruption,0.9791637781789574
+By Country,All,Central and Eastern Europe,Armenia,social_support,0.0788526421432769
+By Country,All,Central and Eastern Europe,Bosnia and Herzegovina,freedom_to_make_life_choices,0.8480918157478998
+By Country,All,Central and Eastern Europe,Bosnia and Herzegovina,gdp_per_capita,0.6290994519251891
+By Country,All,Central and Eastern Europe,Bosnia and Herzegovina,generosity,-0.1749097854089271
+By Country,All,Central and Eastern Europe,Bosnia and Herzegovina,healthy_life_expectancy,-0.4372379030096787
+By Country,All,Central and Eastern Europe,Bosnia and Herzegovina,perceptions_of_corruption,0.6340182804956775
+By Country,All,Central and Eastern Europe,Bosnia and Herzegovina,social_support,0.391154024321671
+By Country,All,Central and Eastern Europe,Bulgaria,freedom_to_make_life_choices,0.8843745408705624
+By Country,All,Central and Eastern Europe,Bulgaria,gdp_per_capita,0.6549421282426682
+By Country,All,Central and Eastern Europe,Bulgaria,generosity,-0.19053487973401
+By Country,All,Central and Eastern Europe,Bulgaria,healthy_life_expectancy,-0.5167805747784014
+By Country,All,Central and Eastern Europe,Bulgaria,perceptions_of_corruption,0.2651320521081321
+By Country,All,Central and Eastern Europe,Bulgaria,social_support,0.4317936055697515
+By Country,All,Central and Eastern Europe,Croatia,freedom_to_make_life_choices,0.7616165231885952
+By Country,All,Central and Eastern Europe,Croatia,gdp_per_capita,0.8075126778761038
+By Country,All,Central and Eastern Europe,Croatia,generosity,-0.5818101329163055
+By Country,All,Central and Eastern Europe,Croatia,healthy_life_expectancy,-0.5487107479736971
+By Country,All,Central and Eastern Europe,Croatia,perceptions_of_corruption,-0.8502677494275598
+By Country,All,Central and Eastern Europe,Croatia,social_support,0.2920915605785545
+By Country,All,Central and Eastern Europe,Estonia,freedom_to_make_life_choices,0.9598712354131838
+By Country,All,Central and Eastern Europe,Estonia,gdp_per_capita,0.7839415194994791
+By Country,All,Central and Eastern Europe,Estonia,generosity,0.9155460313543168
+By Country,All,Central and Eastern Europe,Estonia,healthy_life_expectancy,-0.4136808241936031
+By Country,All,Central and Eastern Europe,Estonia,perceptions_of_corruption,0.8894718035166403
+By Country,All,Central and Eastern Europe,Estonia,social_support,0.1461806058777118
+By Country,All,Central and Eastern Europe,Georgia,freedom_to_make_life_choices,0.9091779080099562
+By Country,All,Central and Eastern Europe,Georgia,gdp_per_capita,0.8472926745774183
+By Country,All,Central and Eastern Europe,Georgia,generosity,-0.8893119969449227
+By Country,All,Central and Eastern Europe,Georgia,healthy_life_expectancy,-0.7356049808956625
+By Country,All,Central and Eastern Europe,Georgia,perceptions_of_corruption,-0.5971856987232748
+By Country,All,Central and Eastern Europe,Georgia,social_support,0.643783003302002
+By Country,All,Central and Eastern Europe,Hungary,freedom_to_make_life_choices,0.6489122667879826
+By Country,All,Central and Eastern Europe,Hungary,gdp_per_capita,0.5668816890447972
+By Country,All,Central and Eastern Europe,Hungary,generosity,-0.6074106264659342
+By Country,All,Central and Eastern Europe,Hungary,healthy_life_expectancy,-0.3049038455042235
+By Country,All,Central and Eastern Europe,Hungary,perceptions_of_corruption,0.3809039010343131
+By Country,All,Central and Eastern Europe,Hungary,social_support,0.4188266691064846
+By Country,All,Central and Eastern Europe,Kosovo,freedom_to_make_life_choices,0.9346339651237358
+By Country,All,Central and Eastern Europe,Kosovo,gdp_per_capita,0.5316885460229529
+By Country,All,Central and Eastern Europe,Kosovo,generosity,0.284051146960447
+By Country,All,Central and Eastern Europe,Kosovo,healthy_life_expectancy,-0.101886581861927
+By Country,All,Central and Eastern Europe,Kosovo,perceptions_of_corruption,-0.6380836124936577
+By Country,All,Central and Eastern Europe,Kosovo,social_support,0.2413421883410733
+By Country,All,Central and Eastern Europe,Latvia,freedom_to_make_life_choices,0.6569995090350453
+By Country,All,Central and Eastern Europe,Latvia,gdp_per_capita,0.6266870424079045
+By Country,All,Central and Eastern Europe,Latvia,generosity,-0.8077132141688586
+By Country,All,Central and Eastern Europe,Latvia,healthy_life_expectancy,-0.3945905770316805
+By Country,All,Central and Eastern Europe,Latvia,perceptions_of_corruption,0.3127626093944081
+By Country,All,Central and Eastern Europe,Latvia,social_support,0.5185576148841575
+By Country,All,Central and Eastern Europe,Lithuania,freedom_to_make_life_choices,0.8709404506776355
+By Country,All,Central and Eastern Europe,Lithuania,gdp_per_capita,0.8329231996195935
+By Country,All,Central and Eastern Europe,Lithuania,generosity,0.8582162400188773
+By Country,All,Central and Eastern Europe,Lithuania,healthy_life_expectancy,-0.5440488072415764
+By Country,All,Central and Eastern Europe,Lithuania,perceptions_of_corruption,0.8901894488125977
+By Country,All,Central and Eastern Europe,Lithuania,social_support,0.1861836182755668
+By Country,All,Central and Eastern Europe,Moldova,freedom_to_make_life_choices,0.2685310642939684
+By Country,All,Central and Eastern Europe,Moldova,gdp_per_capita,0.3080212978930097
+By Country,All,Central and Eastern Europe,Moldova,generosity,-0.050107236136805
+By Country,All,Central and Eastern Europe,Moldova,healthy_life_expectancy,-0.6450909000431321
+By Country,All,Central and Eastern Europe,Moldova,perceptions_of_corruption,0.7335051621041303
+By Country,All,Central and Eastern Europe,Moldova,social_support,-0.6316108253486732
+By Country,All,Central and Eastern Europe,Montenegro,freedom_to_make_life_choices,0.8462661189062868
+By Country,All,Central and Eastern Europe,Montenegro,gdp_per_capita,0.5988000034831366
+By Country,All,Central and Eastern Europe,Montenegro,generosity,-0.222309011082883
+By Country,All,Central and Eastern Europe,Montenegro,healthy_life_expectancy,-0.2302939402483743
+By Country,All,Central and Eastern Europe,Montenegro,perceptions_of_corruption,-0.7880004375516608
+By Country,All,Central and Eastern Europe,Montenegro,social_support,0.5023028656592444
+By Country,All,Central and Eastern Europe,North Macedonia,freedom_to_make_life_choices,0.36307745080938
+By Country,All,Central and Eastern Europe,North Macedonia,gdp_per_capita,0.4585955835870541
+By Country,All,Central and Eastern Europe,North Macedonia,generosity,-0.3808576594852603
+By Country,All,Central and Eastern Europe,North Macedonia,healthy_life_expectancy,-0.0872660694826129
+By Country,All,Central and Eastern Europe,North Macedonia,perceptions_of_corruption,-0.3754300572465833
+By Country,All,Central and Eastern Europe,North Macedonia,social_support,0.5467551121261952
+By Country,All,Central and Eastern Europe,Poland,freedom_to_make_life_choices,0.35782492191291
+By Country,All,Central and Eastern Europe,Poland,gdp_per_capita,0.4376240565205192
+By Country,All,Central and Eastern Europe,Poland,generosity,-0.7505742299028922
+By Country,All,Central and Eastern Europe,Poland,healthy_life_expectancy,-0.1266293481212639
+By Country,All,Central and Eastern Europe,Poland,perceptions_of_corruption,0.6768629568342107
+By Country,All,Central and Eastern Europe,Poland,social_support,0.2923481164579833
+By Country,All,Central and Eastern Europe,Romania,freedom_to_make_life_choices,0.9476902717898014
+By Country,All,Central and Eastern Europe,Romania,gdp_per_capita,0.7770822374537963
+By Country,All,Central and Eastern Europe,Romania,generosity,-0.8958856567577771
+By Country,All,Central and Eastern Europe,Romania,healthy_life_expectancy,-0.5249299631678849
+By Country,All,Central and Eastern Europe,Romania,perceptions_of_corruption,-0.5645743862112298
+By Country,All,Central and Eastern Europe,Romania,social_support,0.5283865802684358
+By Country,All,Central and Eastern Europe,Russia,freedom_to_make_life_choices,-0.4183408076221294
+By Country,All,Central and Eastern Europe,Russia,gdp_per_capita,-0.3125247026380293
+By Country,All,Central and Eastern Europe,Russia,generosity,-0.6942872047344095
+By Country,All,Central and Eastern Europe,Russia,healthy_life_expectancy,-0.0223418061437412
+By Country,All,Central and Eastern Europe,Russia,perceptions_of_corruption,-0.5927199854176042
+By Country,All,Central and Eastern Europe,Russia,social_support,0.4381800562376245
+By Country,All,Central and Eastern Europe,Serbia,freedom_to_make_life_choices,0.9633472054104868
+By Country,All,Central and Eastern Europe,Serbia,gdp_per_capita,0.7699664655836473
+By Country,All,Central and Eastern Europe,Serbia,generosity,0.2820814807589969
+By Country,All,Central and Eastern Europe,Serbia,healthy_life_expectancy,-0.3869853391145103
+By Country,All,Central and Eastern Europe,Serbia,perceptions_of_corruption,0.928921051451747
+By Country,All,Central and Eastern Europe,Serbia,social_support,0.1793730101421879
+By Country,All,Central and Eastern Europe,Slovakia,freedom_to_make_life_choices,0.9149020122031942
+By Country,All,Central and Eastern Europe,Slovakia,gdp_per_capita,0.7572845175570151
+By Country,All,Central and Eastern Europe,Slovakia,generosity,-0.6923907325067807
+By Country,All,Central and Eastern Europe,Slovakia,healthy_life_expectancy,-0.5413242512568192
+By Country,All,Central and Eastern Europe,Slovakia,perceptions_of_corruption,-0.4256308026669276
+By Country,All,Central and Eastern Europe,Slovakia,social_support,0.1073378197235854
+By Country,All,Central and Eastern Europe,Slovenia,freedom_to_make_life_choices,0.8702846572975308
+By Country,All,Central and Eastern Europe,Slovenia,gdp_per_capita,0.7255886572612481
+By Country,All,Central and Eastern Europe,Slovenia,generosity,-0.858976470325873
+By Country,All,Central and Eastern Europe,Slovenia,healthy_life_expectancy,-0.4811644679199643
+By Country,All,Central and Eastern Europe,Slovenia,perceptions_of_corruption,0.972805538832262
+By Country,All,Central and Eastern Europe,Slovenia,social_support,0.0889482643170547
+By Country,All,Central and Eastern Europe,Ukraine,freedom_to_make_life_choices,0.948092273911285
+By Country,All,Central and Eastern Europe,Ukraine,gdp_per_capita,0.7772313945159333
+By Country,All,Central and Eastern Europe,Ukraine,generosity,-0.0766792103753551
+By Country,All,Central and Eastern Europe,Ukraine,healthy_life_expectancy,-0.4953881080906377
+By Country,All,Central and Eastern Europe,Ukraine,perceptions_of_corruption,0.0057579228217287
+By Country,All,Central and Eastern Europe,Ukraine,social_support,-0.4568753961973606
+By Country,All,Commonwealth of Independent States,Kazakhstan,freedom_to_make_life_choices,0.8322651720721727
+By Country,All,Commonwealth of Independent States,Kazakhstan,gdp_per_capita,0.6896620762554174
+By Country,All,Commonwealth of Independent States,Kazakhstan,generosity,-0.3387680571155132
+By Country,All,Commonwealth of Independent States,Kazakhstan,healthy_life_expectancy,-0.5037580090894899
+By Country,All,Commonwealth of Independent States,Kazakhstan,perceptions_of_corruption,0.7608380036727442
+By Country,All,Commonwealth of Independent States,Kazakhstan,social_support,-0.19943588414348
+By Country,All,Commonwealth of Independent States,Kyrgyzstan,freedom_to_make_life_choices,0.9052832463744884
+By Country,All,Commonwealth of Independent States,Kyrgyzstan,gdp_per_capita,0.7554437097238352
+By Country,All,Commonwealth of Independent States,Kyrgyzstan,generosity,-0.8176055785317764
+By Country,All,Commonwealth of Independent States,Kyrgyzstan,healthy_life_expectancy,-0.311608972954622
+By Country,All,Commonwealth of Independent States,Kyrgyzstan,perceptions_of_corruption,-0.7568742440387214
+By Country,All,Commonwealth of Independent States,Kyrgyzstan,social_support,-0.2263868629596713
+By Country,All,Commonwealth of Independent States,Tajikistan,freedom_to_make_life_choices,0.2763239598944034
+By Country,All,Commonwealth of Independent States,Tajikistan,gdp_per_capita,0.3134310371731516
+By Country,All,Commonwealth of Independent States,Tajikistan,generosity,-0.5652375822014674
+By Country,All,Commonwealth of Independent States,Tajikistan,healthy_life_expectancy,0.1419522884636143
+By Country,All,Commonwealth of Independent States,Tajikistan,perceptions_of_corruption,0.4657510291645507
+By Country,All,Commonwealth of Independent States,Tajikistan,social_support,0.3894606262936296
+By Country,All,Commonwealth of Independent States,Uzbekistan,freedom_to_make_life_choices,0.2190152274106548
+By Country,All,Commonwealth of Independent States,Uzbekistan,gdp_per_capita,-0.2425877079742589
+By Country,All,Commonwealth of Independent States,Uzbekistan,generosity,0.2823718860508293
+By Country,All,Commonwealth of Independent States,Uzbekistan,healthy_life_expectancy,0.6833921222289938
+By Country,All,Commonwealth of Independent States,Uzbekistan,perceptions_of_corruption,0.0897003171739843
+By Country,All,Commonwealth of Independent States,Uzbekistan,social_support,0.025850025847731
+By Country,All,East Asia,China,freedom_to_make_life_choices,0.6244069831660111
+By Country,All,East Asia,China,gdp_per_capita,0.9467184885796504
+By Country,All,East Asia,China,generosity,0.6161274191659407
+By Country,All,East Asia,China,healthy_life_expectancy,-0.8969558668844507
+By Country,All,East Asia,China,perceptions_of_corruption,0.5848953536714784
+By Country,All,East Asia,China,social_support,0.2317324728778046
+By Country,All,East Asia,Hong Kong S.A.R. of China,freedom_to_make_life_choices,0.3811038757044085
+By Country,All,East Asia,Hong Kong S.A.R. of China,gdp_per_capita,-0.7239975970177318
+By Country,All,East Asia,Hong Kong S.A.R. of China,generosity,0.6678713453136655
+By Country,All,East Asia,Hong Kong S.A.R. of China,healthy_life_expectancy,0.7124338745404933
+By Country,All,East Asia,Hong Kong S.A.R. of China,perceptions_of_corruption,-0.396959103588338
+By Country,All,East Asia,Hong Kong S.A.R. of China,social_support,-0.1768904110915345
+By Country,All,East Asia,Japan,freedom_to_make_life_choices,0.633393262572112
+By Country,All,East Asia,Japan,gdp_per_capita,0.8540424562315455
+By Country,All,East Asia,Japan,generosity,-0.4834089125848395
+By Country,All,East Asia,Japan,healthy_life_expectancy,-0.8547954602716211
+By Country,All,East Asia,Japan,perceptions_of_corruption,0.7028787261125785
+By Country,All,East Asia,Japan,social_support,-0.0861231264333002
+By Country,All,East Asia,Mongolia,freedom_to_make_life_choices,0.1029112004904785
+By Country,All,East Asia,Mongolia,gdp_per_capita,0.7001849642143371
+By Country,All,East Asia,Mongolia,generosity,-0.79006088262626
+By Country,All,East Asia,Mongolia,healthy_life_expectancy,-0.6831968864861044
+By Country,All,East Asia,Mongolia,perceptions_of_corruption,0.9767187991325912
+By Country,All,East Asia,Mongolia,social_support,-0.0713019005087391
+By Country,All,East Asia,South Korea,freedom_to_make_life_choices,0.5198534664228062
+By Country,All,East Asia,South Korea,gdp_per_capita,0.3729579897555345
+By Country,All,East Asia,South Korea,generosity,-0.4005537445875115
+By Country,All,East Asia,South Korea,healthy_life_expectancy,-0.2028136246033974
+By Country,All,East Asia,South Korea,perceptions_of_corruption,0.371417058718035
+By Country,All,East Asia,South Korea,social_support,0.2048488053257615
+By Country,All,East Asia,Taiwan Province of China,freedom_to_make_life_choices,0.7125327971643689
+By Country,All,East Asia,Taiwan Province of China,gdp_per_capita,0.6109780877955012
+By Country,All,East Asia,Taiwan Province of China,generosity,-0.7589325552289414
+By Country,All,East Asia,Taiwan Province of China,healthy_life_expectancy,-0.656226183457978
+By Country,All,East Asia,Taiwan Province of China,perceptions_of_corruption,0.7525264035489506
+By Country,All,East Asia,Taiwan Province of China,social_support,0.065297113137013
+By Country,All,Latin America and Caribbean,Argentina,freedom_to_make_life_choices,-0.6436806795219686
+By Country,All,Latin America and Caribbean,Argentina,gdp_per_capita,-0.3932589229414992
+By Country,All,Latin America and Caribbean,Argentina,generosity,0.7422396613303476
+By Country,All,Latin America and Caribbean,Argentina,healthy_life_expectancy,0.1564366783303714
+By Country,All,Latin America and Caribbean,Argentina,perceptions_of_corruption,0.0011365024438375
+By Country,All,Latin America and Caribbean,Argentina,social_support,0.1284631829733627
+By Country,All,Latin America and Caribbean,Bolivia,freedom_to_make_life_choices,-0.6605438964022858
+By Country,All,Latin America and Caribbean,Bolivia,gdp_per_capita,-0.8077474848337419
+By Country,All,Latin America and Caribbean,Bolivia,generosity,0.8402836939916968
+By Country,All,Latin America and Caribbean,Bolivia,healthy_life_expectancy,0.1166090650521442
+By Country,All,Latin America and Caribbean,Bolivia,perceptions_of_corruption,0.572204389425889
+By Country,All,Latin America and Caribbean,Bolivia,social_support,0.1432692519867679
+By Country,All,Latin America and Caribbean,Brazil,freedom_to_make_life_choices,-0.4735349406138409
+By Country,All,Latin America and Caribbean,Brazil,gdp_per_capita,-0.4349820755656259
+By Country,All,Latin America and Caribbean,Brazil,generosity,0.6011163146939357
+By Country,All,Latin America and Caribbean,Brazil,healthy_life_expectancy,0.2510015604469371
+By Country,All,Latin America and Caribbean,Brazil,perceptions_of_corruption,0.5511343651001154
+By Country,All,Latin America and Caribbean,Brazil,social_support,-0.114629553095405
+By Country,All,Latin America and Caribbean,Chile,freedom_to_make_life_choices,-0.442370783842627
+By Country,All,Latin America and Caribbean,Chile,gdp_per_capita,-0.3918581022303279
+By Country,All,Latin America and Caribbean,Chile,generosity,0.9286222566121723
+By Country,All,Latin America and Caribbean,Chile,healthy_life_expectancy,0.3727014251521299
+By Country,All,Latin America and Caribbean,Chile,perceptions_of_corruption,0.6909688672403609
+By Country,All,Latin America and Caribbean,Chile,social_support,-0.0570898288859441
+By Country,All,Latin America and Caribbean,Colombia,freedom_to_make_life_choices,-0.6359277006620183
+By Country,All,Latin America and Caribbean,Colombia,gdp_per_capita,-0.8185156155395221
+By Country,All,Latin America and Caribbean,Colombia,generosity,0.8304320788438846
+By Country,All,Latin America and Caribbean,Colombia,healthy_life_expectancy,0.1707731844467518
+By Country,All,Latin America and Caribbean,Colombia,perceptions_of_corruption,-0.6306736923519672
+By Country,All,Latin America and Caribbean,Colombia,social_support,0.3086056986712611
+By Country,All,Latin America and Caribbean,Costa Rica,freedom_to_make_life_choices,-0.5457524328474037
+By Country,All,Latin America and Caribbean,Costa Rica,gdp_per_capita,-0.984371914434344
+By Country,All,Latin America and Caribbean,Costa Rica,generosity,0.646624288850484
+By Country,All,Latin America and Caribbean,Costa Rica,healthy_life_expectancy,0.726226422445802
+By Country,All,Latin America and Caribbean,Costa Rica,perceptions_of_corruption,-0.4617852423401479
+By Country,All,Latin America and Caribbean,Costa Rica,social_support,0.2171692047563573
+By Country,All,Latin America and Caribbean,Dominican Republic,freedom_to_make_life_choices,0.3355012293013444
+By Country,All,Latin America and Caribbean,Dominican Republic,gdp_per_capita,0.6177483662572933
+By Country,All,Latin America and Caribbean,Dominican Republic,generosity,-0.8964191686680134
+By Country,All,Latin America and Caribbean,Dominican Republic,healthy_life_expectancy,-0.1356510139201896
+By Country,All,Latin America and Caribbean,Dominican Republic,perceptions_of_corruption,0.3499583091901784
+By Country,All,Latin America and Caribbean,Dominican Republic,social_support,-0.1294922699293403
+By Country,All,Latin America and Caribbean,Ecuador,freedom_to_make_life_choices,-0.6091192365463705
+By Country,All,Latin America and Caribbean,Ecuador,gdp_per_capita,-0.884132806195763
+By Country,All,Latin America and Caribbean,Ecuador,generosity,0.8299521429851765
+By Country,All,Latin America and Caribbean,Ecuador,healthy_life_expectancy,0.6539806589590536
+By Country,All,Latin America and Caribbean,Ecuador,perceptions_of_corruption,0.5965469949454355
+By Country,All,Latin America and Caribbean,Ecuador,social_support,0.4162972415412606
+By Country,All,Latin America and Caribbean,El Salvador,freedom_to_make_life_choices,-0.0093711496935675
+By Country,All,Latin America and Caribbean,El Salvador,gdp_per_capita,-0.3141020502140043
+By Country,All,Latin America and Caribbean,El Salvador,generosity,0.3521121630231852
+By Country,All,Latin America and Caribbean,El Salvador,healthy_life_expectancy,0.6148897162553048
+By Country,All,Latin America and Caribbean,El Salvador,perceptions_of_corruption,-0.1890395427404105
+By Country,All,Latin America and Caribbean,El Salvador,social_support,0.4616213604246637
+By Country,All,Latin America and Caribbean,Guatemala,freedom_to_make_life_choices,-0.2721805838632492
+By Country,All,Latin America and Caribbean,Guatemala,gdp_per_capita,-0.4617142258938981
+By Country,All,Latin America and Caribbean,Guatemala,generosity,0.1067837225015659
+By Country,All,Latin America and Caribbean,Guatemala,healthy_life_expectancy,0.4368288799246286
+By Country,All,Latin America and Caribbean,Guatemala,perceptions_of_corruption,-0.0025807304495159
+By Country,All,Latin America and Caribbean,Guatemala,social_support,0.1712790403673113
+By Country,All,Latin America and Caribbean,Honduras,freedom_to_make_life_choices,0.9219091340161892
+By Country,All,Latin America and Caribbean,Honduras,gdp_per_capita,0.4786670308113167
+By Country,All,Latin America and Caribbean,Honduras,generosity,0.048699507375955
+By Country,All,Latin America and Caribbean,Honduras,healthy_life_expectancy,-0.1007706503554009
+By Country,All,Latin America and Caribbean,Honduras,perceptions_of_corruption,0.4207633916464406
+By Country,All,Latin America and Caribbean,Honduras,social_support,0.2477276879661696
+By Country,All,Latin America and Caribbean,Jamaica,freedom_to_make_life_choices,0.7506610017042572
+By Country,All,Latin America and Caribbean,Jamaica,gdp_per_capita,-0.096312072194031
+By Country,All,Latin America and Caribbean,Jamaica,generosity,-0.7172912008363952
+By Country,All,Latin America and Caribbean,Jamaica,healthy_life_expectancy,0.1742507996773943
+By Country,All,Latin America and Caribbean,Jamaica,perceptions_of_corruption,-0.4698749960043028
+By Country,All,Latin America and Caribbean,Jamaica,social_support,-0.1826555746337964
+By Country,All,Latin America and Caribbean,Mexico,freedom_to_make_life_choices,-0.6453702616659609
+By Country,All,Latin America and Caribbean,Mexico,gdp_per_capita,-0.6216423243136138
+By Country,All,Latin America and Caribbean,Mexico,generosity,0.6949391665522751
+By Country,All,Latin America and Caribbean,Mexico,healthy_life_expectancy,0.5210395743375053
+By Country,All,Latin America and Caribbean,Mexico,perceptions_of_corruption,0.7502469704089324
+By Country,All,Latin America and Caribbean,Mexico,social_support,-0.1446287866945004
+By Country,All,Latin America and Caribbean,Nicaragua,freedom_to_make_life_choices,0.358998186359915
+By Country,All,Latin America and Caribbean,Nicaragua,gdp_per_capita,0.6599270029916339
+By Country,All,Latin America and Caribbean,Nicaragua,generosity,-0.6866940472947213
+By Country,All,Latin America and Caribbean,Nicaragua,healthy_life_expectancy,-0.3841833451503613
+By Country,All,Latin America and Caribbean,Nicaragua,perceptions_of_corruption,0.0896145440653063
+By Country,All,Latin America and Caribbean,Nicaragua,social_support,0.4828199395188861
+By Country,All,Latin America and Caribbean,Panama,freedom_to_make_life_choices,-0.6474098685727774
+By Country,All,Latin America and Caribbean,Panama,gdp_per_capita,-0.4733702843505353
+By Country,All,Latin America and Caribbean,Panama,generosity,0.90997541346963
+By Country,All,Latin America and Caribbean,Panama,healthy_life_expectancy,0.1928305456086668
+By Country,All,Latin America and Caribbean,Panama,perceptions_of_corruption,0.9307514730876464
+By Country,All,Latin America and Caribbean,Panama,social_support,-0.198110335625704
+By Country,All,Latin America and Caribbean,Paraguay,freedom_to_make_life_choices,0.3219064800777215
+By Country,All,Latin America and Caribbean,Paraguay,gdp_per_capita,-0.2023773147739277
+By Country,All,Latin America and Caribbean,Paraguay,generosity,0.2917858998474671
+By Country,All,Latin America and Caribbean,Paraguay,healthy_life_expectancy,0.1871388336269633
+By Country,All,Latin America and Caribbean,Paraguay,perceptions_of_corruption,0.0002891235945431
+By Country,All,Latin America and Caribbean,Paraguay,social_support,0.1937896907063548
+By Country,All,Latin America and Caribbean,Peru,freedom_to_make_life_choices,-0.4505495034104631
+By Country,All,Latin America and Caribbean,Peru,gdp_per_capita,-0.8526652451022644
+By Country,All,Latin America and Caribbean,Peru,generosity,0.4794428314781783
+By Country,All,Latin America and Caribbean,Peru,healthy_life_expectancy,0.3310517795240421
+By Country,All,Latin America and Caribbean,Peru,perceptions_of_corruption,0.3385142787002702
+By Country,All,Latin America and Caribbean,Peru,social_support,-0.1940837915974662
+By Country,All,Latin America and Caribbean,Uruguay,freedom_to_make_life_choices,0.3313712572363159
+By Country,All,Latin America and Caribbean,Uruguay,gdp_per_capita,0.3530649294267634
+By Country,All,Latin America and Caribbean,Uruguay,generosity,0.3240143084558025
+By Country,All,Latin America and Caribbean,Uruguay,healthy_life_expectancy,-0.5113031635623342
+By Country,All,Latin America and Caribbean,Uruguay,perceptions_of_corruption,0.7255975927911761
+By Country,All,Latin America and Caribbean,Uruguay,social_support,-0.5524393040896469
+By Country,All,Latin America and Caribbean,Venezuela,freedom_to_make_life_choices,0.5400723375867782
+By Country,All,Latin America and Caribbean,Venezuela,gdp_per_capita,0.3123886833843676
+By Country,All,Latin America and Caribbean,Venezuela,generosity,-0.2838987620529551
+By Country,All,Latin America and Caribbean,Venezuela,healthy_life_expectancy,0.0605832936345906
+By Country,All,Latin America and Caribbean,Venezuela,perceptions_of_corruption,0.8293016375626793
+By Country,All,Latin America and Caribbean,Venezuela,social_support,-0.1318572040728613
+By Country,All,Middle East and North Africa,Algeria,freedom_to_make_life_choices,0.5979809096617595
+By Country,All,Middle East and North Africa,Algeria,gdp_per_capita,0.0014113986669535
+By Country,All,Middle East and North Africa,Algeria,generosity,-0.6146819007264773
+By Country,All,Middle East and North Africa,Algeria,healthy_life_expectancy,-0.1194211884066644
+By Country,All,Middle East and North Africa,Algeria,perceptions_of_corruption,0.641243413927317
+By Country,All,Middle East and North Africa,Algeria,social_support,-0.1166494104131277
+By Country,All,Middle East and North Africa,Bahrain,freedom_to_make_life_choices,0.5816268549771471
+By Country,All,Middle East and North Africa,Bahrain,gdp_per_capita,0.3860183235817966
+By Country,All,Middle East and North Africa,Bahrain,generosity,0.2423207809240234
+By Country,All,Middle East and North Africa,Bahrain,healthy_life_expectancy,-0.1383843888282606
+By Country,All,Middle East and North Africa,Bahrain,perceptions_of_corruption,-0.4391925333398326
+By Country,All,Middle East and North Africa,Bahrain,social_support,-0.6906555870434316
+By Country,All,Middle East and North Africa,Egypt,freedom_to_make_life_choices,-0.1790677035503337
+By Country,All,Middle East and North Africa,Egypt,gdp_per_capita,-0.1069764905627258
+By Country,All,Middle East and North Africa,Egypt,generosity,0.5965657914545042
+By Country,All,Middle East and North Africa,Egypt,healthy_life_expectancy,-0.0566491094374322
+By Country,All,Middle East and North Africa,Egypt,perceptions_of_corruption,-0.0627264495264673
+By Country,All,Middle East and North Africa,Egypt,social_support,0.0620758856270762
+By Country,All,Middle East and North Africa,Iran,freedom_to_make_life_choices,-0.2523963105997393
+By Country,All,Middle East and North Africa,Iran,gdp_per_capita,0.7505375614371705
+By Country,All,Middle East and North Africa,Iran,generosity,-0.2354767474282672
+By Country,All,Middle East and North Africa,Iran,healthy_life_expectancy,-0.7218509398610554
+By Country,All,Middle East and North Africa,Iran,perceptions_of_corruption,0.0938054256077091
+By Country,All,Middle East and North Africa,Iran,social_support,0.043172573994427
+By Country,All,Middle East and North Africa,Iraq,freedom_to_make_life_choices,0.2533502938534498
+By Country,All,Middle East and North Africa,Iraq,gdp_per_capita,0.414853929740701
+By Country,All,Middle East and North Africa,Iraq,generosity,-0.4622326303036295
+By Country,All,Middle East and North Africa,Iraq,healthy_life_expectancy,-0.5214412665022632
+By Country,All,Middle East and North Africa,Iraq,perceptions_of_corruption,-0.7051482539887524
+By Country,All,Middle East and North Africa,Iraq,social_support,-0.3363246725572545
+By Country,All,Middle East and North Africa,Israel,freedom_to_make_life_choices,0.1194705910951198
+By Country,All,Middle East and North Africa,Israel,gdp_per_capita,0.6497765155011438
+By Country,All,Middle East and North Africa,Israel,generosity,-0.639779257009677
+By Country,All,Middle East and North Africa,Israel,healthy_life_expectancy,-0.5483644435229138
+By Country,All,Middle East and North Africa,Israel,perceptions_of_corruption,-0.5121846293801315
+By Country,All,Middle East and North Africa,Israel,social_support,-0.2945066984846197
+By Country,All,Middle East and North Africa,Jordan,freedom_to_make_life_choices,-0.7277649735838387
+By Country,All,Middle East and North Africa,Jordan,gdp_per_capita,-0.5874846943943508
+By Country,All,Middle East and North Africa,Jordan,generosity,0.943129058185774
+By Country,All,Middle East and North Africa,Jordan,healthy_life_expectancy,0.2792090608974159
+By Country,All,Middle East and North Africa,Jordan,perceptions_of_corruption,-0.864817539559221
+By Country,All,Middle East and North Africa,Jordan,social_support,0.5735020974650905
+By Country,All,Middle East and North Africa,Lebanon,freedom_to_make_life_choices,0.6903440365591703
+By Country,All,Middle East and North Africa,Lebanon,gdp_per_capita,-0.8914466082619097
+By Country,All,Middle East and North Africa,Lebanon,generosity,0.8805257319243689
+By Country,All,Middle East and North Africa,Lebanon,healthy_life_expectancy,0.8461385541881685
+By Country,All,Middle East and North Africa,Lebanon,perceptions_of_corruption,0.3213291075589315
+By Country,All,Middle East and North Africa,Lebanon,social_support,0.778380960188868
+By Country,All,Middle East and North Africa,Morocco,freedom_to_make_life_choices,-0.4806266065087716
+By Country,All,Middle East and North Africa,Morocco,gdp_per_capita,-0.3962060439610462
+By Country,All,Middle East and North Africa,Morocco,generosity,0.0294766298845057
+By Country,All,Middle East and North Africa,Morocco,healthy_life_expectancy,0.6678502874578546
+By Country,All,Middle East and North Africa,Morocco,perceptions_of_corruption,-0.4105418379627482
+By Country,All,Middle East and North Africa,Morocco,social_support,0.6506106847595391
+By Country,All,Middle East and North Africa,Saudi Arabia,freedom_to_make_life_choices,0.7049058165690255
+By Country,All,Middle East and North Africa,Saudi Arabia,gdp_per_capita,0.6088512599527641
+By Country,All,Middle East and North Africa,Saudi Arabia,generosity,-0.5543332500933859
+By Country,All,Middle East and North Africa,Saudi Arabia,healthy_life_expectancy,-0.4263032556760102
+By Country,All,Middle East and North Africa,Saudi Arabia,perceptions_of_corruption,-0.2643738156041663
+By Country,All,Middle East and North Africa,Saudi Arabia,social_support,-0.294594599806645
+By Country,All,Middle East and North Africa,Tunisia,freedom_to_make_life_choices,0.0958628059266597
+By Country,All,Middle East and North Africa,Tunisia,gdp_per_capita,-0.1794178362378118
+By Country,All,Middle East and North Africa,Tunisia,generosity,0.0139667040500682
+By Country,All,Middle East and North Africa,Tunisia,healthy_life_expectancy,-0.2476325753168832
+By Country,All,Middle East and North Africa,Tunisia,perceptions_of_corruption,0.7518450441337052
+By Country,All,Middle East and North Africa,Tunisia,social_support,-0.5966755498699189
+By Country,All,Middle East and North Africa,United Arab Emirates,freedom_to_make_life_choices,-0.3318044043039206
+By Country,All,Middle East and North Africa,United Arab Emirates,gdp_per_capita,-0.3995534795603286
+By Country,All,Middle East and North Africa,United Arab Emirates,generosity,0.1770781861057298
+By Country,All,Middle East and North Africa,United Arab Emirates,healthy_life_expectancy,0.7036441059950816
+By Country,All,Middle East and North Africa,United Arab Emirates,perceptions_of_corruption,0.094341104647048
+By Country,All,Middle East and North Africa,United Arab Emirates,social_support,0.3334462603308255
+By Country,All,North America and ANZ,Australia,freedom_to_make_life_choices,-0.6069020443550819
+By Country,All,North America and ANZ,Australia,gdp_per_capita,-0.7537613278727212
+By Country,All,North America and ANZ,Australia,generosity,0.923196620528786
+By Country,All,North America and ANZ,Australia,healthy_life_expectancy,0.6538804222818
+By Country,All,North America and ANZ,Australia,perceptions_of_corruption,0.0383930558874222
+By Country,All,North America and ANZ,Australia,social_support,-0.0217337982685412
+By Country,All,North America and ANZ,Canada,freedom_to_make_life_choices,-0.6128427885776112
+By Country,All,North America and ANZ,Canada,gdp_per_capita,-0.8099988360643248
+By Country,All,North America and ANZ,Canada,generosity,0.885890936719752
+By Country,All,North America and ANZ,Canada,healthy_life_expectancy,0.6307498280076483
+By Country,All,North America and ANZ,Canada,perceptions_of_corruption,-0.7346616385540292
+By Country,All,North America and ANZ,Canada,social_support,0.0931174035092008
+By Country,All,North America and ANZ,New Zealand,freedom_to_make_life_choices,-0.6038132453242901
+By Country,All,North America and ANZ,New Zealand,gdp_per_capita,-0.8896793532165154
+By Country,All,North America and ANZ,New Zealand,generosity,0.7069770826813953
+By Country,All,North America and ANZ,New Zealand,healthy_life_expectancy,0.7999068433852694
+By Country,All,North America and ANZ,New Zealand,perceptions_of_corruption,-0.7218541153889374
+By Country,All,North America and ANZ,New Zealand,social_support,-0.015765563844625
+By Country,All,North America and ANZ,United States,freedom_to_make_life_choices,-0.0886707238984612
+By Country,All,North America and ANZ,United States,gdp_per_capita,-0.1882654888910776
+By Country,All,North America and ANZ,United States,generosity,0.7666266951356933
+By Country,All,North America and ANZ,United States,healthy_life_expectancy,0.2964913537126942
+By Country,All,North America and ANZ,United States,perceptions_of_corruption,0.1956883763924711
+By Country,All,North America and ANZ,United States,social_support,-0.6114271697774419
+By Country,All,South Asia,Afghanistan,freedom_to_make_life_choices,0.7153813209276592
+By Country,All,South Asia,Afghanistan,gdp_per_capita,-0.6250767881255734
+By Country,All,South Asia,Afghanistan,generosity,0.8215628559470347
+By Country,All,South Asia,Afghanistan,healthy_life_expectancy,0.3868331102621036
+By Country,All,South Asia,Afghanistan,perceptions_of_corruption,0.4779542152786342
+By Country,All,South Asia,Afghanistan,social_support,0.7495758335288432
+By Country,All,South Asia,Bangladesh,freedom_to_make_life_choices,0.2199917650454377
+By Country,All,South Asia,Bangladesh,gdp_per_capita,0.049481471567639
+By Country,All,South Asia,Bangladesh,generosity,-0.1239715611095281
+By Country,All,South Asia,Bangladesh,healthy_life_expectancy,0.2490257575572756
+By Country,All,South Asia,Bangladesh,perceptions_of_corruption,0.4886313502807391
+By Country,All,South Asia,Bangladesh,social_support,-0.129054897062112
+By Country,All,South Asia,India,freedom_to_make_life_choices,-0.7771105398127605
+By Country,All,South Asia,India,gdp_per_capita,-0.3557927612068782
+By Country,All,South Asia,India,generosity,0.2677608848398732
+By Country,All,South Asia,India,healthy_life_expectancy,0.0092391514192837
+By Country,All,South Asia,India,perceptions_of_corruption,-0.7253513501989849
+By Country,All,South Asia,India,social_support,-0.0929584420791778
+By Country,All,South Asia,Nepal,freedom_to_make_life_choices,0.7932717642583273
+By Country,All,South Asia,Nepal,gdp_per_capita,0.7841454787737872
+By Country,All,South Asia,Nepal,generosity,-0.6585149381930295
+By Country,All,South Asia,Nepal,healthy_life_expectancy,-0.4352794657875979
+By Country,All,South Asia,Nepal,perceptions_of_corruption,0.8650149662775164
+By Country,All,South Asia,Nepal,social_support,-0.116452073392433
+By Country,All,South Asia,Pakistan,freedom_to_make_life_choices,-0.3976428510731193
+By Country,All,South Asia,Pakistan,gdp_per_capita,-0.8071265725371132
+By Country,All,South Asia,Pakistan,generosity,0.361273346580539
+By Country,All,South Asia,Pakistan,healthy_life_expectancy,0.7640798827409908
+By Country,All,South Asia,Pakistan,perceptions_of_corruption,0.1850611279895519
+By Country,All,South Asia,Pakistan,social_support,0.6191571047639044
+By Country,All,South Asia,Sri Lanka,freedom_to_make_life_choices,0.2966340184244968
+By Country,All,South Asia,Sri Lanka,gdp_per_capita,0.3077703621219227
+By Country,All,South Asia,Sri Lanka,generosity,0.0626741167637574
+By Country,All,South Asia,Sri Lanka,healthy_life_expectancy,-0.445350360451945
+By Country,All,South Asia,Sri Lanka,perceptions_of_corruption,-0.0253756479337796
+By Country,All,South Asia,Sri Lanka,social_support,0.4660098570199694
+By Country,All,Southeast Asia,Cambodia,freedom_to_make_life_choices,0.3722608980466692
+By Country,All,Southeast Asia,Cambodia,gdp_per_capita,0.247547278576864
+By Country,All,Southeast Asia,Cambodia,generosity,-0.8414912188839735
+By Country,All,Southeast Asia,Cambodia,healthy_life_expectancy,0.1185429191637207
+By Country,All,Southeast Asia,Cambodia,perceptions_of_corruption,-0.4397714049901967
+By Country,All,Southeast Asia,Cambodia,social_support,0.471879915339933
+By Country,All,Southeast Asia,Indonesia,freedom_to_make_life_choices,-0.1266184940104265
+By Country,All,Southeast Asia,Indonesia,gdp_per_capita,-0.097170637775099
+By Country,All,Southeast Asia,Indonesia,generosity,0.2870415710242389
+By Country,All,Southeast Asia,Indonesia,healthy_life_expectancy,-0.0530617998231358
+By Country,All,Southeast Asia,Indonesia,perceptions_of_corruption,-0.1485059200756671
+By Country,All,Southeast Asia,Indonesia,social_support,-0.4589881202392952
+By Country,All,Southeast Asia,Malaysia,freedom_to_make_life_choices,-0.5893457161008226
+By Country,All,Southeast Asia,Malaysia,gdp_per_capita,0.1229384790911694
+By Country,All,Southeast Asia,Malaysia,generosity,0.4457904721316021
+By Country,All,Southeast Asia,Malaysia,healthy_life_expectancy,-0.474498181974811
+By Country,All,Southeast Asia,Malaysia,perceptions_of_corruption,0.3274311973354793
+By Country,All,Southeast Asia,Malaysia,social_support,0.3608307549882103
+By Country,All,Southeast Asia,Myanmar,freedom_to_make_life_choices,-0.0594948324221722
+By Country,All,Southeast Asia,Myanmar,gdp_per_capita,-0.1545929389083315
+By Country,All,Southeast Asia,Myanmar,generosity,0.2765437321742735
+By Country,All,Southeast Asia,Myanmar,healthy_life_expectancy,-0.3508047861552338
+By Country,All,Southeast Asia,Myanmar,perceptions_of_corruption,0.1420051040769551
+By Country,All,Southeast Asia,Myanmar,social_support,-0.0223278802701198
+By Country,All,Southeast Asia,Philippines,freedom_to_make_life_choices,0.3209921672569079
+By Country,All,Southeast Asia,Philippines,gdp_per_capita,0.3288127188235766
+By Country,All,Southeast Asia,Philippines,generosity,-0.7907317418703254
+By Country,All,Southeast Asia,Philippines,healthy_life_expectancy,0.0666370116028709
+By Country,All,Southeast Asia,Philippines,perceptions_of_corruption,0.3893427276119447
+By Country,All,Southeast Asia,Philippines,social_support,-0.0140615514361157
+By Country,All,Southeast Asia,Singapore,freedom_to_make_life_choices,-0.5146888381221276
+By Country,All,Southeast Asia,Singapore,gdp_per_capita,0.117408577243074
+By Country,All,Southeast Asia,Singapore,generosity,0.4289944011192126
+By Country,All,Southeast Asia,Singapore,healthy_life_expectancy,-0.32366513554258
+By Country,All,Southeast Asia,Singapore,perceptions_of_corruption,-0.0098055951211167
+By Country,All,Southeast Asia,Singapore,social_support,-0.6509629811513616
+By Country,All,Southeast Asia,Thailand,freedom_to_make_life_choices,-0.7400190734006281
+By Country,All,Southeast Asia,Thailand,gdp_per_capita,-0.5519612235765363
+By Country,All,Southeast Asia,Thailand,generosity,0.9916671217097004
+By Country,All,Southeast Asia,Thailand,healthy_life_expectancy,0.159248906921063
+By Country,All,Southeast Asia,Thailand,perceptions_of_corruption,0.5675714503544927
+By Country,All,Southeast Asia,Thailand,social_support,-0.0096875905312275
+By Country,All,Southeast Asia,Vietnam,freedom_to_make_life_choices,0.8831115761915588
+By Country,All,Southeast Asia,Vietnam,gdp_per_capita,0.7631059799215382
+By Country,All,Southeast Asia,Vietnam,generosity,-0.7234550945635334
+By Country,All,Southeast Asia,Vietnam,healthy_life_expectancy,-0.6303602877700495
+By Country,All,Southeast Asia,Vietnam,perceptions_of_corruption,0.5495112616612025
+By Country,All,Southeast Asia,Vietnam,social_support,-0.1370028732058923
+By Country,All,Sub-Saharan Africa,Benin,freedom_to_make_life_choices,-0.2151073412902663
+By Country,All,Sub-Saharan Africa,Benin,gdp_per_capita,0.2554152251463275
+By Country,All,Sub-Saharan Africa,Benin,generosity,-0.305323643774552
+By Country,All,Sub-Saharan Africa,Benin,healthy_life_expectancy,0.2641891968319601
+By Country,All,Sub-Saharan Africa,Benin,perceptions_of_corruption,0.4786974060419419
+By Country,All,Sub-Saharan Africa,Benin,social_support,-0.1396294205854302
+By Country,All,Sub-Saharan Africa,Botswana,freedom_to_make_life_choices,-0.3337601345018713
+By Country,All,Sub-Saharan Africa,Botswana,gdp_per_capita,-0.4111515697132007
+By Country,All,Sub-Saharan Africa,Botswana,generosity,0.8701354229469995
+By Country,All,Sub-Saharan Africa,Botswana,healthy_life_expectancy,-0.4727681435379029
+By Country,All,Sub-Saharan Africa,Botswana,perceptions_of_corruption,0.7728370060042279
+By Country,All,Sub-Saharan Africa,Botswana,social_support,0.2005608642153424
+By Country,All,Sub-Saharan Africa,Burkina Faso,freedom_to_make_life_choices,-0.0400809392960779
+By Country,All,Sub-Saharan Africa,Burkina Faso,gdp_per_capita,0.4231005825940447
+By Country,All,Sub-Saharan Africa,Burkina Faso,generosity,-0.7965426700239507
+By Country,All,Sub-Saharan Africa,Burkina Faso,healthy_life_expectancy,0.0705606708762413
+By Country,All,Sub-Saharan Africa,Burkina Faso,perceptions_of_corruption,-0.3415125935793005
+By Country,All,Sub-Saharan Africa,Burkina Faso,social_support,-0.1305546215896251
+By Country,All,Sub-Saharan Africa,Cameroon,freedom_to_make_life_choices,-0.646834804649117
+By Country,All,Sub-Saharan Africa,Cameroon,gdp_per_capita,0.4002458161752299
+By Country,All,Sub-Saharan Africa,Cameroon,generosity,-0.5048399689275491
+By Country,All,Sub-Saharan Africa,Cameroon,healthy_life_expectancy,0.2714048450060295
+By Country,All,Sub-Saharan Africa,Cameroon,perceptions_of_corruption,-0.1250031620207851
+By Country,All,Sub-Saharan Africa,Cameroon,social_support,-0.1361996882632404
+By Country,All,Sub-Saharan Africa,Chad,freedom_to_make_life_choices,0.4065434834101769
+By Country,All,Sub-Saharan Africa,Chad,gdp_per_capita,0.0565538272566907
+By Country,All,Sub-Saharan Africa,Chad,generosity,0.4219572766869024
+By Country,All,Sub-Saharan Africa,Chad,healthy_life_expectancy,0.0248428718798117
+By Country,All,Sub-Saharan Africa,Chad,perceptions_of_corruption,0.8816231839823011
+By Country,All,Sub-Saharan Africa,Chad,social_support,-0.0645380088610004
+By Country,All,Sub-Saharan Africa,Ethiopia,freedom_to_make_life_choices,-0.3356779818263818
+By Country,All,Sub-Saharan Africa,Ethiopia,gdp_per_capita,-0.6922510151009917
+By Country,All,Sub-Saharan Africa,Ethiopia,generosity,0.3457373519691791
+By Country,All,Sub-Saharan Africa,Ethiopia,healthy_life_expectancy,0.0784464556489624
+By Country,All,Sub-Saharan Africa,Ethiopia,perceptions_of_corruption,0.8482097513435441
+By Country,All,Sub-Saharan Africa,Ethiopia,social_support,-0.7443115991006605
+By Country,All,Sub-Saharan Africa,Gabon,freedom_to_make_life_choices,0.5342185924430122
+By Country,All,Sub-Saharan Africa,Gabon,gdp_per_capita,0.3317112637432283
+By Country,All,Sub-Saharan Africa,Gabon,generosity,-0.749909379495808
+By Country,All,Sub-Saharan Africa,Gabon,healthy_life_expectancy,-0.1020992226703367
+By Country,All,Sub-Saharan Africa,Gabon,perceptions_of_corruption,-0.4121237064235566
+By Country,All,Sub-Saharan Africa,Gabon,social_support,0.1839241497980148
+By Country,All,Sub-Saharan Africa,Ghana,freedom_to_make_life_choices,0.3367250083784501
+By Country,All,Sub-Saharan Africa,Ghana,gdp_per_capita,0.006405190844129
+By Country,All,Sub-Saharan Africa,Ghana,generosity,0.4280518236937869
+By Country,All,Sub-Saharan Africa,Ghana,healthy_life_expectancy,0.5058610750329848
+By Country,All,Sub-Saharan Africa,Ghana,perceptions_of_corruption,0.828928994855933
+By Country,All,Sub-Saharan Africa,Ghana,social_support,0.1726884903130947
+By Country,All,Sub-Saharan Africa,Guinea,freedom_to_make_life_choices,0.212440738929388
+By Country,All,Sub-Saharan Africa,Guinea,gdp_per_capita,0.7599439242480158
+By Country,All,Sub-Saharan Africa,Guinea,generosity,-0.5247604504749152
+By Country,All,Sub-Saharan Africa,Guinea,healthy_life_expectancy,0.0967883530633742
+By Country,All,Sub-Saharan Africa,Guinea,perceptions_of_corruption,-0.2286152693976749
+By Country,All,Sub-Saharan Africa,Guinea,social_support,0.1781713055593907
+By Country,All,Sub-Saharan Africa,Ivory Coast,freedom_to_make_life_choices,-0.1990859136781496
+By Country,All,Sub-Saharan Africa,Ivory Coast,gdp_per_capita,0.5212583031955863
+By Country,All,Sub-Saharan Africa,Ivory Coast,generosity,-0.7473562890950783
+By Country,All,Sub-Saharan Africa,Ivory Coast,healthy_life_expectancy,0.3806756170742518
+By Country,All,Sub-Saharan Africa,Ivory Coast,perceptions_of_corruption,-0.8225709149515403
+By Country,All,Sub-Saharan Africa,Ivory Coast,social_support,-0.3952950147675102
+By Country,All,Sub-Saharan Africa,Kenya,freedom_to_make_life_choices,0.4758454756186813
+By Country,All,Sub-Saharan Africa,Kenya,gdp_per_capita,0.2410958490507304
+By Country,All,Sub-Saharan Africa,Kenya,generosity,0.0143074328364425
+By Country,All,Sub-Saharan Africa,Kenya,healthy_life_expectancy,0.2108062165492703
+By Country,All,Sub-Saharan Africa,Kenya,perceptions_of_corruption,0.4418072636089294
+By Country,All,Sub-Saharan Africa,Kenya,social_support,-0.347288219297995
+By Country,All,Sub-Saharan Africa,Liberia,freedom_to_make_life_choices,0.2466133185394666
+By Country,All,Sub-Saharan Africa,Liberia,gdp_per_capita,0.4913438060827462
+By Country,All,Sub-Saharan Africa,Liberia,generosity,-0.5340708285424574
+By Country,All,Sub-Saharan Africa,Liberia,healthy_life_expectancy,0.3227017732673156
+By Country,All,Sub-Saharan Africa,Liberia,perceptions_of_corruption,0.7575177202528334
+By Country,All,Sub-Saharan Africa,Liberia,social_support,-0.1494065611080837
+By Country,All,Sub-Saharan Africa,Madagascar,freedom_to_make_life_choices,0.3171021196982277
+By Country,All,Sub-Saharan Africa,Madagascar,gdp_per_capita,0.5201947596160791
+By Country,All,Sub-Saharan Africa,Madagascar,generosity,-0.620400365360331
+By Country,All,Sub-Saharan Africa,Madagascar,healthy_life_expectancy,-0.1071900120101448
+By Country,All,Sub-Saharan Africa,Madagascar,perceptions_of_corruption,0.5905913674599695
+By Country,All,Sub-Saharan Africa,Madagascar,social_support,-0.2017909388103575
+By Country,All,Sub-Saharan Africa,Malawi,freedom_to_make_life_choices,-0.6349061550268089
+By Country,All,Sub-Saharan Africa,Malawi,gdp_per_capita,-0.3988811214613096
+By Country,All,Sub-Saharan Africa,Malawi,generosity,0.7990339327027401
+By Country,All,Sub-Saharan Africa,Malawi,healthy_life_expectancy,-0.4480627144491982
+By Country,All,Sub-Saharan Africa,Malawi,perceptions_of_corruption,-0.5372846731950917
+By Country,All,Sub-Saharan Africa,Malawi,social_support,-0.3970458654049638
+By Country,All,Sub-Saharan Africa,Mali,freedom_to_make_life_choices,0.2236881411161452
+By Country,All,Sub-Saharan Africa,Mali,gdp_per_capita,0.0645994739269143
+By Country,All,Sub-Saharan Africa,Mali,generosity,-0.3697676997813777
+By Country,All,Sub-Saharan Africa,Mali,healthy_life_expectancy,0.1313618262566972
+By Country,All,Sub-Saharan Africa,Mali,perceptions_of_corruption,-0.6898933991523576
+By Country,All,Sub-Saharan Africa,Mali,social_support,-0.2640764505883555
+By Country,All,Sub-Saharan Africa,Mauritania,freedom_to_make_life_choices,0.1934135873766246
+By Country,All,Sub-Saharan Africa,Mauritania,gdp_per_capita,0.1403531750493099
+By Country,All,Sub-Saharan Africa,Mauritania,generosity,-0.0941468633232116
+By Country,All,Sub-Saharan Africa,Mauritania,healthy_life_expectancy,-0.1151861250580653
+By Country,All,Sub-Saharan Africa,Mauritania,perceptions_of_corruption,0.2123745754285237
+By Country,All,Sub-Saharan Africa,Mauritania,social_support,-0.0178439750876975
+By Country,All,Sub-Saharan Africa,Mauritius,freedom_to_make_life_choices,0.6097516717536969
+By Country,All,Sub-Saharan Africa,Mauritius,gdp_per_capita,0.3893307960382089
+By Country,All,Sub-Saharan Africa,Mauritius,generosity,-0.902797718895236
+By Country,All,Sub-Saharan Africa,Mauritius,healthy_life_expectancy,-0.1496019998067153
+By Country,All,Sub-Saharan Africa,Mauritius,perceptions_of_corruption,0.5691887641739856
+By Country,All,Sub-Saharan Africa,Mauritius,social_support,0.4450173652838297
+By Country,All,Sub-Saharan Africa,Niger,freedom_to_make_life_choices,0.4699172907051946
+By Country,All,Sub-Saharan Africa,Niger,gdp_per_capita,0.3961599046384586
+By Country,All,Sub-Saharan Africa,Niger,generosity,-0.2969528828438632
+By Country,All,Sub-Saharan Africa,Niger,healthy_life_expectancy,-0.0240982343737449
+By Country,All,Sub-Saharan Africa,Niger,perceptions_of_corruption,-0.1168864469703654
+By Country,All,Sub-Saharan Africa,Niger,social_support,-0.5968557718491263
+By Country,All,Sub-Saharan Africa,Nigeria,freedom_to_make_life_choices,-0.1626802430036919
+By Country,All,Sub-Saharan Africa,Nigeria,gdp_per_capita,-0.4058560496026648
+By Country,All,Sub-Saharan Africa,Nigeria,generosity,0.4936968305597359
+By Country,All,Sub-Saharan Africa,Nigeria,healthy_life_expectancy,-0.1926672438060864
+By Country,All,Sub-Saharan Africa,Nigeria,perceptions_of_corruption,-0.1554176147192951
+By Country,All,Sub-Saharan Africa,Nigeria,social_support,0.6269951518891651
+By Country,All,Sub-Saharan Africa,Senegal,freedom_to_make_life_choices,0.4103338813763242
+By Country,All,Sub-Saharan Africa,Senegal,gdp_per_capita,0.5591385703005175
+By Country,All,Sub-Saharan Africa,Senegal,generosity,-0.7900089329555816
+By Country,All,Sub-Saharan Africa,Senegal,healthy_life_expectancy,-0.0824304790624233
+By Country,All,Sub-Saharan Africa,Senegal,perceptions_of_corruption,-0.6466453296588996
+By Country,All,Sub-Saharan Africa,Senegal,social_support,-0.4514159734873936
+By Country,All,Sub-Saharan Africa,Sierra Leone,freedom_to_make_life_choices,-0.5134165135023001
+By Country,All,Sub-Saharan Africa,Sierra Leone,gdp_per_capita,-0.683980392262619
+By Country,All,Sub-Saharan Africa,Sierra Leone,generosity,0.6451176349258643
+By Country,All,Sub-Saharan Africa,Sierra Leone,healthy_life_expectancy,-0.5352687088414603
+By Country,All,Sub-Saharan Africa,Sierra Leone,perceptions_of_corruption,0.5539351737135302
+By Country,All,Sub-Saharan Africa,Sierra Leone,social_support,0.724016947715968
+By Country,All,Sub-Saharan Africa,South Africa,freedom_to_make_life_choices,0.3295388782032398
+By Country,All,Sub-Saharan Africa,South Africa,gdp_per_capita,0.8050288438829287
+By Country,All,Sub-Saharan Africa,South Africa,generosity,-0.6211737786428979
+By Country,All,Sub-Saharan Africa,South Africa,healthy_life_expectancy,-0.109433853454773
+By Country,All,Sub-Saharan Africa,South Africa,perceptions_of_corruption,-0.8608081342881847
+By Country,All,Sub-Saharan Africa,South Africa,social_support,0.173314534797913
+By Country,All,Sub-Saharan Africa,Tanzania,freedom_to_make_life_choices,0.1068083457391048
+By Country,All,Sub-Saharan Africa,Tanzania,gdp_per_capita,0.2219898319373635
+By Country,All,Sub-Saharan Africa,Tanzania,generosity,0.0009444486359639
+By Country,All,Sub-Saharan Africa,Tanzania,healthy_life_expectancy,-0.4941155600994174
+By Country,All,Sub-Saharan Africa,Tanzania,perceptions_of_corruption,0.2462672997592372
+By Country,All,Sub-Saharan Africa,Tanzania,social_support,-0.4654663907884732
+By Country,All,Sub-Saharan Africa,Togo,freedom_to_make_life_choices,-0.3608612056566613
+By Country,All,Sub-Saharan Africa,Togo,gdp_per_capita,0.4109788161225598
+By Country,All,Sub-Saharan Africa,Togo,generosity,0.1222149630483177
+By Country,All,Sub-Saharan Africa,Togo,healthy_life_expectancy,0.128030177313191
+By Country,All,Sub-Saharan Africa,Togo,perceptions_of_corruption,0.1858027320624118
+By Country,All,Sub-Saharan Africa,Togo,social_support,0.6900969591209353
+By Country,All,Sub-Saharan Africa,Uganda,freedom_to_make_life_choices,-0.5122131691750151
+By Country,All,Sub-Saharan Africa,Uganda,gdp_per_capita,0.5468738436062334
+By Country,All,Sub-Saharan Africa,Uganda,generosity,-0.523992402599285
+By Country,All,Sub-Saharan Africa,Uganda,healthy_life_expectancy,0.2766504268061997
+By Country,All,Sub-Saharan Africa,Uganda,perceptions_of_corruption,-0.4355690473586748
+By Country,All,Sub-Saharan Africa,Uganda,social_support,-0.4109959539196724
+By Country,All,Sub-Saharan Africa,Zambia,freedom_to_make_life_choices,-0.4337796390320396
+By Country,All,Sub-Saharan Africa,Zambia,gdp_per_capita,-0.4997016246729388
+By Country,All,Sub-Saharan Africa,Zambia,generosity,-0.3749433144455322
+By Country,All,Sub-Saharan Africa,Zambia,healthy_life_expectancy,-0.0785464431137013
+By Country,All,Sub-Saharan Africa,Zambia,perceptions_of_corruption,0.7765814855943958
+By Country,All,Sub-Saharan Africa,Zambia,social_support,0.1775430759099898
+By Country,All,Sub-Saharan Africa,Zimbabwe,freedom_to_make_life_choices,-0.6772871820166577
+By Country,All,Sub-Saharan Africa,Zimbabwe,gdp_per_capita,-0.7364166405744037
+By Country,All,Sub-Saharan Africa,Zimbabwe,generosity,0.7957784008424176
+By Country,All,Sub-Saharan Africa,Zimbabwe,healthy_life_expectancy,0.1078388928894464
+By Country,All,Sub-Saharan Africa,Zimbabwe,perceptions_of_corruption,-0.3550858684858647
+By Country,All,Sub-Saharan Africa,Zimbabwe,social_support,0.3722092920896345
+By Country,All,Western Europe,Austria,freedom_to_make_life_choices,0.1770689574433419
+By Country,All,Western Europe,Austria,gdp_per_capita,-0.3509844349474442
+By Country,All,Western Europe,Austria,generosity,-0.262986073257846
+By Country,All,Western Europe,Austria,healthy_life_expectancy,0.5330468336296283
+By Country,All,Western Europe,Austria,perceptions_of_corruption,0.1842185669743367
+By Country,All,Western Europe,Austria,social_support,-0.1537390535498373
+By Country,All,Western Europe,Belgium,freedom_to_make_life_choices,0.368230872624831
+By Country,All,Western Europe,Belgium,gdp_per_capita,-0.6870400898586716
+By Country,All,Western Europe,Belgium,generosity,0.875470286660836
+By Country,All,Western Europe,Belgium,healthy_life_expectancy,0.4950944841922993
+By Country,All,Western Europe,Belgium,perceptions_of_corruption,0.4133966278121725
+By Country,All,Western Europe,Belgium,social_support,0.3887866362436141
+By Country,All,Western Europe,Cyprus,freedom_to_make_life_choices,0.6978541792774994
+By Country,All,Western Europe,Cyprus,gdp_per_capita,0.5103831984551627
+By Country,All,Western Europe,Cyprus,generosity,-0.7228061702887129
+By Country,All,Western Europe,Cyprus,healthy_life_expectancy,-0.2239094588083933
+By Country,All,Western Europe,Cyprus,perceptions_of_corruption,-0.1804345759375763
+By Country,All,Western Europe,Cyprus,social_support,0.0355733434397418
+By Country,All,Western Europe,Denmark,freedom_to_make_life_choices,0.4837993622459866
+By Country,All,Western Europe,Denmark,gdp_per_capita,0.3225488668252698
+By Country,All,Western Europe,Denmark,generosity,-0.8931860736027678
+By Country,All,Western Europe,Denmark,healthy_life_expectancy,0.1205710690861038
+By Country,All,Western Europe,Denmark,perceptions_of_corruption,0.5571404014669379
+By Country,All,Western Europe,Denmark,social_support,-0.1074354108997528
+By Country,All,Western Europe,Finland,freedom_to_make_life_choices,0.6352393316670407
+By Country,All,Western Europe,Finland,gdp_per_capita,0.4253943608026371
+By Country,All,Western Europe,Finland,generosity,-0.9599346704667602
+By Country,All,Western Europe,Finland,healthy_life_expectancy,-0.1914270787965643
+By Country,All,Western Europe,Finland,perceptions_of_corruption,0.6928757966583161
+By Country,All,Western Europe,Finland,social_support,0.1330725275804197
+By Country,All,Western Europe,France,freedom_to_make_life_choices,0.5969715985442564
+By Country,All,Western Europe,France,gdp_per_capita,0.4404537578347038
+By Country,All,Western Europe,France,generosity,-0.6932740001698768
+By Country,All,Western Europe,France,healthy_life_expectancy,-0.1782914619294918
+By Country,All,Western Europe,France,perceptions_of_corruption,0.8754782245575498
+By Country,All,Western Europe,France,social_support,-0.0298755652622792
+By Country,All,Western Europe,Germany,freedom_to_make_life_choices,-0.2715930148296731
+By Country,All,Western Europe,Germany,gdp_per_capita,0.0268848176651955
+By Country,All,Western Europe,Germany,generosity,-0.2604994998209429
+By Country,All,Western Europe,Germany,healthy_life_expectancy,0.0830698370884408
+By Country,All,Western Europe,Germany,perceptions_of_corruption,0.4474150828717072
+By Country,All,Western Europe,Germany,social_support,-0.4519033596155247
+By Country,All,Western Europe,Greece,freedom_to_make_life_choices,0.9382267634130412
+By Country,All,Western Europe,Greece,gdp_per_capita,0.7523158270328715
+By Country,All,Western Europe,Greece,generosity,0.7177188920644755
+By Country,All,Western Europe,Greece,healthy_life_expectancy,-0.5376614991121669
+By Country,All,Western Europe,Greece,perceptions_of_corruption,0.9463677512714368
+By Country,All,Western Europe,Greece,social_support,0.21502529592572
+By Country,All,Western Europe,Iceland,freedom_to_make_life_choices,0.5091200897734307
+By Country,All,Western Europe,Iceland,gdp_per_capita,0.4101992924120473
+By Country,All,Western Europe,Iceland,generosity,-0.3864697656797582
+By Country,All,Western Europe,Iceland,healthy_life_expectancy,-0.3752507253541787
+By Country,All,Western Europe,Iceland,perceptions_of_corruption,0.6091674495075601
+By Country,All,Western Europe,Iceland,social_support,-0.5266723245909453
+By Country,All,Western Europe,Ireland,freedom_to_make_life_choices,-0.0731259669448342
+By Country,All,Western Europe,Ireland,gdp_per_capita,-0.0420470953757037
+By Country,All,Western Europe,Ireland,generosity,-0.4348373417894666
+By Country,All,Western Europe,Ireland,healthy_life_expectancy,0.407913585947249
+By Country,All,Western Europe,Ireland,perceptions_of_corruption,0.3714890168301698
+By Country,All,Western Europe,Ireland,social_support,-0.1238338099574562
+By Country,All,Western Europe,Italy,freedom_to_make_life_choices,0.8176430402842101
+By Country,All,Western Europe,Italy,gdp_per_capita,0.5501350093509395
+By Country,All,Western Europe,Italy,generosity,-0.6848740940718656
+By Country,All,Western Europe,Italy,healthy_life_expectancy,-0.3583391217098626
+By Country,All,Western Europe,Italy,perceptions_of_corruption,0.8516264932426708
+By Country,All,Western Europe,Italy,social_support,-0.3292157139188001
+By Country,All,Western Europe,Luxembourg,freedom_to_make_life_choices,0.5917958077695179
+By Country,All,Western Europe,Luxembourg,gdp_per_capita,0.5654128166326962
+By Country,All,Western Europe,Luxembourg,generosity,-0.8736482405398474
+By Country,All,Western Europe,Luxembourg,healthy_life_expectancy,-0.3339035134963631
+By Country,All,Western Europe,Luxembourg,perceptions_of_corruption,0.546119806484809
+By Country,All,Western Europe,Luxembourg,social_support,-0.312547200111232
+By Country,All,Western Europe,Malta,freedom_to_make_life_choices,-0.1892218747507266
+By Country,All,Western Europe,Malta,gdp_per_capita,-0.4783599957272245
+By Country,All,Western Europe,Malta,generosity,0.003024973333409
+By Country,All,Western Europe,Malta,healthy_life_expectancy,0.6847651913298349
+By Country,All,Western Europe,Malta,perceptions_of_corruption,0.4675781941241793
+By Country,All,Western Europe,Malta,social_support,0.239463330946384
+By Country,All,Western Europe,Netherlands,freedom_to_make_life_choices,0.1909966328590534
+By Country,All,Western Europe,Netherlands,gdp_per_capita,-0.1474291421942926
+By Country,All,Western Europe,Netherlands,generosity,-0.6690621319018484
+By Country,All,Western Europe,Netherlands,healthy_life_expectancy,0.3482749401743341
+By Country,All,Western Europe,Netherlands,perceptions_of_corruption,0.2203704599232182
+By Country,All,Western Europe,Netherlands,social_support,0.406809362192474
+By Country,All,Western Europe,Norway,freedom_to_make_life_choices,-0.732501194994293
+By Country,All,Western Europe,Norway,gdp_per_capita,-0.8058264257358791
+By Country,All,Western Europe,Norway,generosity,0.6724320252410867
+By Country,All,Western Europe,Norway,healthy_life_expectancy,0.7023125506142942
+By Country,All,Western Europe,Norway,perceptions_of_corruption,-0.8908237589422929
+By Country,All,Western Europe,Norway,social_support,0.4005505856563243
+By Country,All,Western Europe,Portugal,freedom_to_make_life_choices,0.8556883663653606
+By Country,All,Western Europe,Portugal,gdp_per_capita,0.5676433109864983
+By Country,All,Western Europe,Portugal,generosity,-0.9282428756058626
+By Country,All,Western Europe,Portugal,healthy_life_expectancy,-0.2178946913120708
+By Country,All,Western Europe,Portugal,perceptions_of_corruption,0.9585487267356398
+By Country,All,Western Europe,Portugal,social_support,0.0453666495529359
+By Country,All,Western Europe,Spain,freedom_to_make_life_choices,0.4997762627358279
+By Country,All,Western Europe,Spain,gdp_per_capita,0.6578051090993952
+By Country,All,Western Europe,Spain,generosity,-0.5687735675352088
+By Country,All,Western Europe,Spain,healthy_life_expectancy,-0.5584976745492568
+By Country,All,Western Europe,Spain,perceptions_of_corruption,0.808605406022754
+By Country,All,Western Europe,Spain,social_support,-0.4695149245757382
+By Country,All,Western Europe,Sweden,freedom_to_make_life_choices,0.7785342517003724
+By Country,All,Western Europe,Sweden,gdp_per_capita,0.5410875776272607
+By Country,All,Western Europe,Sweden,generosity,-0.7776306428571117
+By Country,All,Western Europe,Sweden,healthy_life_expectancy,-0.3694833112176404
+By Country,All,Western Europe,Sweden,perceptions_of_corruption,0.8181165593195184
+By Country,All,Western Europe,Sweden,social_support,-0.0362448616752219
+By Country,All,Western Europe,Switzerland,freedom_to_make_life_choices,-0.1990140717265205
+By Country,All,Western Europe,Switzerland,gdp_per_capita,-0.6420951295624631
+By Country,All,Western Europe,Switzerland,generosity,0.5359955039300538
+By Country,All,Western Europe,Switzerland,healthy_life_expectancy,0.718807709950471
+By Country,All,Western Europe,Switzerland,perceptions_of_corruption,-0.3620053867690411
+By Country,All,Western Europe,Switzerland,social_support,-0.3462446531227093
+By Country,All,Western Europe,United Kingdom,freedom_to_make_life_choices,-0.3058177520579373
+By Country,All,Western Europe,United Kingdom,gdp_per_capita,-0.4006455959457528
+By Country,All,Western Europe,United Kingdom,generosity,-0.5791086336438959
+By Country,All,Western Europe,United Kingdom,healthy_life_expectancy,0.5026359955402272
+By Country,All,Western Europe,United Kingdom,perceptions_of_corruption,-0.3825690040671142
+By Country,All,Western Europe,United Kingdom,social_support,0.217870151180611
+By Region,All,Central and Eastern Europe,All,freedom_to_make_life_choices,0.5473428834351453
+By Region,All,Central and Eastern Europe,All,gdp_per_capita,0.5860154546761321
+By Region,All,Central and Eastern Europe,All,generosity,-0.0632654806569857
+By Region,All,Central and Eastern Europe,All,healthy_life_expectancy,-0.0680874626309766
+By Region,All,Central and Eastern Europe,All,perceptions_of_corruption,-0.0390209114323519
+By Region,All,Central and Eastern Europe,All,social_support,0.4752768279444331
+By Region,All,Commonwealth of Independent States,All,freedom_to_make_life_choices,0.5973219900335069
+By Region,All,Commonwealth of Independent States,All,gdp_per_capita,0.6456232082084823
+By Region,All,Commonwealth of Independent States,All,generosity,-0.0625190496278592
+By Region,All,Commonwealth of Independent States,All,healthy_life_expectancy,0.0597398645259753
+By Region,All,Commonwealth of Independent States,All,perceptions_of_corruption,0.3804899022594095
+By Region,All,Commonwealth of Independent States,All,social_support,0.3746712888245431
+By Region,All,East Asia,All,freedom_to_make_life_choices,-0.0972180682767295
+By Region,All,East Asia,All,gdp_per_capita,0.5236304104480095
+By Region,All,East Asia,All,generosity,-0.2403286814778498
+By Region,All,East Asia,All,healthy_life_expectancy,0.0932078269860624
+By Region,All,East Asia,All,perceptions_of_corruption,0.0014332013875379
+By Region,All,East Asia,All,social_support,0.0729782428765335
+By Region,All,Latin America and Caribbean,All,freedom_to_make_life_choices,0.3090585042031207
+By Region,All,Latin America and Caribbean,All,gdp_per_capita,0.2659868396673791
+By Region,All,Latin America and Caribbean,All,generosity,0.043684882557318
+By Region,All,Latin America and Caribbean,All,healthy_life_expectancy,0.3205244863869638
+By Region,All,Latin America and Caribbean,All,perceptions_of_corruption,0.278440381790832
+By Region,All,Latin America and Caribbean,All,social_support,0.0857171594276736
+By Region,All,Middle East and North Africa,All,freedom_to_make_life_choices,0.6002210502560117
+By Region,All,Middle East and North Africa,All,gdp_per_capita,0.5836178037774477
+By Region,All,Middle East and North Africa,All,generosity,0.4116047443676916
+By Region,All,Middle East and North Africa,All,healthy_life_expectancy,0.412540147872767
+By Region,All,Middle East and North Africa,All,perceptions_of_corruption,0.4845963955677703
+By Region,All,Middle East and North Africa,All,social_support,0.595051729729142
+By Region,All,North America and ANZ,All,freedom_to_make_life_choices,0.4236584730803036
+By Region,All,North America and ANZ,All,gdp_per_capita,-0.5376153779733462
+By Region,All,North America and ANZ,All,generosity,0.6369312440979303
+By Region,All,North America and ANZ,All,healthy_life_expectancy,0.5712675358193572
+By Region,All,North America and ANZ,All,perceptions_of_corruption,0.6366929675666188
+By Region,All,North America and ANZ,All,social_support,0.073233289160209
+By Region,All,South Asia,All,freedom_to_make_life_choices,0.4955970184981775
+By Region,All,South Asia,All,gdp_per_capita,0.1445594487904482
+By Region,All,South Asia,All,generosity,0.317885598954553
+By Region,All,South Asia,All,healthy_life_expectancy,0.4800565469628981
+By Region,All,South Asia,All,perceptions_of_corruption,0.6199110117262462
+By Region,All,South Asia,All,social_support,0.5226277768969865
+By Region,All,Southeast Asia,All,freedom_to_make_life_choices,-0.048502004070155
+By Region,All,Southeast Asia,All,gdp_per_capita,0.7417538582307684
+By Region,All,Southeast Asia,All,generosity,-0.2949761151664287
+By Region,All,Southeast Asia,All,healthy_life_expectancy,0.6067706109309265
+By Region,All,Southeast Asia,All,perceptions_of_corruption,0.3900780941931627
+By Region,All,Southeast Asia,All,social_support,0.4745572691703369
+By Region,All,Sub-Saharan Africa,All,freedom_to_make_life_choices,0.191598445777659
+By Region,All,Sub-Saharan Africa,All,gdp_per_capita,0.3906717778491975
+By Region,All,Sub-Saharan Africa,All,generosity,-0.0039040984173545
+By Region,All,Sub-Saharan Africa,All,healthy_life_expectancy,0.1587123256771213
+By Region,All,Sub-Saharan Africa,All,perceptions_of_corruption,-0.1898933059639399
+By Region,All,Sub-Saharan Africa,All,social_support,0.2492109822945308
+By Region,All,Western Europe,All,freedom_to_make_life_choices,0.7682629737391741
+By Region,All,Western Europe,All,gdp_per_capita,0.3289922722379282
+By Region,All,Western Europe,All,generosity,0.4907440716305994
+By Region,All,Western Europe,All,healthy_life_expectancy,-0.044118376397834
+By Region,All,Western Europe,All,perceptions_of_corruption,0.822607514825379
+By Region,All,Western Europe,All,social_support,0.3964843735494578
+By Year,2015,All,All,freedom_to_make_life_choices,0.551659548989639
+By Year,2015,All,All,gdp_per_capita,0.7778934530925707
+By Year,2015,All,All,generosity,0.2303952575079225
+By Year,2015,All,All,healthy_life_expectancy,0.7429931418553589
+By Year,2015,All,All,perceptions_of_corruption,0.5192010663487714
+By Year,2015,All,All,social_support,0.7250495643870163
+By Year,2016,All,All,freedom_to_make_life_choices,0.5295185735110749
+By Year,2016,All,All,gdp_per_capita,0.8022323448589747
+By Year,2016,All,All,generosity,0.2110099068804423
+By Year,2016,All,All,healthy_life_expectancy,0.7733313500338063
+By Year,2016,All,All,perceptions_of_corruption,0.530236788950714
+By Year,2016,All,All,social_support,0.7247441977224752
+By Year,2017,All,All,freedom_to_make_life_choices,0.531891008142537
+By Year,2017,All,All,gdp_per_capita,0.8099452400559819
+By Year,2017,All,All,generosity,0.1979562263079541
+By Year,2017,All,All,healthy_life_expectancy,0.7643568069895209
+By Year,2017,All,All,perceptions_of_corruption,0.5416855371433804
+By Year,2017,All,All,social_support,0.7378884979443652
+By Year,2018,All,All,freedom_to_make_life_choices,0.4954184024278379
+By Year,2018,All,All,gdp_per_capita,0.7891673132511855
+By Year,2018,All,All,generosity,0.1963718722253948
+By Year,2018,All,All,healthy_life_expectancy,0.7477729031066808
+By Year,2018,All,All,perceptions_of_corruption,0.5381584176237788
+By Year,2018,All,All,social_support,0.7352794899374199
+By Year,2019,All,All,freedom_to_make_life_choices,0.5332300079803085
+By Year,2019,All,All,gdp_per_capita,0.7704299794305278
+By Year,2019,All,All,generosity,0.1656155261329628
+By Year,2019,All,All,healthy_life_expectancy,0.749587274008537
+By Year,2019,All,All,perceptions_of_corruption,0.5369788804432898
+By Year,2019,All,All,social_support,0.7682636933252599
+By Year,2020,All,All,freedom_to_make_life_choices,0.5670513214591186
+By Year,2020,All,All,gdp_per_capita,0.7522073312198454
+By Year,2020,All,All,generosity,0.137585767736118
+By Year,2020,All,All,healthy_life_expectancy,0.7443162095148647
+By Year,2020,All,All,perceptions_of_corruption,0.5413571059985349
+By Year,2020,All,All,social_support,0.7728565787889956
+By Year,2021,All,All,freedom_to_make_life_choices,0.6134865562617935
+By Year,2021,All,All,gdp_per_capita,0.7837389718312698
+By Year,2021,All,All,generosity,0.0188195532727425
+By Year,2021,All,All,healthy_life_expectancy,0.7594951336145637
+By Year,2021,All,All,perceptions_of_corruption,0.5290089043558893
+By Year,2021,All,All,social_support,0.7819764503543211
+By Year,2022,All,All,freedom_to_make_life_choices,0.6473434404537909
+By Year,2022,All,All,gdp_per_capita,0.7689100862857857
+By Year,2022,All,All,generosity,0.0454777115034171
+By Year,2022,All,All,healthy_life_expectancy,0.7496767791709009
+By Year,2022,All,All,perceptions_of_corruption,0.5011826542910661
+By Year,2022,All,All,social_support,0.8095895690962592
+By Year,2023,All,All,freedom_to_make_life_choices,0.6531030356620762
+By Year,2023,All,All,gdp_per_capita,0.7846223138332284
+By Year,2023,All,All,generosity,0.0572623544780951
+By Year,2023,All,All,healthy_life_expectancy,0.7511962593016585
+By Year,2023,All,All,perceptions_of_corruption,0.4805447867778815
+By Year,2023,All,All,social_support,0.8396343656975187
+By Year and Region,2015,Central and Eastern Europe,All,freedom_to_make_life_choices,0.2824182671437283
+By Year and Region,2015,Central and Eastern Europe,All,gdp_per_capita,0.4094908794876107
+By Year and Region,2015,Central and Eastern Europe,All,generosity,0.1242911278018325
+By Year and Region,2015,Central and Eastern Europe,All,healthy_life_expectancy,0.002225140205265
+By Year and Region,2015,Central and Eastern Europe,All,perceptions_of_corruption,-0.3228938146353511
+By Year and Region,2015,Central and Eastern Europe,All,social_support,0.4796684589166212
+By Year and Region,2015,East Asia,All,freedom_to_make_life_choices,-0.4058866733431656
+By Year and Region,2015,East Asia,All,gdp_per_capita,0.783582931610099
+By Year and Region,2015,East Asia,All,generosity,-0.2159445295370598
+By Year and Region,2015,East Asia,All,healthy_life_expectancy,0.6726302921828904
+By Year and Region,2015,East Asia,All,perceptions_of_corruption,0.1583818025098766
+By Year and Region,2015,East Asia,All,social_support,-0.1944217542314851
+By Year and Region,2015,Latin America and Caribbean,All,freedom_to_make_life_choices,0.1138515524747146
+By Year and Region,2015,Latin America and Caribbean,All,gdp_per_capita,0.694771246646369
+By Year and Region,2015,Latin America and Caribbean,All,generosity,-0.1870256699148183
+By Year and Region,2015,Latin America and Caribbean,All,healthy_life_expectancy,0.542459706457294
+By Year and Region,2015,Latin America and Caribbean,All,perceptions_of_corruption,0.2814765331543505
+By Year and Region,2015,Latin America and Caribbean,All,social_support,0.3093631353684278
+By Year and Region,2015,Middle East and North Africa,All,freedom_to_make_life_choices,0.6475820966229475
+By Year and Region,2015,Middle East and North Africa,All,gdp_per_capita,0.7916878336300135
+By Year and Region,2015,Middle East and North Africa,All,generosity,0.3532567494705403
+By Year and Region,2015,Middle East and North Africa,All,healthy_life_expectancy,0.6416969030387932
+By Year and Region,2015,Middle East and North Africa,All,perceptions_of_corruption,0.6300677139583819
+By Year and Region,2015,Middle East and North Africa,All,social_support,0.8142186988674448
+By Year and Region,2015,South Asia,All,freedom_to_make_life_choices,-0.2051023849410036
+By Year and Region,2015,South Asia,All,gdp_per_capita,0.2772113198618338
+By Year and Region,2015,South Asia,All,generosity,-0.3996569628693738
+By Year and Region,2015,South Asia,All,healthy_life_expectancy,0.4821120327563264
+By Year and Region,2015,South Asia,All,perceptions_of_corruption,0.1694756502572233
+By Year and Region,2015,South Asia,All,social_support,0.0010321501779319
+By Year and Region,2015,Southeast Asia,All,freedom_to_make_life_choices,-0.1786694082733317
+By Year and Region,2015,Southeast Asia,All,gdp_per_capita,0.8925861566652759
+By Year and Region,2015,Southeast Asia,All,generosity,-0.2398335848572254
+By Year and Region,2015,Southeast Asia,All,healthy_life_expectancy,0.8113317745191055
+By Year and Region,2015,Southeast Asia,All,perceptions_of_corruption,0.3944292571919853
+By Year and Region,2015,Southeast Asia,All,social_support,0.8367129450880548
+By Year and Region,2015,Sub-Saharan Africa,All,freedom_to_make_life_choices,0.1900361381103785
+By Year and Region,2015,Sub-Saharan Africa,All,gdp_per_capita,0.4230088132942629
+By Year and Region,2015,Sub-Saharan Africa,All,generosity,0.2788197817661756
+By Year and Region,2015,Sub-Saharan Africa,All,healthy_life_expectancy,0.1837919677199862
+By Year and Region,2015,Sub-Saharan Africa,All,perceptions_of_corruption,-0.2318697950638586
+By Year and Region,2015,Sub-Saharan Africa,All,social_support,0.5035414889226296
+By Year and Region,2015,Western Europe,All,freedom_to_make_life_choices,0.8269894103412424
+By Year and Region,2015,Western Europe,All,gdp_per_capita,0.7034065447321305
+By Year and Region,2015,Western Europe,All,generosity,0.5689355097597452
+By Year and Region,2015,Western Europe,All,healthy_life_expectancy,0.0438735768266723
+By Year and Region,2015,Western Europe,All,perceptions_of_corruption,0.8233580043662914
+By Year and Region,2015,Western Europe,All,social_support,0.8077062514986021
+By Year and Region,2016,Central and Eastern Europe,All,freedom_to_make_life_choices,0.3678091268558978
+By Year and Region,2016,Central and Eastern Europe,All,gdp_per_capita,0.5286263476922153
+By Year and Region,2016,Central and Eastern Europe,All,generosity,0.0251492623836664
+By Year and Region,2016,Central and Eastern Europe,All,healthy_life_expectancy,0.0331068868303751
+By Year and Region,2016,Central and Eastern Europe,All,perceptions_of_corruption,-0.2576237934229933
+By Year and Region,2016,Central and Eastern Europe,All,social_support,0.5453971714779954
+By Year and Region,2016,East Asia,All,freedom_to_make_life_choices,-0.2865178473912853
+By Year and Region,2016,East Asia,All,gdp_per_capita,0.707468572198736
+By Year and Region,2016,East Asia,All,generosity,-0.196084415475143
+By Year and Region,2016,East Asia,All,healthy_life_expectancy,0.5783236688790458
+By Year and Region,2016,East Asia,All,perceptions_of_corruption,0.1208417650616852
+By Year and Region,2016,East Asia,All,social_support,-0.1592608998856508
+By Year and Region,2016,Latin America and Caribbean,All,freedom_to_make_life_choices,0.2311907329636146
+By Year and Region,2016,Latin America and Caribbean,All,gdp_per_capita,0.6534182121495251
+By Year and Region,2016,Latin America and Caribbean,All,generosity,-0.0618812271148304
+By Year and Region,2016,Latin America and Caribbean,All,healthy_life_expectancy,0.6036212534744227
+By Year and Region,2016,Latin America and Caribbean,All,perceptions_of_corruption,0.3224713048607818
+By Year and Region,2016,Latin America and Caribbean,All,social_support,0.2454063045771283
+By Year and Region,2016,Middle East and North Africa,All,freedom_to_make_life_choices,0.6573701343182307
+By Year and Region,2016,Middle East and North Africa,All,gdp_per_capita,0.7243627638273854
+By Year and Region,2016,Middle East and North Africa,All,generosity,0.2062571027061905
+By Year and Region,2016,Middle East and North Africa,All,healthy_life_expectancy,0.6741965203576327
+By Year and Region,2016,Middle East and North Africa,All,perceptions_of_corruption,0.5424674009669175
+By Year and Region,2016,Middle East and North Africa,All,social_support,0.8290487256224992
+By Year and Region,2016,South Asia,All,freedom_to_make_life_choices,0.1665742890126643
+By Year and Region,2016,South Asia,All,gdp_per_capita,0.3250472288742646
+By Year and Region,2016,South Asia,All,generosity,-0.0112251420768737
+By Year and Region,2016,South Asia,All,healthy_life_expectancy,0.6453773644343009
+By Year and Region,2016,South Asia,All,perceptions_of_corruption,0.6100072202879139
+By Year and Region,2016,South Asia,All,social_support,0.3214483553683065
+By Year and Region,2016,Southeast Asia,All,freedom_to_make_life_choices,-0.3109651646536185
+By Year and Region,2016,Southeast Asia,All,gdp_per_capita,0.9088827374720012
+By Year and Region,2016,Southeast Asia,All,generosity,-0.1859061351727289
+By Year and Region,2016,Southeast Asia,All,healthy_life_expectancy,0.8155137551113147
+By Year and Region,2016,Southeast Asia,All,perceptions_of_corruption,0.3386420551371387
+By Year and Region,2016,Southeast Asia,All,social_support,0.8577613808660227
+By Year and Region,2016,Sub-Saharan Africa,All,freedom_to_make_life_choices,0.2945061470701304
+By Year and Region,2016,Sub-Saharan Africa,All,gdp_per_capita,0.5341096237192225
+By Year and Region,2016,Sub-Saharan Africa,All,generosity,0.230726118955125
+By Year and Region,2016,Sub-Saharan Africa,All,healthy_life_expectancy,0.2480279668163976
+By Year and Region,2016,Sub-Saharan Africa,All,perceptions_of_corruption,-0.1472989098470613
+By Year and Region,2016,Sub-Saharan Africa,All,social_support,0.3704018920154434
+By Year and Region,2016,Western Europe,All,freedom_to_make_life_choices,0.8295975507577822
+By Year and Region,2016,Western Europe,All,gdp_per_capita,0.7019416681727166
+By Year and Region,2016,Western Europe,All,generosity,0.6143771964258367
+By Year and Region,2016,Western Europe,All,healthy_life_expectancy,0.0479310741313708
+By Year and Region,2016,Western Europe,All,perceptions_of_corruption,0.840494304848595
+By Year and Region,2016,Western Europe,All,social_support,0.8020954075062148
+By Year and Region,2017,Central and Eastern Europe,All,freedom_to_make_life_choices,0.4508689425441435
+By Year and Region,2017,Central and Eastern Europe,All,gdp_per_capita,0.6092094168693228
+By Year and Region,2017,Central and Eastern Europe,All,generosity,-0.13645424946159
+By Year and Region,2017,Central and Eastern Europe,All,healthy_life_expectancy,0.0871431891041333
+By Year and Region,2017,Central and Eastern Europe,All,perceptions_of_corruption,-0.2267569007796562
+By Year and Region,2017,Central and Eastern Europe,All,social_support,0.5949659868129791
+By Year and Region,2017,East Asia,All,freedom_to_make_life_choices,-0.2707776947487025
+By Year and Region,2017,East Asia,All,gdp_per_capita,0.6887890637926657
+By Year and Region,2017,East Asia,All,generosity,-0.1095087600204154
+By Year and Region,2017,East Asia,All,healthy_life_expectancy,0.5551307766154409
+By Year and Region,2017,East Asia,All,perceptions_of_corruption,0.087161163564882
+By Year and Region,2017,East Asia,All,social_support,-0.0128402712255043
+By Year and Region,2017,Latin America and Caribbean,All,freedom_to_make_life_choices,0.3880153296121703
+By Year and Region,2017,Latin America and Caribbean,All,gdp_per_capita,0.4989470641067844
+By Year and Region,2017,Latin America and Caribbean,All,generosity,0.0954338221194615
+By Year and Region,2017,Latin America and Caribbean,All,healthy_life_expectancy,0.5674887830387942
+By Year and Region,2017,Latin America and Caribbean,All,perceptions_of_corruption,0.2506547447266386
+By Year and Region,2017,Latin America and Caribbean,All,social_support,0.1132973648375765
+By Year and Region,2017,Middle East and North Africa,All,freedom_to_make_life_choices,0.6617748835626696
+By Year and Region,2017,Middle East and North Africa,All,gdp_per_capita,0.7552759189839076
+By Year and Region,2017,Middle East and North Africa,All,generosity,0.2989109946010451
+By Year and Region,2017,Middle East and North Africa,All,healthy_life_expectancy,0.7155863999992549
+By Year and Region,2017,Middle East and North Africa,All,perceptions_of_corruption,0.5733789574506938
+By Year and Region,2017,Middle East and North Africa,All,social_support,0.8013164407573422
+By Year and Region,2017,South Asia,All,freedom_to_make_life_choices,0.2065226846499253
+By Year and Region,2017,South Asia,All,gdp_per_capita,0.1652062589457336
+By Year and Region,2017,South Asia,All,generosity,0.0919142155316257
+By Year and Region,2017,South Asia,All,healthy_life_expectancy,0.4488543908560582
+By Year and Region,2017,South Asia,All,perceptions_of_corruption,0.6078213290173577
+By Year and Region,2017,South Asia,All,social_support,0.2474917367042454
+By Year and Region,2017,Southeast Asia,All,freedom_to_make_life_choices,-0.2727170996868992
+By Year and Region,2017,Southeast Asia,All,gdp_per_capita,0.8988230381883343
+By Year and Region,2017,Southeast Asia,All,generosity,-0.179419105703769
+By Year and Region,2017,Southeast Asia,All,healthy_life_expectancy,0.787934955776172
+By Year and Region,2017,Southeast Asia,All,perceptions_of_corruption,0.3424428261890434
+By Year and Region,2017,Southeast Asia,All,social_support,0.9105633814357652
+By Year and Region,2017,Sub-Saharan Africa,All,freedom_to_make_life_choices,0.2622115800988933
+By Year and Region,2017,Sub-Saharan Africa,All,gdp_per_capita,0.5746379100094436
+By Year and Region,2017,Sub-Saharan Africa,All,generosity,0.1248884795075289
+By Year and Region,2017,Sub-Saharan Africa,All,healthy_life_expectancy,0.1256916967447884
+By Year and Region,2017,Sub-Saharan Africa,All,perceptions_of_corruption,-0.1649742656654732
+By Year and Region,2017,Sub-Saharan Africa,All,social_support,0.5195623511408062
+By Year and Region,2017,Western Europe,All,freedom_to_make_life_choices,0.8206757573362111
+By Year and Region,2017,Western Europe,All,gdp_per_capita,0.6969311761035613
+By Year and Region,2017,Western Europe,All,generosity,0.6240222950573996
+By Year and Region,2017,Western Europe,All,healthy_life_expectancy,-0.1303094445329378
+By Year and Region,2017,Western Europe,All,perceptions_of_corruption,0.8610116086477386
+By Year and Region,2017,Western Europe,All,social_support,0.765549178769431
+By Year and Region,2018,Central and Eastern Europe,All,freedom_to_make_life_choices,0.4998547356517782
+By Year and Region,2018,Central and Eastern Europe,All,gdp_per_capita,0.6805230374435649
+By Year and Region,2018,Central and Eastern Europe,All,generosity,-0.0718892025764351
+By Year and Region,2018,Central and Eastern Europe,All,healthy_life_expectancy,0.2935996683738823
+By Year and Region,2018,Central and Eastern Europe,All,perceptions_of_corruption,-0.1582547932967533
+By Year and Region,2018,Central and Eastern Europe,All,social_support,0.6500536029867491
+By Year and Region,2018,East Asia,All,freedom_to_make_life_choices,-0.2855928094116731
+By Year and Region,2018,East Asia,All,gdp_per_capita,0.7101884245527779
+By Year and Region,2018,East Asia,All,generosity,-0.1778363649072018
+By Year and Region,2018,East Asia,All,healthy_life_expectancy,0.4565973869305076
+By Year and Region,2018,East Asia,All,perceptions_of_corruption,-0.1067081410023507
+By Year and Region,2018,East Asia,All,social_support,0.2001215825201535
+By Year and Region,2018,Latin America and Caribbean,All,freedom_to_make_life_choices,0.5511632644018549
+By Year and Region,2018,Latin America and Caribbean,All,gdp_per_capita,0.3426522783585208
+By Year and Region,2018,Latin America and Caribbean,All,generosity,0.1402363760452974
+By Year and Region,2018,Latin America and Caribbean,All,healthy_life_expectancy,0.6046984986492084
+By Year and Region,2018,Latin America and Caribbean,All,perceptions_of_corruption,0.2456619542372027
+By Year and Region,2018,Latin America and Caribbean,All,social_support,0.039568894034437
+By Year and Region,2018,Middle East and North Africa,All,freedom_to_make_life_choices,0.3640134087963598
+By Year and Region,2018,Middle East and North Africa,All,gdp_per_capita,0.7684513547673855
+By Year and Region,2018,Middle East and North Africa,All,generosity,0.4432480840734648
+By Year and Region,2018,Middle East and North Africa,All,healthy_life_expectancy,0.5549483659040866
+By Year and Region,2018,Middle East and North Africa,All,perceptions_of_corruption,0.7031895580641099
+By Year and Region,2018,Middle East and North Africa,All,social_support,0.4816395010256661
+By Year and Region,2018,South Asia,All,freedom_to_make_life_choices,0.3297986416983099
+By Year and Region,2018,South Asia,All,gdp_per_capita,0.2579358084800628
+By Year and Region,2018,South Asia,All,generosity,0.312456768185081
+By Year and Region,2018,South Asia,All,healthy_life_expectancy,0.3456835016220239
+By Year and Region,2018,South Asia,All,perceptions_of_corruption,0.5264740626203748
+By Year and Region,2018,South Asia,All,social_support,0.4161103002316771
+By Year and Region,2018,Southeast Asia,All,freedom_to_make_life_choices,-0.3798491261778484
+By Year and Region,2018,Southeast Asia,All,gdp_per_capita,0.8625217169113203
+By Year and Region,2018,Southeast Asia,All,generosity,-0.3480585660663469
+By Year and Region,2018,Southeast Asia,All,healthy_life_expectancy,0.7777641746699233
+By Year and Region,2018,Southeast Asia,All,perceptions_of_corruption,0.2873833077251354
+By Year and Region,2018,Southeast Asia,All,social_support,0.7603212732529122
+By Year and Region,2018,Sub-Saharan Africa,All,freedom_to_make_life_choices,0.1358575722212731
+By Year and Region,2018,Sub-Saharan Africa,All,gdp_per_capita,0.5422836181156829
+By Year and Region,2018,Sub-Saharan Africa,All,generosity,0.045112818845007
+By Year and Region,2018,Sub-Saharan Africa,All,healthy_life_expectancy,0.0851160455971241
+By Year and Region,2018,Sub-Saharan Africa,All,perceptions_of_corruption,-0.3131709451186821
+By Year and Region,2018,Sub-Saharan Africa,All,social_support,0.4330774399469858
+By Year and Region,2018,Western Europe,All,freedom_to_make_life_choices,0.7760454115981203
+By Year and Region,2018,Western Europe,All,gdp_per_capita,0.6742798400962015
+By Year and Region,2018,Western Europe,All,generosity,0.7468871755523179
+By Year and Region,2018,Western Europe,All,healthy_life_expectancy,-0.2793648826417957
+By Year and Region,2018,Western Europe,All,perceptions_of_corruption,0.8036998898926615
+By Year and Region,2018,Western Europe,All,social_support,0.7600892850975732
+By Year and Region,2019,Central and Eastern Europe,All,freedom_to_make_life_choices,0.4406749597154276
+By Year and Region,2019,Central and Eastern Europe,All,gdp_per_capita,0.6649184099792718
+By Year and Region,2019,Central and Eastern Europe,All,generosity,-0.0698278048077668
+By Year and Region,2019,Central and Eastern Europe,All,healthy_life_expectancy,0.3475751072178815
+By Year and Region,2019,Central and Eastern Europe,All,perceptions_of_corruption,-0.1194821141113535
+By Year and Region,2019,Central and Eastern Europe,All,social_support,0.622693922867484
+By Year and Region,2019,East Asia,All,freedom_to_make_life_choices,-0.3796662837265783
+By Year and Region,2019,East Asia,All,gdp_per_capita,0.6324075477591383
+By Year and Region,2019,East Asia,All,generosity,0.1993464574503119
+By Year and Region,2019,East Asia,All,healthy_life_expectancy,0.2902548575739442
+By Year and Region,2019,East Asia,All,perceptions_of_corruption,-0.1259488803683518
+By Year and Region,2019,East Asia,All,social_support,0.2903850603453475
+By Year and Region,2019,Latin America and Caribbean,All,freedom_to_make_life_choices,0.5288403230398039
+By Year and Region,2019,Latin America and Caribbean,All,gdp_per_capita,0.2535862694863109
+By Year and Region,2019,Latin America and Caribbean,All,generosity,0.1796951858253828
+By Year and Region,2019,Latin America and Caribbean,All,healthy_life_expectancy,0.5143733548391344
+By Year and Region,2019,Latin America and Caribbean,All,perceptions_of_corruption,0.2543698398645393
+By Year and Region,2019,Latin America and Caribbean,All,social_support,0.0131442726084638
+By Year and Region,2019,Middle East and North Africa,All,freedom_to_make_life_choices,0.6688900304951615
+By Year and Region,2019,Middle East and North Africa,All,gdp_per_capita,0.7992923304308504
+By Year and Region,2019,Middle East and North Africa,All,generosity,0.499577339198115
+By Year and Region,2019,Middle East and North Africa,All,healthy_life_expectancy,0.7291417825025146
+By Year and Region,2019,Middle East and North Africa,All,perceptions_of_corruption,0.4335634382555433
+By Year and Region,2019,Middle East and North Africa,All,social_support,0.7778946595685107
+By Year and Region,2019,South Asia,All,freedom_to_make_life_choices,0.4429668718354562
+By Year and Region,2019,South Asia,All,gdp_per_capita,0.2654593648422846
+By Year and Region,2019,South Asia,All,generosity,0.5683827127555391
+By Year and Region,2019,South Asia,All,healthy_life_expectancy,0.3610533597972395
+By Year and Region,2019,South Asia,All,perceptions_of_corruption,0.5606085340932411
+By Year and Region,2019,South Asia,All,social_support,0.5506214754904296
+By Year and Region,2019,Southeast Asia,All,freedom_to_make_life_choices,0.0551732569449495
+By Year and Region,2019,Southeast Asia,All,gdp_per_capita,0.7755205077224357
+By Year and Region,2019,Southeast Asia,All,generosity,-0.3712702518167682
+By Year and Region,2019,Southeast Asia,All,healthy_life_expectancy,0.789253585203412
+By Year and Region,2019,Southeast Asia,All,perceptions_of_corruption,0.3906980136510259
+By Year and Region,2019,Southeast Asia,All,social_support,0.8355443960402463
+By Year and Region,2019,Sub-Saharan Africa,All,freedom_to_make_life_choices,0.0517800870374789
+By Year and Region,2019,Sub-Saharan Africa,All,gdp_per_capita,0.4128530488987531
+By Year and Region,2019,Sub-Saharan Africa,All,generosity,-0.0007314706916041
+By Year and Region,2019,Sub-Saharan Africa,All,healthy_life_expectancy,0.0143818521471669
+By Year and Region,2019,Sub-Saharan Africa,All,perceptions_of_corruption,-0.4476195622024556
+By Year and Region,2019,Sub-Saharan Africa,All,social_support,0.2633949124340399
+By Year and Region,2019,Western Europe,All,freedom_to_make_life_choices,0.7952641365548803
+By Year and Region,2019,Western Europe,All,gdp_per_capita,0.7149847985293615
+By Year and Region,2019,Western Europe,All,generosity,0.661542431067256
+By Year and Region,2019,Western Europe,All,healthy_life_expectancy,-0.2371800543173718
+By Year and Region,2019,Western Europe,All,perceptions_of_corruption,0.8311820698304646
+By Year and Region,2019,Western Europe,All,social_support,0.8330910373966952
+By Year and Region,2020,Central and Eastern Europe,All,freedom_to_make_life_choices,0.4369120926854131
+By Year and Region,2020,Central and Eastern Europe,All,gdp_per_capita,0.6636236207105839
+By Year and Region,2020,Central and Eastern Europe,All,generosity,0.0020040069614484
+By Year and Region,2020,Central and Eastern Europe,All,healthy_life_expectancy,0.3539568619969933
+By Year and Region,2020,Central and Eastern Europe,All,perceptions_of_corruption,0.022001968813818
+By Year and Region,2020,Central and Eastern Europe,All,social_support,0.597472208860695
+By Year and Region,2020,East Asia,All,freedom_to_make_life_choices,-0.3345469267672549
+By Year and Region,2020,East Asia,All,gdp_per_capita,0.6266845818498218
+By Year and Region,2020,East Asia,All,generosity,-0.1313313951510602
+By Year and Region,2020,East Asia,All,healthy_life_expectancy,0.1730403157821423
+By Year and Region,2020,East Asia,All,perceptions_of_corruption,-0.0381197249526298
+By Year and Region,2020,East Asia,All,social_support,0.3039937332779979
+By Year and Region,2020,Latin America and Caribbean,All,freedom_to_make_life_choices,0.5828569118058988
+By Year and Region,2020,Latin America and Caribbean,All,gdp_per_capita,0.3281108518587122
+By Year and Region,2020,Latin America and Caribbean,All,generosity,0.0460135141853217
+By Year and Region,2020,Latin America and Caribbean,All,healthy_life_expectancy,0.5130501872760184
+By Year and Region,2020,Latin America and Caribbean,All,perceptions_of_corruption,0.3333134324490973
+By Year and Region,2020,Latin America and Caribbean,All,social_support,0.0623389978069396
+By Year and Region,2020,Middle East and North Africa,All,freedom_to_make_life_choices,0.6585815104382285
+By Year and Region,2020,Middle East and North Africa,All,gdp_per_capita,0.8605043631333197
+By Year and Region,2020,Middle East and North Africa,All,generosity,0.5871528675389119
+By Year and Region,2020,Middle East and North Africa,All,healthy_life_expectancy,0.646662345391002
+By Year and Region,2020,Middle East and North Africa,All,perceptions_of_corruption,0.5125524847140401
+By Year and Region,2020,Middle East and North Africa,All,social_support,0.7027811838576753
+By Year and Region,2020,South Asia,All,freedom_to_make_life_choices,0.5804683877749365
+By Year and Region,2020,South Asia,All,gdp_per_capita,0.2548031999694017
+By Year and Region,2020,South Asia,All,generosity,0.5787025098783506
+By Year and Region,2020,South Asia,All,healthy_life_expectancy,0.5263106236253509
+By Year and Region,2020,South Asia,All,perceptions_of_corruption,0.7404714651568567
+By Year and Region,2020,South Asia,All,social_support,0.7312663461353845
+By Year and Region,2020,Southeast Asia,All,freedom_to_make_life_choices,0.0574393894571103
+By Year and Region,2020,Southeast Asia,All,gdp_per_capita,0.6973835195243113
+By Year and Region,2020,Southeast Asia,All,generosity,-0.5192061543947545
+By Year and Region,2020,Southeast Asia,All,healthy_life_expectancy,0.7351100793589603
+By Year and Region,2020,Southeast Asia,All,perceptions_of_corruption,0.4004704167625042
+By Year and Region,2020,Southeast Asia,All,social_support,0.898433045215496
+By Year and Region,2020,Sub-Saharan Africa,All,freedom_to_make_life_choices,0.0921956808259624
+By Year and Region,2020,Sub-Saharan Africa,All,gdp_per_capita,0.2766903108497039
+By Year and Region,2020,Sub-Saharan Africa,All,generosity,0.0093751673768515
+By Year and Region,2020,Sub-Saharan Africa,All,healthy_life_expectancy,0.0811254290809914
+By Year and Region,2020,Sub-Saharan Africa,All,perceptions_of_corruption,-0.2824048926380367
+By Year and Region,2020,Sub-Saharan Africa,All,social_support,0.1773729558873517
+By Year and Region,2020,Western Europe,All,freedom_to_make_life_choices,0.8090228439906589
+By Year and Region,2020,Western Europe,All,gdp_per_capita,0.7135515913798413
+By Year and Region,2020,Western Europe,All,generosity,0.6679852268363268
+By Year and Region,2020,Western Europe,All,healthy_life_expectancy,-0.1918195439605636
+By Year and Region,2020,Western Europe,All,perceptions_of_corruption,0.8692385284066182
+By Year and Region,2020,Western Europe,All,social_support,0.819077444152431
+By Year and Region,2021,Central and Eastern Europe,All,freedom_to_make_life_choices,0.4488197202387638
+By Year and Region,2021,Central and Eastern Europe,All,gdp_per_capita,0.6028770210739994
+By Year and Region,2021,Central and Eastern Europe,All,generosity,0.0091170621180718
+By Year and Region,2021,Central and Eastern Europe,All,healthy_life_expectancy,0.4877709050127131
+By Year and Region,2021,Central and Eastern Europe,All,perceptions_of_corruption,0.0051711366823029
+By Year and Region,2021,Central and Eastern Europe,All,social_support,0.5973020054862629
+By Year and Region,2021,East Asia,All,freedom_to_make_life_choices,-0.1429969934813385
+By Year and Region,2021,East Asia,All,gdp_per_capita,0.4626845089748797
+By Year and Region,2021,East Asia,All,generosity,-0.1991213053110949
+By Year and Region,2021,East Asia,All,healthy_life_expectancy,-0.0531561700890084
+By Year and Region,2021,East Asia,All,perceptions_of_corruption,-0.1805545440761672
+By Year and Region,2021,East Asia,All,social_support,0.4387898374770302
+By Year and Region,2021,Latin America and Caribbean,All,freedom_to_make_life_choices,0.6658079177198689
+By Year and Region,2021,Latin America and Caribbean,All,gdp_per_capita,0.3297294244690803
+By Year and Region,2021,Latin America and Caribbean,All,generosity,0.0342037801942658
+By Year and Region,2021,Latin America and Caribbean,All,healthy_life_expectancy,0.4764075046496122
+By Year and Region,2021,Latin America and Caribbean,All,perceptions_of_corruption,0.1877445718094653
+By Year and Region,2021,Latin America and Caribbean,All,social_support,0.2172652447652085
+By Year and Region,2021,Middle East and North Africa,All,freedom_to_make_life_choices,0.6941664818155567
+By Year and Region,2021,Middle East and North Africa,All,gdp_per_capita,0.9042369623523064
+By Year and Region,2021,Middle East and North Africa,All,generosity,0.4194410636740354
+By Year and Region,2021,Middle East and North Africa,All,healthy_life_expectancy,0.6515661062821213
+By Year and Region,2021,Middle East and North Africa,All,perceptions_of_corruption,0.5530979138254354
+By Year and Region,2021,Middle East and North Africa,All,social_support,0.6801656351333569
+By Year and Region,2021,South Asia,All,freedom_to_make_life_choices,0.7115400773121345
+By Year and Region,2021,South Asia,All,gdp_per_capita,0.2943513910656051
+By Year and Region,2021,South Asia,All,generosity,0.6379087059021928
+By Year and Region,2021,South Asia,All,healthy_life_expectancy,0.7275041188952921
+By Year and Region,2021,South Asia,All,perceptions_of_corruption,0.814529878692758
+By Year and Region,2021,South Asia,All,social_support,0.7691025856927979
+By Year and Region,2021,Southeast Asia,All,freedom_to_make_life_choices,0.0989828130964236
+By Year and Region,2021,Southeast Asia,All,gdp_per_capita,0.7775896634912522
+By Year and Region,2021,Southeast Asia,All,generosity,-0.4529129049198143
+By Year and Region,2021,Southeast Asia,All,healthy_life_expectancy,0.7639774130028586
+By Year and Region,2021,Southeast Asia,All,perceptions_of_corruption,0.4500358701761839
+By Year and Region,2021,Southeast Asia,All,social_support,0.9054655574949656
+By Year and Region,2021,Sub-Saharan Africa,All,freedom_to_make_life_choices,0.2018068553839492
+By Year and Region,2021,Sub-Saharan Africa,All,gdp_per_capita,0.3272708887034249
+By Year and Region,2021,Sub-Saharan Africa,All,generosity,-0.0158784101473974
+By Year and Region,2021,Sub-Saharan Africa,All,healthy_life_expectancy,0.0862022258604976
+By Year and Region,2021,Sub-Saharan Africa,All,perceptions_of_corruption,-0.1487749387551285
+By Year and Region,2021,Sub-Saharan Africa,All,social_support,0.1905234094005005
+By Year and Region,2021,Western Europe,All,freedom_to_make_life_choices,0.7772385166717956
+By Year and Region,2021,Western Europe,All,gdp_per_capita,0.6852824863871705
+By Year and Region,2021,Western Europe,All,generosity,0.6130238538972979
+By Year and Region,2021,Western Europe,All,healthy_life_expectancy,-0.1874828269047072
+By Year and Region,2021,Western Europe,All,perceptions_of_corruption,0.8721233795053664
+By Year and Region,2021,Western Europe,All,social_support,0.7817085056258647
+By Year and Region,2022,Central and Eastern Europe,All,freedom_to_make_life_choices,0.4981506316236695
+By Year and Region,2022,Central and Eastern Europe,All,gdp_per_capita,0.6167381453261918
+By Year and Region,2022,Central and Eastern Europe,All,generosity,0.0246951835286765
+By Year and Region,2022,Central and Eastern Europe,All,healthy_life_expectancy,0.4168729387551297
+By Year and Region,2022,Central and Eastern Europe,All,perceptions_of_corruption,0.0236790771815295
+By Year and Region,2022,Central and Eastern Europe,All,social_support,0.6639895315250386
+By Year and Region,2022,East Asia,All,freedom_to_make_life_choices,0.1947686746731015
+By Year and Region,2022,East Asia,All,gdp_per_capita,0.296350146255455
+By Year and Region,2022,East Asia,All,generosity,-0.444800791370725
+By Year and Region,2022,East Asia,All,healthy_life_expectancy,-0.085508257420222
+By Year and Region,2022,East Asia,All,perceptions_of_corruption,-0.3299480861698819
+By Year and Region,2022,East Asia,All,social_support,0.3527025623722157
+By Year and Region,2022,Latin America and Caribbean,All,freedom_to_make_life_choices,0.6325344922446718
+By Year and Region,2022,Latin America and Caribbean,All,gdp_per_capita,0.6635136508708016
+By Year and Region,2022,Latin America and Caribbean,All,generosity,-0.3737562841887337
+By Year and Region,2022,Latin America and Caribbean,All,healthy_life_expectancy,0.1974195874822126
+By Year and Region,2022,Latin America and Caribbean,All,perceptions_of_corruption,0.4193152343017044
+By Year and Region,2022,Latin America and Caribbean,All,social_support,0.2672242881056406
+By Year and Region,2022,Middle East and North Africa,All,freedom_to_make_life_choices,0.7564785448241113
+By Year and Region,2022,Middle East and North Africa,All,gdp_per_capita,0.8059934865461847
+By Year and Region,2022,Middle East and North Africa,All,generosity,0.4852379952312122
+By Year and Region,2022,Middle East and North Africa,All,healthy_life_expectancy,0.3571741047347269
+By Year and Region,2022,Middle East and North Africa,All,perceptions_of_corruption,0.3767099512821383
+By Year and Region,2022,Middle East and North Africa,All,social_support,0.76757629420681
+By Year and Region,2022,South Asia,All,freedom_to_make_life_choices,0.7658571118812194
+By Year and Region,2022,South Asia,All,gdp_per_capita,0.3924179137962434
+By Year and Region,2022,South Asia,All,generosity,0.6022960943673645
+By Year and Region,2022,South Asia,All,healthy_life_expectancy,0.6362587344858363
+By Year and Region,2022,South Asia,All,perceptions_of_corruption,0.8489343237773543
+By Year and Region,2022,South Asia,All,social_support,0.7978240323039422
+By Year and Region,2022,Southeast Asia,All,freedom_to_make_life_choices,0.3050049756175189
+By Year and Region,2022,Southeast Asia,All,gdp_per_capita,0.8487644675184537
+By Year and Region,2022,Southeast Asia,All,generosity,-0.4778917975633004
+By Year and Region,2022,Southeast Asia,All,healthy_life_expectancy,0.7975316083664994
+By Year and Region,2022,Southeast Asia,All,perceptions_of_corruption,0.4863169152346545
+By Year and Region,2022,Southeast Asia,All,social_support,0.8692728086694499
+By Year and Region,2022,Sub-Saharan Africa,All,freedom_to_make_life_choices,0.1598846166632075
+By Year and Region,2022,Sub-Saharan Africa,All,gdp_per_capita,0.2992995322900634
+By Year and Region,2022,Sub-Saharan Africa,All,generosity,0.0122987523764194
+By Year and Region,2022,Sub-Saharan Africa,All,healthy_life_expectancy,0.389448808458868
+By Year and Region,2022,Sub-Saharan Africa,All,perceptions_of_corruption,-0.2021875911752244
+By Year and Region,2022,Sub-Saharan Africa,All,social_support,0.2858181645779496
+By Year and Region,2022,Western Europe,All,freedom_to_make_life_choices,0.7548831101899761
+By Year and Region,2022,Western Europe,All,gdp_per_capita,0.6894935274546855
+By Year and Region,2022,Western Europe,All,generosity,0.6149785574051544
+By Year and Region,2022,Western Europe,All,healthy_life_expectancy,-0.027487154922567
+By Year and Region,2022,Western Europe,All,perceptions_of_corruption,0.8743540504411664
+By Year and Region,2022,Western Europe,All,social_support,0.761882572990519
+By Year and Region,2023,Central and Eastern Europe,All,freedom_to_make_life_choices,0.3534728461037335
+By Year and Region,2023,Central and Eastern Europe,All,gdp_per_capita,0.71946441207264
+By Year and Region,2023,Central and Eastern Europe,All,generosity,-0.0861039811386156
+By Year and Region,2023,Central and Eastern Europe,All,healthy_life_expectancy,0.4793955352745488
+By Year and Region,2023,Central and Eastern Europe,All,perceptions_of_corruption,0.1315146735670194
+By Year and Region,2023,Central and Eastern Europe,All,social_support,0.668398599466658
+By Year and Region,2023,East Asia,All,freedom_to_make_life_choices,0.4586938098092037
+By Year and Region,2023,East Asia,All,gdp_per_capita,0.0790433485495489
+By Year and Region,2023,East Asia,All,generosity,-0.4326765264615408
+By Year and Region,2023,East Asia,All,healthy_life_expectancy,-0.2380634157435801
+By Year and Region,2023,East Asia,All,perceptions_of_corruption,-0.5040163802117273
+By Year and Region,2023,East Asia,All,social_support,0.4448785265816598
+By Year and Region,2023,Latin America and Caribbean,All,freedom_to_make_life_choices,0.6099495504725482
+By Year and Region,2023,Latin America and Caribbean,All,gdp_per_capita,0.5608114002945743
+By Year and Region,2023,Latin America and Caribbean,All,generosity,-0.1255816517432681
+By Year and Region,2023,Latin America and Caribbean,All,healthy_life_expectancy,0.2176637205565885
+By Year and Region,2023,Latin America and Caribbean,All,perceptions_of_corruption,0.3916548933347579
+By Year and Region,2023,Latin America and Caribbean,All,social_support,0.2961028489739838
+By Year and Region,2023,Middle East and North Africa,All,freedom_to_make_life_choices,0.722337176795929
+By Year and Region,2023,Middle East and North Africa,All,gdp_per_capita,0.7403455406523308
+By Year and Region,2023,Middle East and North Africa,All,generosity,0.4712823880340332
+By Year and Region,2023,Middle East and North Africa,All,healthy_life_expectancy,0.3828792655218778
+By Year and Region,2023,Middle East and North Africa,All,perceptions_of_corruption,0.4468122251531893
+By Year and Region,2023,Middle East and North Africa,All,social_support,0.8356845756126181
+By Year and Region,2023,South Asia,All,freedom_to_make_life_choices,0.8476983045426962
+By Year and Region,2023,South Asia,All,gdp_per_capita,0.6439339849331803
+By Year and Region,2023,South Asia,All,generosity,0.7581473609472534
+By Year and Region,2023,South Asia,All,healthy_life_expectancy,0.6021130238311944
+By Year and Region,2023,South Asia,All,perceptions_of_corruption,0.5057367818078553
+By Year and Region,2023,South Asia,All,social_support,0.8378520553069275
+By Year and Region,2023,Southeast Asia,All,freedom_to_make_life_choices,0.2259470641731933
+By Year and Region,2023,Southeast Asia,All,gdp_per_capita,0.9083839901140512
+By Year and Region,2023,Southeast Asia,All,generosity,-0.3848792790437724
+By Year and Region,2023,Southeast Asia,All,healthy_life_expectancy,0.8378029088196887
+By Year and Region,2023,Southeast Asia,All,perceptions_of_corruption,0.4917585429956582
+By Year and Region,2023,Southeast Asia,All,social_support,0.7750857696395115
+By Year and Region,2023,Sub-Saharan Africa,All,freedom_to_make_life_choices,0.111185283633002
+By Year and Region,2023,Sub-Saharan Africa,All,gdp_per_capita,0.5374819203352705
+By Year and Region,2023,Sub-Saharan Africa,All,generosity,-0.1092769796971148
+By Year and Region,2023,Sub-Saharan Africa,All,healthy_life_expectancy,0.335397879439807
+By Year and Region,2023,Sub-Saharan Africa,All,perceptions_of_corruption,-0.1710388844447506
+By Year and Region,2023,Sub-Saharan Africa,All,social_support,0.4098910605818089
+By Year and Region,2023,Western Europe,All,freedom_to_make_life_choices,0.7450975047561702
+By Year and Region,2023,Western Europe,All,gdp_per_capita,0.6111762855297174
+By Year and Region,2023,Western Europe,All,generosity,0.666592275207804
+By Year and Region,2023,Western Europe,All,healthy_life_expectancy,-0.0765144242102319
+By Year and Region,2023,Western Europe,All,perceptions_of_corruption,0.8600540360035845
+By Year and Region,2023,Western Europe,All,social_support,0.7584397586447541
+Overall,All,All,All,freedom_to_make_life_choices,0.5460095658955811
+Overall,All,All,All,gdp_per_capita,0.703778820915981
+Overall,All,All,All,generosity,0.124129007824968
+Overall,All,All,All,healthy_life_expectancy,0.6605687751345773
+Overall,All,All,All,perceptions_of_corruption,0.5180166585243455
+Overall,All,All,All,social_support,0.641013902531763
