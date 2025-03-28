@@ -1,0 +1,168 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f7f7f7;
+    color: #333;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+h1, h2 {
+    text-align: center;
+    color: #1a5276;
+}
+
+h1 {
+    margin-bottom: 5px;
+}
+
+h2 {
+    font-weight: normal;
+    margin-top: 0;
+    margin-bottom: 30px;
+    color: #5d6d7e;
+}
+
+.description {
+    margin: 20px 0 30px;
+    text-align: center;
+    color: #5d6d7e;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.5;
+}
+
+#viz {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+svg {
+    margin-top: 20px;
+}
+
+.node circle {
+    fill: #fff;
+    stroke: #1a5276;
+    stroke-width: 2px;
+    transition: fill 0.3s, r 0.3s;
+}
+
+.node:hover circle {
+    fill: #a2d5f2;
+    r: 6;
+}
+
+.node text {
+    font-size: 11px;
+    font-family: sans-serif;
+    transition: font-size 0.3s;
+}
+
+.node:hover text {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.link {
+    fill: none;
+    stroke: #d6dbdf;
+    stroke-width: 1.5px;
+    transition: stroke 0.3s;
+}
+
+.node:hover + .link {
+    stroke: #7fb3d5;
+}
+
+.factor-legend {
+    margin-top: 40px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+}
+
+.factor-item {
+    display: flex;
+    align-items: center;
+    padding: 8px 15px;
+    border-radius: 20px;
+    background-color: #f5f8fa;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.factor-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.factor-color {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin-right: 8px;
+}
+
+.tooltip {
+    position: absolute;
+    padding: 15px;
+    background-color: rgba(255, 255, 255, 0.97);
+    border: 1px solid #e5e8e8;
+    border-radius: 8px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    max-width: 320px;
+}
+
+.tooltip h3 {
+    margin: 0 0 12px 0;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #eaeded;
+    color: #1a5276;
+}
+
+.radar-chart {
+    margin-top: 15px;
+}
+
+.back-link {
+    display: block;
+    margin: 30px auto 0;
+    text-align: center;
+    color: #1a5276;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.back-link:hover {
+    text-decoration: underline;
+}
+
+.legend-title {
+    width: 100%;
+    text-align: center;
+    margin: 10px 0;
+    font-weight: 600;
+    color: #34495e;
+}
+
+footer {
+    margin-top: 40px;
+    text-align: center;
+    font-size: 14px;
+    color: #7f8c8d;
+}
