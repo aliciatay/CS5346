@@ -8,10 +8,27 @@ Promise.all([
     const factorNames = data[1];
     const rawData = data[2];
     
-    // Convert all correlation values to numbers and separate data by year
+    // Debug the raw data first to see what's happening
+    console.log("DEBUG RAW DATA SAMPLE:", rawData.slice(0, 5));
+    
+    // Convert all correlation values to numbers and normalize year values
     const dataByYear = {};
     rawData.forEach(d => {
         d.correlation = parseFloat(d.correlation); // Ensure correlation is a number
+        
+        // Important: Ensure consistent year format (trim whitespace, handle case)
+        d.year = String(d.year).trim();
+        
+        // Log first few records with their year values for debugging
+        if (rawData.indexOf(d) < 3) {
+            console.log("Sample record:", {
+                year: d.year,
+                yearType: typeof d.year,
+                level: d.level,
+                factor: d.factor,
+                correlation: d.correlation
+            });
+        }
         
         // Organize data by year for quick access
         if (!dataByYear[d.year]) {
@@ -25,6 +42,9 @@ Promise.all([
     Object.keys(dataByYear).forEach(year => {
         console.log(`Year ${year}: ${dataByYear[year].length} records`);
     });
+    
+    // Debug available years from filters
+    console.log("Years in filter dropdown:", filters.years);
     
     // Set up global variables
     let currentFilters = {
@@ -117,19 +137,41 @@ Promise.all([
         // Step 1: Determine which data set to use based on year
         let dataToUse = [];
         
+        // Normalize selected year for comparison
+        const normalizedYear = String(currentFilters.year).trim();
+        console.log("Normalized selected year:", normalizedYear);
+        
         // First try exact year match
-        if (currentFilters.year !== 'All' && dataByYear[currentFilters.year]) {
-            dataToUse = dataByYear[currentFilters.year];
-            console.log(`Using data for specific year: ${currentFilters.year}`);
-        } else if (currentFilters.year !== 'All') {
-            // If specific year selected but no data, try using 'All' years data as fallback
-            dataToUse = dataByYear['All'] || [];
-            console.log(`No data for year ${currentFilters.year}, falling back to 'All' years data`);
+        if (normalizedYear !== 'All') {
+            // Check if we have data for this year
+            if (dataByYear[normalizedYear] && dataByYear[normalizedYear].length > 0) {
+                console.log(`Found ${dataByYear[normalizedYear].length} records for year: ${normalizedYear}`);
+                dataToUse = dataByYear[normalizedYear];
+            } else {
+                // Debug the issue - log keys to see why we can't find the year
+                console.log("Can't find year in data. Available years:", Object.keys(dataByYear));
+                console.log("Selected year:", normalizedYear, "type:", typeof normalizedYear);
+                
+                // Case-insensitive search through years
+                const yearKey = Object.keys(dataByYear).find(key => 
+                    key.toLowerCase() === normalizedYear.toLowerCase());
+                
+                if (yearKey) {
+                    console.log(`Found year using case-insensitive match: ${yearKey}`);
+                    dataToUse = dataByYear[yearKey];
+                } else {
+                    // Last resort: use all years data as fallback
+                    console.log(`No data found for year ${normalizedYear}, falling back to 'All' years data`);
+                    dataToUse = dataByYear['All'] || [];
+                }
+            }
         } else {
-            // Use all available data if 'All' years selected 
+            // For 'All' years, use entire dataset
             dataToUse = rawData;
-            console.log("Using all available data");
+            console.log("Using complete dataset for 'All' years");
         }
+        
+        console.log(`Initial data to use: ${dataToUse.length} records`);
         
         // Step 2: Filter by level (Region/Country)
         dataToUse = dataToUse.filter(d => d.level === currentFilters.level);
