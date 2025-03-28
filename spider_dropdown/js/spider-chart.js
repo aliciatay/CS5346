@@ -10,6 +10,8 @@ document.addEventListener('DOMContentLoaded', function() {
         perceptions_of_corruption: "Perceptions of Corruption"
     };
     
+    console.log("Starting to load data...");
+    
     // Load data - fix path to point to the correct location
     d3.csv('complete_world_happiness.csv').then(function(data) {
         console.log("Loaded data:", data.slice(0, 5)); // Debug first 5 rows
@@ -98,6 +100,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 .append('option')
                 .attr('value', d => d)
                 .text(d => d);
+                
+            console.log("Initialized filters with options");
         }
         
         // Show/hide dropdowns based on level selection
@@ -123,11 +127,13 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Filter data based on selections
             let filteredData = data;
+            console.log("Starting with all data:", filteredData.length, "records");
             
             // Filter by year if not 'All'
             if (filters.year !== 'All') {
                 filteredData = filteredData.filter(d => d.year === filters.year);
                 console.log(`After year filter (${filters.year}): ${filteredData.length} records`);
+                console.log("Sample after year filter:", filteredData.slice(0, 2));
                 
                 // If no data for this specific year, show message
                 if (filteredData.length === 0) {
@@ -139,8 +145,12 @@ document.addEventListener('DOMContentLoaded', function() {
             // Filter by region or country depending on level
             if (filters.level === 'By Region') {
                 if (filters.region !== 'All') {
+                    // Debug: Show all unique regions in the filtered data
+                    console.log("All regions in current filtered data:", [...new Set(filteredData.map(d => d.region))]);
+                    
                     filteredData = filteredData.filter(d => d.region === filters.region);
                     console.log(`After region filter (${filters.region}): ${filteredData.length} records`);
+                    console.log("Sample after region filter:", filteredData.slice(0, 2));
                 }
             } else { // By Country
                 if (filters.country !== 'All') {
@@ -169,6 +179,13 @@ document.addEventListener('DOMContentLoaded', function() {
             const correlations = calculateCorrelations(filteredData);
             console.log("Calculated correlations:", correlations);
             
+            // Debug: Check for missing values or NaN in correlations
+            Object.keys(correlations).forEach(key => {
+                if (isNaN(correlations[key]) || correlations[key] === null || correlations[key] === undefined) {
+                    console.error(`Problem with correlation for ${key}: ${correlations[key]}`);
+                }
+            });
+            
             // Prepare data for radar chart
             const chartData = [{
                 name: filters.level === 'By Region' ? 
@@ -176,6 +193,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     (filters.country !== 'All' ? filters.country : 'All Countries'),
                 ...correlations
             }];
+            
+            console.log("Chart data prepared:", chartData);
             
             // Draw the radar chart
             drawRadarChart(chartData, FACTORS);
@@ -189,9 +208,22 @@ document.addEventListener('DOMContentLoaded', function() {
                 const happinessValues = data.map(d => d.happiness_score);
                 const factorValues = data.map(d => d[factor]);
                 
+                // Debug: Check for undefined or NaN values
+                const hasInvalidValues = happinessValues.some(v => isNaN(v) || v === undefined) || 
+                                        factorValues.some(v => isNaN(v) || v === undefined);
+                                        
+                if (hasInvalidValues) {
+                    console.error(`Invalid values found for ${factor}:`, {
+                        happiness: happinessValues.filter(v => isNaN(v) || v === undefined),
+                        factor: factorValues.filter(v => isNaN(v) || v === undefined)
+                    });
+                }
+                
                 // Calculate means
                 const happinessMean = d3.mean(happinessValues);
                 const factorMean = d3.mean(factorValues);
+                
+                console.log(`${factor} means:`, { happiness: happinessMean, factor: factorMean });
                 
                 // Calculate correlation coefficient
                 let numerator = 0;
@@ -207,8 +239,14 @@ document.addEventListener('DOMContentLoaded', function() {
                     denominatorFactor += factorDiff * factorDiff;
                 }
                 
-                const correlation = numerator / Math.sqrt(denominatorHappiness * denominatorFactor);
-                correlations[factor] = correlation;
+                // Avoid division by zero
+                if (denominatorHappiness === 0 || denominatorFactor === 0) {
+                    console.error(`Division by zero error for ${factor}`);
+                    correlations[factor] = 0; // Default to zero correlation if there's a division by zero
+                } else {
+                    const correlation = numerator / Math.sqrt(denominatorHappiness * denominatorFactor);
+                    correlations[factor] = correlation;
+                }
             });
             
             return correlations;
@@ -237,11 +275,29 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Draw the radar/spider chart
         function drawRadarChart(data, factors) {
-            console.log(`Drawing chart with ${data.length} items and ${factors.length} factors`);
+            console.log(`Drawing chart with ${data.length} items and ${Object.keys(factors).length} factors`);
             
             // Clear previous chart
             d3.select('#spider-chart').html('');
             
+            // Check if we have valid data
+            if (data.length === 0 || Object.keys(factors).length === 0) {
+                showNoDataMessage('Error: No data or factors to display in the chart.');
+                return;
+            }
+            
+            // Check that all factors have values
+            const missingFactors = Object.keys(factors).filter(f => 
+                data[0][f] === undefined || data[0][f] === null || isNaN(data[0][f])
+            );
+            
+            if (missingFactors.length > 0) {
+                showNoDataMessage(`Error: Missing correlation values for factors: ${missingFactors.join(', ')}`);
+                console.error('Missing factors in data:', missingFactors);
+                console.error('Current data item:', data[0]);
+                return;
+            }
+
             // Set up dimensions and layout
             const margin = { top: 100, right: 100, bottom: 100, left: 100 };
             const width = Math.min(700, window.innerWidth - 10) - margin.left - margin.right;
@@ -262,7 +318,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 .range([0, radius]);
             
             // Create angles for each factor - explicitly set them to be evenly distributed
-            const angleSlice = Math.PI * 2 / factors.length;
+            const angleSlice = Math.PI * 2 / Object.keys(factors).length;
             
             // Create the circular segments
             svg.selectAll('.radar-chart-circle')
@@ -290,7 +346,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Add axis lines
             const axes = svg.selectAll('.axis')
-                .data(factors)
+                .data(Object.keys(factors))
                 .enter()
                 .append('g')
                 .attr('class', 'axis');
@@ -352,7 +408,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Draw the radar chart paths for each data point
             data.forEach((d, i) => {
-                const dataValues = Object.keys(FACTORS).map(factor => {
+                const dataValues = Object.keys(factors).map(factor => {
                     const value = d[factor] || 0;
                     return { factor, value };
                 });

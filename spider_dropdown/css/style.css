@@ -180,6 +180,10 @@ select:focus {
     padding: 50px 20px;
     color: #e15759;
     font-size: 16px;
+    background-color: #fff6f6;
+    border: 1px solid #e15759;
+    border-radius: 6px;
+    margin: 20px;
 }
 
 /* SVG text elements */
