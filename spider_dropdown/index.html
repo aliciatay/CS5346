@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happiness Factors Correlation Spider Chart</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.cdnfonts.com/css/berton-sans" rel="stylesheet">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Happiness Factors Correlation Spider Chart</h1>
+        <p class="description">This visualization shows how different factors correlate with happiness scores across regions, countries and years. <span class="version">v3.3</span></p>
+        
+        <div class="filters">
+            <div class="filter-group">
+                <label for="level-select">Level:</label>
+                <select id="level-select">
+                    <option value="By Region">Region</option>
+                    <option value="By Country">Country</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label for="region-select">Region:</label>
+                <select id="region-select"></select>
+            </div>
+            <div class="filter-group">
+                <label for="country-select">Country:</label>
+                <select id="country-select"></select>
+            </div>
+            <div class="filter-group year-slider-container">
+                <label for="year-slider">Year: <span id="year-value">All</span></label>
+                <div class="slider-container">
+                    <input type="range" id="year-slider" min="0" max="9" value="0" class="slider">
+                </div>
+                <div class="year-labels">
+                    <span class="year-label">All</span>
+                    <span class="year-label">2023</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="chart-container">
+            <div id="spider-chart"></div>
+        </div>
+        
+        <div class="legend" id="chart-legend"></div>
+        
+        <div class="notes">
+            <p><strong>Note:</strong> Values range from -1.0 (strongest negative correlation) to 1.0 (strongest positive correlation). A value of 0 indicates no correlation.</p>
+            <p><strong>About this visualization:</strong> This spider chart shows Pearson correlation coefficients between happiness factors and overall happiness scores for the selected region/country and year.</p>
+        </div>
+    </div>
+
+    <script src="js/spider-chart.js"></script>
+</body>
+</html>
