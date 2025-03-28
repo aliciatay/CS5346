@@ -2,7 +2,7 @@
 Promise.all([
     d3.json('data/filters.json'),
     d3.json('data/factors.json'),
-    d3.csv('data/happiness_correlations.csv')
+    d3.csv('data/happiness_factor_correlations.csv') // Using the correct file for factor correlations
 ]).then(function(data) {
     const filters = data[0];
     const factorNames = data[1];
@@ -14,7 +14,12 @@ Promise.all([
     // Convert all correlation values to numbers and normalize year values
     const dataByYear = {};
     rawData.forEach(d => {
-        d.correlation = parseFloat(d.correlation); // Ensure correlation is a number
+        // Fix correlation value if it has newlines or needs cleaning
+        if (d.correlation) {
+            // Remove any whitespace, newlines, etc.
+            d.correlation = d.correlation.replace(/\s+/g, '');
+        }
+        d.correlation = parseFloat(d.correlation) || 0; // Ensure correlation is a number, default to 0 if invalid
         
         // Important: Ensure consistent year format (trim whitespace, handle case)
         d.year = String(d.year).trim();
