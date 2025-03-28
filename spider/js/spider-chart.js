@@ -19,8 +19,8 @@ document.addEventListener('DOMContentLoaded', function() {
         'perceptions_of_corruption': 'Perceptions of Corruption'
     };
     
-    // Load data
-    d3.csv('../complete_world_happiness.csv').then(function(data) {
+    // Load data - fix path to point to the correct location
+    d3.csv('complete_world_happiness.csv').then(function(data) {
         console.log("Loaded data:", data.slice(0, 5)); // Debug first 5 rows
         
         // Format data - convert strings to numbers
