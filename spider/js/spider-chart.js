@@ -13,8 +13,11 @@ Promise.all([
     updateChart();
     
     // Event listeners for filter changes
-    d3.select('#level-select').on('change', updateChart);
-    d3.select('#region-select').on('change', updateFiltersAndChart);
+    d3.select('#level-select').on('change', function() {
+        updateFilterVisibility();
+        updateChart();
+    });
+    d3.select('#region-select').on('change', updateChart);
     d3.select('#country-select').on('change', updateChart);
     d3.select('#year-select').on('change', updateChart);
     
@@ -30,7 +33,13 @@ Promise.all([
             .text(d => d);
             
         // Populate country dropdown
-        updateCountryDropdown(filters.countries);
+        d3.select('#country-select')
+            .selectAll('option')
+            .data(filters.countries)
+            .enter()
+            .append('option')
+            .attr('value', d => d)
+            .text(d => d);
             
         // Populate year dropdown
         d3.select('#year-select')
@@ -41,72 +50,24 @@ Promise.all([
             .attr('value', d => d)
             .text(d => d);
             
-        // Set initial visible state for country dropdown
+        // Set initial visible state for filter dropdowns
         updateFilterVisibility();
     }
     
-    // Update filters based on selections
-    function updateFiltersAndChart() {
-        updateFilterVisibility();
-        updateCountryDropdown();
-        updateChart();
-    }
-    
-    // Show/hide country dropdown based on level selection
+    // Show/hide dropdowns based on level selection
     function updateFilterVisibility() {
         const level = d3.select('#level-select').property('value');
-        const regionValue = d3.select('#region-select').property('value');
         
-        // Show country dropdown only when Country level is selected
+        // Show relevant dropdowns based on level
+        const regionDropdown = d3.select('#region-select').node().parentNode;
         const countryDropdown = d3.select('#country-select').node().parentNode;
+        
         if (level === 'By Region') {
+            regionDropdown.style.display = 'flex';
             countryDropdown.style.display = 'none';
-        } else {
+        } else { // By Country
+            regionDropdown.style.display = 'none';
             countryDropdown.style.display = 'flex';
-        }
-    }
-    
-    // Update the country dropdown based on selected region
-    function updateCountryDropdown() {
-        const selectedRegion = d3.select('#region-select').property('value');
-        let availableCountries;
-        
-        if (selectedRegion === 'All') {
-            availableCountries = filters.countries;
-        } else {
-            availableCountries = ['All'].concat(
-                correlationData
-                    .filter(d => d.region === selectedRegion)
-                    .map(d => d.country)
-                    .filter((v, i, a) => a.indexOf(v) === i)
-                    .sort()
-            );
-        }
-        
-        // Update country dropdown
-        const countrySelect = d3.select('#country-select');
-        
-        // Save current selection if possible
-        const currentCountry = countrySelect.property('value');
-        
-        // Update options
-        const options = countrySelect
-            .selectAll('option')
-            .data(availableCountries);
-            
-        options.exit().remove();
-        
-        options.enter()
-            .append('option')
-            .merge(options)
-            .attr('value', d => d)
-            .text(d => d);
-            
-        // Restore selection if it exists in new options, otherwise select 'All'
-        if (availableCountries.includes(currentCountry)) {
-            countrySelect.property('value', currentCountry);
-        } else {
-            countrySelect.property('value', 'All');
         }
     }
     
@@ -119,19 +80,22 @@ Promise.all([
         
         let filtered = correlationData.filter(d => d.level === level);
         
-        // Apply region filter if not 'All'
-        if (selectedRegion !== 'All') {
-            filtered = filtered.filter(d => d.region === selectedRegion);
-        }
-        
-        // Apply country filter if not 'All' and level is By Country
-        if (level === 'By Country' && selectedCountry !== 'All') {
-            filtered = filtered.filter(d => d.country === selectedCountry);
+        // Apply filters based on level
+        if (level === 'By Region') {
+            // Apply region filter if not 'All'
+            if (selectedRegion !== 'All') {
+                filtered = filtered.filter(d => d.region === selectedRegion);
+            }
+        } else { // By Country
+            // Apply country filter if not 'All'
+            if (selectedCountry !== 'All') {
+                filtered = filtered.filter(d => d.country === selectedCountry);
+            }
         }
         
         // Apply year filter if not 'All'
         if (selectedYear !== 'All') {
-            filtered = filtered.filter(d => d.year === selectedYear);
+            filtered = filtered.filter(d => d.year.toString() === selectedYear.toString());
         }
         
         return filtered;
@@ -298,7 +262,7 @@ Promise.all([
             const legendItem = legend.append('div')
                 .style('display', 'flex')
                 .style('align-items', 'center')
-                .style('margin', '0 10px 10px 10px');  // Added bottom margin
+                .style('margin', '0 10px 10px 10px');
                 
             legendItem.append('div')
                 .style('width', '15px')
@@ -310,23 +274,6 @@ Promise.all([
                 .text(d.name);
         });
         
-        // Add annotations for value ranges
-        svg.append('text')
-            .attr('x', 0)
-            .attr('y', -radius - 30)  // Moved up to avoid overlap
-            .attr('text-anchor', 'middle')
-            .style('font-size', '12px')
-            .style('font-weight', 'bold')
-            .text('1.0 = Perfect Positive Correlation');
-            
-        svg.append('text')
-            .attr('x', 0)
-            .attr('y', radius + 40)  // Moved down to avoid overlap
-            .attr('text-anchor', 'middle')
-            .style('font-size', '12px')
-            .style('font-weight', 'bold')
-            .text('-1.0 = Perfect Negative Correlation');
-            
         // Improved helper function to wrap text
         function wrap(text, width) {
             text.each(function() {
