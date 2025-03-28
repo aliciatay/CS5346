@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>World Happiness Factors - Radial Dendrogram</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>World Happiness Factors</h1>
+        <h2>Which factors consistently influence happiness across regions?</h2>
+        
+        <div class="description">
+            <p>This radial dendrogram visualizes how different regions cluster based on the correlation patterns between happiness factors and overall happiness scores.</p>
+            <p>Regions grouped together have similar patterns in what influences their happiness. <strong>Hover over any region</strong> to see detailed factor correlations and a radar chart visualization.</p>
+        </div>
+        
+        <div id="viz">
+            <!-- Visualization will be generated here -->
+        </div>
+        
+        <div class="factor-legend" id="legend">
+            <!-- Factor legend will be generated here -->
+        </div>
+        
+        <a href="../" class="back-link">← Back to World Happiness Analysis</a>
+        
+        <footer>
+            <p>Data Source: World Happiness Report 2015-2023 | Created for <a href="https://aliciatay.github.io/CS5346/" target="_blank">CS5346 Information Visualization</a></p>
+        </footer>
+    </div>
+    
+    <script src="js/dendrogram.js"></script>
+</body>
+</html>
