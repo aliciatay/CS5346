@@ -1,191 +1,143 @@
+/* Import Berton Sans Book font */
+@font-face {
+    font-family: 'Berton Sans Book';
+    src: url('https://fonts.cdnfonts.com/css/berton-sans') format('woff2');
+}
+
 body {
-    font-family: 'Berton Sans Book', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Berton Sans Book', Arial, Helvetica, sans-serif;
     margin: 0;
     padding: 20px;
-    background-color: #f5f5f5;
+    background-color: #f9f9f9;
     color: #333;
 }
 
 .container {
-    max-width: 1200px;
+    max-width: 1000px;
     margin: 0 auto;
     background-color: white;
-    padding: 20px;
-    border-radius: 4px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-h1, h2 {
-    color: #333;
-    text-align: center;
-    margin-bottom: 15px;
-    font-weight: 500;
-    letter-spacing: -0.5px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 30px;
 }
 
 h1 {
+    text-align: center;
+    color: #333;
+    margin-top: 0;
     font-size: 24px;
+    font-weight: 500;
 }
 
-p {
-    line-height: 1.5;
+.description {
+    text-align: center;
+    color: #666;
+    margin-bottom: 25px;
+    font-size: 14px;
 }
 
 .version {
-    display: inline-block;
-    padding: 2px 6px;
-    background-color: #f0f0f0;
-    color: #666;
-    border-radius: 4px;
-    font-size: 0.9em;
-    font-weight: bold;
-    margin-left: 10px;
+    color: #999;
+    font-size: 12px;
 }
 
 .filters {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: center;
+    gap: 15px;
     margin-bottom: 30px;
     padding: 15px;
-    background-color: #f7f7f7;
-    border-radius: 3px;
-    border: 1px solid #e3e3e3;
+    background-color: #f5f5f5;
+    border-radius: 6px;
 }
 
 .filter-group {
     display: flex;
     flex-direction: column;
-    margin-right: 20px;
-    margin-bottom: 10px;
-    min-width: 200px;
+    min-width: 120px;
 }
 
 .filter-group label {
     margin-bottom: 5px;
-    font-weight: bold;
-    color: #444;
-    font-size: 13px;
-}
-
-select {
-    padding: 8px;
-    border-radius: 3px;
-    border: 1px solid #ccc;
-    font-size: 13px;
-    width: 100%;
-    background-color: white;
-    color: #333;
-    font-family: 'Berton Sans Book', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-.chart-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 650px;
-    margin-top: 30px;
-    margin-bottom: 30px;
-    background-color: white;
-    border-radius: 3px;
-}
-
-.legend {
-    margin-top: 30px;
-    text-align: center;
-    padding-bottom: 20px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-
-.legend div {
-    margin: 0 10px 5px;
-}
-
-.notes {
-    background-color: #f9f9f9;
-    padding: 10px 15px;
-    border-left: 4px solid #4e79a7;
-    margin-bottom: 20px;
-    border-radius: 0 4px 4px 0;
-    font-size: 13px;
+    font-size: 14px;
     color: #555;
 }
 
-.tooltip {
-    position: absolute;
-    padding: 10px;
-    background-color: rgba(255, 255, 255, 0.9);
-    border: 1px solid #ccc;
-    border-radius: 3px;
-    pointer-events: none;
-    font-size: 13px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-    color: #333;
-}
-
-.axis-label {
-    font-size: 11px;
-    fill: #333;
-    font-weight: 500;
-    font-family: 'Berton Sans Book', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-.circle-label {
-    fill: #666;
-    font-size: 10px;
-    font-family: 'Berton Sans Book', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-.radar-chart-shape {
-    fill-opacity: 0.6;
-    stroke-width: 1.5px;
-}
-
-.radar-chart-circle {
-    fill: none;
-    stroke: #e2e2e2;
-    stroke-width: 1px;
-}
-
-svg {
-    max-width: 100%;
-    height: auto;
+select {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
     background-color: white;
+    font-family: 'Berton Sans Book', Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    color: #333;
+    cursor: pointer;
 }
 
-/* Tableau-like color palette */
-.color-1 { color: #4e79a7; }
-.color-2 { color: #f28e2c; }
-.color-3 { color: #e15759; }
-.color-4 { color: #76b7b2; }
-.color-5 { color: #59a14f; }
-.color-6 { color: #edc949; }
-.color-7 { color: #af7aa1; }
-.color-8 { color: #ff9da7; }
-.color-9 { color: #9c755f; }
-.color-10 { color: #bab0ab; }
+select:focus {
+    outline: none;
+    border-color: #76b7b2;
+    box-shadow: 0 0 0 2px rgba(118, 183, 178, 0.2);
+}
 
+.chart-container {
+    margin: 20px 0;
+}
+
+#spider-chart {
+    min-height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.legend {
+    margin-top: 20px;
+    padding: 10px;
+}
+
+.notes {
+    margin-top: 30px;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-radius: 6px;
+    font-size: 13px;
+    color: #666;
+    line-height: 1.4;
+}
+
+.notes p {
+    margin: 0.5em 0;
+}
+
+.notes strong {
+    color: #555;
+}
+
+.error-message, .no-data-message {
+    text-align: center;
+    padding: 50px 20px;
+    color: #e15759;
+    font-size: 16px;
+}
+
+/* Responsive adjustments */
 @media (max-width: 768px) {
+    .container {
+        padding: 15px;
+    }
+    
     .filters {
         flex-direction: column;
+        align-items: stretch;
     }
     
     .filter-group {
-        margin-right: 0;
-        margin-bottom: 15px;
         width: 100%;
     }
     
-    .chart-container {
-        height: 500px;
+    h1 {
+        font-size: 20px;
     }
-}
-
-@font-face {
-    font-family: 'Berton Sans Book';
-    src: url('https://fonts.cdnfonts.com/css/berton-sans') format('woff2');
-    font-weight: normal;
-    font-style: normal;
 }
