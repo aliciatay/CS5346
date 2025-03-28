@@ -8,13 +8,56 @@ Promise.all([
     const factorNames = data[1];
     const rawData = data[2];
     
-    // Log the raw data to see what we're working with
-    console.log("RAW DATA SAMPLE:", rawData.slice(0, 10));
-    console.log("Total records:", rawData.length);
-    console.log("Years available:", [...new Set(rawData.map(d => d.year))].sort());
+    // First, let's understand the data structure
+    console.log("DATA STRUCTURE ANALYSIS:");
+    
+    // Check data types explicitly
+    rawData.forEach(d => {
+        // Ensure correlation is a number
+        d.correlation = parseFloat(d.correlation);
+        
+        // Log the first 5 records with their data types for debugging
+        if (rawData.indexOf(d) < 5) {
+            console.log("Record:", {
+                level: d.level + " (" + typeof d.level + ")",
+                region: d.region + " (" + typeof d.region + ")",
+                country: d.country + " (" + typeof d.country + ")",
+                year: d.year + " (" + typeof d.year + ")",
+                factor: d.factor + " (" + typeof d.factor + ")",
+                correlation: d.correlation + " (" + typeof d.correlation + ")"
+            });
+        }
+    });
+    
+    // Find unique values
+    const uniqueYears = [...new Set(rawData.map(d => d.year))].sort();
+    console.log("Unique years:", uniqueYears);
+    
+    // Count records by year
+    const recordsByYear = {};
+    uniqueYears.forEach(year => {
+        recordsByYear[year] = rawData.filter(d => d.year === year).length;
+    });
+    console.log("Records by year:", recordsByYear);
+    
+    // Find unique regions and countries
+    const uniqueRegions = [...new Set(rawData.filter(d => d.level === "By Region").map(d => d.region))];
+    const uniqueCountries = [...new Set(rawData.filter(d => d.level === "By Country").map(d => d.country))];
+    console.log("Unique regions:", uniqueRegions);
+    console.log("Unique countries:", uniqueCountries);
     
     // Initialize the visualization
     initFilters(filters);
+    
+    // Debugging variables to track filter changes
+    let previousFilters = {
+        level: d3.select('#level-select').property('value'),
+        region: d3.select('#region-select').property('value'),
+        country: d3.select('#country-select').property('value'),
+        year: d3.select('#year-select').property('value')
+    };
+    
+    // Initial chart draw
     updateChart();
     
     // Event listeners for filter changes
@@ -22,10 +65,16 @@ Promise.all([
         updateFilterVisibility();
         updateChart();
     });
+    
     d3.select('#region-select').on('change', updateChart);
     d3.select('#country-select').on('change', updateChart);
+    
+    // Add special tracking for year filter
     d3.select('#year-select').on('change', function() {
-        console.log("Year changed to:", this.value);
+        const newYear = this.value;
+        console.log("YEAR FILTER CHANGED FROM", previousFilters.year, "TO", newYear);
+        
+        // Force a refresh of data with the new year
         updateChart();
     });
     
@@ -81,7 +130,7 @@ Promise.all([
     
     // Create or update the spider chart
     function updateChart() {
-        console.log("UPDATING CHART");
+        console.log("--------- UPDATING CHART ---------");
         
         // Get current filter values
         const level = d3.select('#level-select').property('value');
@@ -89,90 +138,125 @@ Promise.all([
         const selectedCountry = d3.select('#country-select').property('value');
         const selectedYear = d3.select('#year-select').property('value');
         
-        console.log("Filters:", { level, region: selectedRegion, country: selectedCountry, year: selectedYear });
+        // Log what changed in the filters
+        const currentFilters = { level, region: selectedRegion, country: selectedCountry, year: selectedYear };
+        const changedFilters = [];
         
-        // Filter the data based on current selections
-        let filteredData = rawData.filter(d => d.level === level);
-        
-        // Apply location filter
-        if (level === 'By Region') {
-            if (selectedRegion !== 'All') {
-                filteredData = filteredData.filter(d => d.region === selectedRegion);
-            }
-        } else { // By Country
-            if (selectedCountry !== 'All') {
-                filteredData = filteredData.filter(d => d.country === selectedCountry);
+        for (const key in currentFilters) {
+            if (currentFilters[key] !== previousFilters[key]) {
+                changedFilters.push(`${key}: ${previousFilters[key]} → ${currentFilters[key]}`);
             }
         }
+        
+        console.log("FILTER CHANGES:", changedFilters.length > 0 ? changedFilters.join(", ") : "No changes");
+        
+        // Update previous filters for next comparison
+        previousFilters = { ...currentFilters };
+        
+        console.log("ACTIVE FILTERS:", currentFilters);
+        
+        // Start with a fresh copy of the data
+        let filteredData = [...rawData];
+        console.log("Starting with", filteredData.length, "total records");
+        
+        // Always filter by level first
+        filteredData = filteredData.filter(d => d.level === level);
+        console.log("After level filter:", filteredData.length, "records");
+        
+        // Apply region/country filter if needed
+        if (level === 'By Region' && selectedRegion !== 'All') {
+            filteredData = filteredData.filter(d => d.region === selectedRegion);
+            console.log("After region filter:", filteredData.length, "records");
+        } else if (level === 'By Country' && selectedCountry !== 'All') {
+            filteredData = filteredData.filter(d => d.country === selectedCountry);
+            console.log("After country filter:", filteredData.length, "records");
+        }
+        
+        // Important: Check what years are available in the current filtered set
+        const availableYears = [...new Set(filteredData.map(d => d.year))].sort();
+        console.log("Available years in filtered data:", availableYears);
         
         // Apply year filter
         if (selectedYear !== 'All') {
-            // First look for exact year matches
-            const exactYearMatches = filteredData.filter(d => d.year === selectedYear);
+            // Find all records for this specific year
+            const yearSpecificData = filteredData.filter(d => d.year === selectedYear);
+            console.log(`Found ${yearSpecificData.length} records for year ${selectedYear}`);
             
-            if (exactYearMatches.length > 0) {
-                console.log(`Found ${exactYearMatches.length} exact matches for year ${selectedYear}`);
-                filteredData = exactYearMatches;
+            if (yearSpecificData.length > 0) {
+                // Use only the year-specific data
+                filteredData = yearSpecificData;
             } else {
-                // As a fallback, use data marked as 'All' years
-                console.log(`No exact matches for year ${selectedYear}, falling back to 'All' years data`);
+                // Fall back to 'All' years data
+                console.log(`No records for year ${selectedYear}, falling back to 'All' years data`);
                 filteredData = filteredData.filter(d => d.year === 'All');
             }
+            
+            console.log("After year filter:", filteredData.length, "records");
         }
         
-        console.log("Filtered data count:", filteredData.length);
-        
-        // Check if we have any data after filtering
+        // If no data left, show message and exit
         if (filteredData.length === 0) {
-            console.log("No data to display");
+            console.log("NO DATA AVAILABLE FOR THESE FILTERS");
             showNoDataMessage();
             return;
         }
         
-        // Group the data for display
-        const groupedData = {};
+        // Log what we're actually using
+        console.log("FINAL FILTERED DATA:", filteredData.length, "records");
+        console.log("Sample:", filteredData.slice(0, 3));
+        
+        // Check what entities and factors we have data for
+        if (level === 'By Region') {
+            console.log("Regions in filtered data:", [...new Set(filteredData.map(d => d.region))]);
+        } else {
+            console.log("Countries in filtered data:", [...new Set(filteredData.map(d => d.country))]);
+        }
+        console.log("Factors in filtered data:", [...new Set(filteredData.map(d => d.factor))]);
+        
+        // Group and aggregate the data
+        // Use a Map to ensure consistent behavior
+        const groupedData = new Map();
         
         if (level === 'By Region') {
             // Group by region
             filteredData.forEach(d => {
-                const region = d.region;
-                if (!groupedData[region]) {
-                    groupedData[region] = {};
+                if (!groupedData.has(d.region)) {
+                    groupedData.set(d.region, new Map());
                 }
                 // Store the correlation value for this factor
-                groupedData[region][d.factor] = +d.correlation;
+                groupedData.get(d.region).set(d.factor, d.correlation);
             });
         } else {
             // Group by country
             filteredData.forEach(d => {
-                const country = d.country;
-                if (!groupedData[country]) {
-                    groupedData[country] = {};
+                if (!groupedData.has(d.country)) {
+                    groupedData.set(d.country, new Map());
                 }
                 // Store the correlation value for this factor
-                groupedData[country][d.factor] = +d.correlation;
+                groupedData.get(d.country).set(d.factor, d.correlation);
             });
         }
-        
-        console.log("Grouped data:", groupedData);
         
         // Format the data for the chart
         const chartData = [];
-        for (const entityName in groupedData) {
+        groupedData.forEach((factorMap, entityName) => {
             const dataPoint = { name: entityName };
-            // Add all factor values
-            Object.keys(groupedData[entityName]).forEach(factor => {
-                dataPoint[factor] = groupedData[entityName][factor];
+            
+            // Add all factors and their values
+            factorMap.forEach((value, factor) => {
+                dataPoint[factor] = value;
             });
+            
             chartData.push(dataPoint);
-        }
+        });
         
-        console.log("Chart data:", chartData);
+        console.log("CHART DATA:", chartData);
         
-        // Get the factors to display
+        // Get the factors for the chart
         const factors = Object.keys(factorNames);
+        console.log("USING FACTORS:", factors);
         
-        // Create the chart
+        // Draw the chart
         drawRadarChart(chartData, factors);
     }
     
@@ -196,7 +280,7 @@ Promise.all([
     
     // Draw the radar/spider chart
     function drawRadarChart(data, factors) {
-        console.log("Drawing radar chart with", data.length, "items and", factors.length, "factors");
+        console.log("Drawing radar chart with", data.length, "entities and", factors.length, "factors");
         
         // Clear previous chart
         d3.select('#spider-chart').html('');
@@ -307,7 +391,7 @@ Promise.all([
         
         // Draw the radar chart paths for each data point
         data.forEach((d, i) => {
-            console.log(`Drawing ${d.name}`);
+            console.log(`Drawing shape for ${d.name}`);
             
             const dataValues = factors.map(factor => {
                 const value = d[factor] || 0;
