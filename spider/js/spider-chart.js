@@ -78,7 +78,13 @@ Promise.all([
         const selectedCountry = d3.select('#country-select').property('value');
         const selectedYear = d3.select('#year-select').property('value');
         
-        let filtered = correlationData.filter(d => d.level === level);
+        console.log("Filtering with year:", selectedYear);
+        
+        // Start with all data and apply filters
+        let filtered = correlationData;
+        
+        // Apply level filter
+        filtered = filtered.filter(d => d.level === level);
         
         // Apply filters based on level
         if (level === 'By Region') {
@@ -95,9 +101,13 @@ Promise.all([
         
         // Apply year filter if not 'All'
         if (selectedYear !== 'All') {
-            filtered = filtered.filter(d => d.year.toString() === selectedYear.toString());
+            filtered = filtered.filter(d => {
+                console.log("Comparing:", d.year, selectedYear, typeof d.year, typeof selectedYear);
+                return d.year === selectedYear || d.year === 'All';
+            });
         }
         
+        console.log("Filtered data count:", filtered.length);
         return filtered;
     }
     
@@ -105,6 +115,12 @@ Promise.all([
     function updateChart() {
         const filteredData = getFilteredData();
         const level = d3.select('#level-select').property('value');
+        
+        // Check if we have data to display
+        if (filteredData.length === 0) {
+            showNoDataMessage();
+            return;
+        }
         
         // Group data appropriately based on level
         let groupedData;
@@ -129,6 +145,24 @@ Promise.all([
         
         // Draw or update the radar chart
         drawRadarChart(chartData, factors);
+    }
+    
+    // Show a message when no data is available
+    function showNoDataMessage() {
+        // Clear previous chart
+        const container = d3.select('#spider-chart').html('');
+        
+        // Add a message
+        container.append('div')
+            .attr('class', 'no-data-message')
+            .style('text-align', 'center')
+            .style('padding', '100px 20px')
+            .style('color', '#666')
+            .style('font-size', '16px')
+            .text('No data available for the selected filters. Please try different filter options.');
+            
+        // Clear the legend as well
+        d3.select('#chart-legend').html('');
     }
     
     // Draw the radar/spider chart
@@ -166,7 +200,7 @@ Promise.all([
             .attr('class', 'radar-chart-circle')
             .attr('r', d => radialScale(d))
             .style('fill', 'none')
-            .style('stroke', '#CDCDCD')
+            .style('stroke', '#e2e2e2')
             .style('stroke-width', '1px');
         
         // Add labels for the circular segments
@@ -193,7 +227,7 @@ Promise.all([
             .attr('y1', 0)
             .attr('x2', (d, i) => radialScale(1.1) * Math.cos(angleSlice * i - Math.PI / 2))
             .attr('y2', (d, i) => radialScale(1.1) * Math.sin(angleSlice * i - Math.PI / 2))
-            .style('stroke', '#CDCDCD')
+            .style('stroke', '#e2e2e2')
             .style('stroke-width', '1px');
         
         // Add axis labels with better positioning
@@ -230,8 +264,15 @@ Promise.all([
             .angle((d, i) => i * angleSlice)
             .curve(d3.curveLinearClosed);
         
-        // Generate a color scale
-        const color = d3.scaleOrdinal(d3.schemeCategory10);
+        // Define Tableau-like color palette
+        const tableauColors = [
+            '#4e79a7', '#f28e2c', '#e15759', '#76b7b2', 
+            '#59a14f', '#edc949', '#af7aa1', '#ff9da7', 
+            '#9c755f', '#bab0ab'
+        ];
+        
+        // Generate a color scale using Tableau colors
+        const color = d3.scaleOrdinal(tableauColors);
         
         // Draw the radar chart paths for each data point
         data.forEach((d, i) => {
@@ -244,9 +285,9 @@ Promise.all([
                 .attr('class', 'radar-chart-shape')
                 .attr('d', radarLine)
                 .style('fill', color(i))
-                .style('fill-opacity', 0.3)
+                .style('fill-opacity', 0.6)
                 .style('stroke', color(i))
-                .style('stroke-width', '2px');
+                .style('stroke-width', '1.5px');
         });
         
         // Create legend
