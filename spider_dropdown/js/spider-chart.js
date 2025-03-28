@@ -1,22 +1,13 @@
 // Main visualization code
 document.addEventListener('DOMContentLoaded', function() {
     // Constants for factors
-    const FACTORS = [
-        'gdp_per_capita',
-        'social_support',
-        'healthy_life_expectancy',
-        'freedom_to_make_life_choices',
-        'generosity',
-        'perceptions_of_corruption'
-    ];
-    
-    const FACTOR_NAMES = {
-        'gdp_per_capita': 'GDP per Capita',
-        'social_support': 'Social Support',
-        'healthy_life_expectancy': 'Healthy Life Expectancy',
-        'freedom_to_make_life_choices': 'Freedom to Make Life Choices',
-        'generosity': 'Generosity',
-        'perceptions_of_corruption': 'Perceptions of Corruption'
+    const FACTORS = {
+        gdp_per_capita: "GDP per Capita",
+        social_support: "Social Support",
+        healthy_life_expectancy: "Health Life Expectancy",
+        freedom_to_make_life_choices: "Freedom",
+        generosity: "Generosity",
+        perceptions_of_corruption: "Perceptions of Corruption"
     };
     
     // Load data - fix path to point to the correct location
@@ -25,18 +16,20 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Format data - convert strings to numbers
         data.forEach(d => {
+            d.year = String(d.year); // Ensure year is a string for consistent matching
             d.happiness_score = +d.happiness_score;
-            FACTORS.forEach(factor => {
-                d[factor] = +d[factor];
-            });
-            // Ensure year is a string for consistency
-            d.year = String(d.year).trim();
+            d.gdp_per_capita = +d.gdp_per_capita;
+            d.social_support = +d.social_support;
+            d.healthy_life_expectancy = +d.healthy_life_expectancy;
+            d.freedom_to_make_life_choices = +d.freedom_to_make_life_choices;
+            d.generosity = +d.generosity;
+            d.perceptions_of_corruption = +d.perceptions_of_corruption;
         });
         
         // Extract unique regions, countries, and years
         const regions = ['All'].concat([...new Set(data.map(d => d.region))].sort());
         const countries = ['All'].concat([...new Set(data.map(d => d.country))].sort());
-        const years = ['All'].concat([...new Set(data.map(d => d.year))].sort());
+        const years = ['All'].concat([...new Set(data.map(d => d.year))].sort((a, b) => b.localeCompare(a))); // Sort years in descending order
         
         console.log("Available years:", years);
         console.log("Available regions:", regions);
@@ -73,7 +66,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         d3.select('#year-select').on('change', function() {
             filters.year = this.value;
-            console.log(`Year changed to: ${filters.year}`);
+            console.log("Year changed to:", filters.year);
             updateChart();
         });
         
@@ -192,55 +185,33 @@ document.addEventListener('DOMContentLoaded', function() {
         function calculateCorrelations(data) {
             const correlations = {};
             
-            FACTORS.forEach(factor => {
-                // Extract pairs of factor value and happiness score
-                const pairs = data.map(d => ({
-                    factor: d[factor],
-                    happiness: d.happiness_score
-                }));
+            Object.keys(FACTORS).forEach(factor => {
+                const happinessValues = data.map(d => d.happiness_score);
+                const factorValues = data.map(d => d[factor]);
                 
-                correlations[factor] = pearsonCorrelation(
-                    pairs.map(p => p.factor),
-                    pairs.map(p => p.happiness)
-                );
+                // Calculate means
+                const happinessMean = d3.mean(happinessValues);
+                const factorMean = d3.mean(factorValues);
+                
+                // Calculate correlation coefficient
+                let numerator = 0;
+                let denominatorHappiness = 0;
+                let denominatorFactor = 0;
+                
+                for (let i = 0; i < data.length; i++) {
+                    const happinessDiff = happinessValues[i] - happinessMean;
+                    const factorDiff = factorValues[i] - factorMean;
+                    
+                    numerator += happinessDiff * factorDiff;
+                    denominatorHappiness += happinessDiff * happinessDiff;
+                    denominatorFactor += factorDiff * factorDiff;
+                }
+                
+                const correlation = numerator / Math.sqrt(denominatorHappiness * denominatorFactor);
+                correlations[factor] = correlation;
             });
             
             return correlations;
-        }
-        
-        // Calculate Pearson correlation coefficient between two arrays
-        function pearsonCorrelation(x, y) {
-            // Check if arrays have sufficient length
-            if (x.length < 2 || y.length < 2 || x.length !== y.length) {
-                return 0;
-            }
-            
-            // Calculate means
-            const n = x.length;
-            const xMean = x.reduce((sum, val) => sum + val, 0) / n;
-            const yMean = y.reduce((sum, val) => sum + val, 0) / n;
-            
-            // Calculate numerator and denominators
-            let numerator = 0;
-            let xDenominator = 0;
-            let yDenominator = 0;
-            
-            for (let i = 0; i < n; i++) {
-                const xDiff = x[i] - xMean;
-                const yDiff = y[i] - yMean;
-                
-                numerator += xDiff * yDiff;
-                xDenominator += xDiff * xDiff;
-                yDenominator += yDiff * yDiff;
-            }
-            
-            // Handle edge cases to avoid division by zero
-            if (xDenominator === 0 || yDenominator === 0) {
-                return 0;
-            }
-            
-            // Calculate correlation
-            return numerator / Math.sqrt(xDenominator * yDenominator);
         }
         
         // Show a message when no data is available
@@ -360,7 +331,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 .style('font-family', "'Berton Sans Book', Arial, sans-serif")
                 .style('font-size', '12px') // Increased font size
                 .style('fill', '#333')
-                .text(d => FACTOR_NAMES[d])
+                .text(d => FACTORS[d])
                 .call(wrap, 100); // Increased wrap width
             
             // Create radar path function
@@ -381,7 +352,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Draw the radar chart paths for each data point
             data.forEach((d, i) => {
-                const dataValues = factors.map(factor => {
+                const dataValues = Object.keys(FACTORS).map(factor => {
                     const value = d[factor] || 0;
                     return { factor, value };
                 });
