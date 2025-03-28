@@ -1,0 +1,15 @@
+.error-message, .no-data-message {
+    text-align: center;
+    padding: 50px 20px;
+    color: #e15759;
+    font-size: 16px;
+    background-color: #fff6f6;
+    border: 1px solid #e15759;
+    border-radius: 6px;
+    margin: 20px;
+    line-height: 1.5;
+}
+
+.no-data-message br {
+    margin-bottom: 10px;
+} 
