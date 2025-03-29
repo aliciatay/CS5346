@@ -11,7 +11,7 @@
 <body>
     <div class="container">
         <h1>World Happiness Leaderboard</h1>
-        <p class="description">This visualization shows the top 20 happiest countries across the years 2015-2023. Countries are color-coded by region. <span class="version">v1.1</span></p>
+        <p class="description">This visualization shows the top 20 happiest countries across the years 2015-2023. Countries are color-coded by region. <span class="version">v1.2</span></p>
         
         <div class="controls">
             <button id="play-button">Play</button>
@@ -25,13 +25,29 @@
             </div>
         </div>
         
+        <div class="filter-container">
+            <div class="country-filter">
+                <label for="country-select">Highlight country:</label>
+                <select id="country-select">
+                    <option value="">None (show all)</option>
+                    <!-- Options will be populated by JavaScript -->
+                </select>
+            </div>
+        </div>
+        
         <div class="chart-container">
             <div id="leaderboard-chart"></div>
+        </div>
+        
+        <div class="legend-container">
+            <h3>Region Legend</h3>
+            <div id="region-legend"></div>
         </div>
         
         <div class="notes">
             <p><strong>About this visualization:</strong> This animated bar chart shows how the top 20 happiest countries change over time, based on the World Happiness Report data from 2015 to 2023.</p>
             <p>Bars represent happiness scores, with longer bars indicating higher happiness levels. Colors represent geographic regions.</p>
+            <p>Use the country filter to track a specific country's performance over time, even when it's not in the top 20.</p>
         </div>
     </div>
 

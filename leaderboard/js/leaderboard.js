@@ -7,6 +7,8 @@ document.addEventListener('DOMContentLoaded', function() {
     let animationSpeed = 1000; // milliseconds between frames
     let isPlaying = false;
     let animationTimer;
+    let allCountries = []; // Array to store all unique countries
+    let selectedCountry = ""; // Currently selected country for highlighting
 
     // Define color scale by region (using a more coordinated color palette)
     const regionColors = {
@@ -66,6 +68,28 @@ document.addEventListener('DOMContentLoaded', function() {
         .style('font-weight', 'bold')
         .text('Top 20 Countries by Happiness Score');
 
+    // Function to create the color legend
+    function createLegend() {
+        const legendContainer = d3.select('#region-legend');
+        
+        // Clear any existing legend items
+        legendContainer.html('');
+        
+        // Add a legend item for each region
+        Object.entries(regionColors).forEach(([region, color]) => {
+            const legendItem = legendContainer.append('div')
+                .attr('class', 'legend-item');
+            
+            legendItem.append('div')
+                .attr('class', 'legend-color')
+                .style('background-color', color);
+            
+            legendItem.append('span')
+                .attr('class', 'legend-text')
+                .text(region);
+        });
+    }
+
     // Load data
     d3.csv('./complete_world_happiness.csv').then(function(csvData) {
         // Format data
@@ -77,6 +101,24 @@ document.addEventListener('DOMContentLoaded', function() {
         // Get unique years
         years = [...new Set(csvData.map(d => d.year))].sort();
         console.log("Available years:", years);
+
+        // Get all unique countries for the filter dropdown
+        allCountries = [...new Set(csvData.map(d => d.country))].sort();
+        
+        // Populate the country dropdown
+        const countrySelect = document.getElementById('country-select');
+        allCountries.forEach(country => {
+            const option = document.createElement('option');
+            option.value = country;
+            option.textContent = country;
+            countrySelect.appendChild(option);
+        });
+
+        // Add event listener for country selection
+        countrySelect.addEventListener('change', function() {
+            selectedCountry = this.value;
+            updateChart(currentYearIndex);
+        });
 
         // Prepare data
         data = years.map(year => {
@@ -92,6 +134,18 @@ document.addEventListener('DOMContentLoaded', function() {
                 d.rank = i + 1;
             });
             
+            // If there's a selected country and it's not in the top 20,
+            // find it in the full dataset and add it with its actual rank
+            if (selectedCountry && !top20.find(d => d.country === selectedCountry)) {
+                const selectedCountryData = yearData.find(d => d.country === selectedCountry);
+                if (selectedCountryData) {
+                    // Find its rank in the full dataset
+                    const rank = yearData.findIndex(d => d.country === selectedCountry) + 1;
+                    selectedCountryData.rank = rank;
+                    top20.push(selectedCountryData);
+                }
+            }
+            
             return {
                 year: year,
                 countries: top20
@@ -103,6 +157,9 @@ document.addEventListener('DOMContentLoaded', function() {
         // Set the domain for scales based on all data
         const maxScore = d3.max(data, d => d3.max(d.countries, c => c.happiness_score));
         x.domain([0, maxScore * 1.1]); // Add 10% padding
+
+        // Create the color legend
+        createLegend();
 
         // Initialize the visualization
         updateChart(0);
@@ -134,9 +191,54 @@ document.addEventListener('DOMContentLoaded', function() {
         currentYearIndex = yearIndex;
         
         // Get data for current year
-        const yearData = data[yearIndex];
+        let yearData = data[yearIndex];
         document.getElementById('current-year').textContent = `Year: ${yearData.year}`;
         
+        // If there's a selected country and it's not in the top 20,
+        // we need to modify the data to include it
+        if (selectedCountry) {
+            // Check if we need to update the data with the selected country
+            const yearFullData = data.map(d => d).find(d => d.year === yearData.year);
+            
+            // If selected country is not in the current display data
+            if (!yearData.countries.find(d => d.country === selectedCountry)) {
+                // Find the country in the full dataset for this year
+                // This would be added in the data preparation phase
+                const allCountriesData = d3.csv('./complete_world_happiness.csv')
+                    .then(csvData => {
+                        csvData = csvData.filter(d => d.year === yearData.year);
+                        const selectedCountryData = csvData.find(d => d.country === selectedCountry);
+                        
+                        if (selectedCountryData) {
+                            // Find the rank by sorting all countries by happiness score
+                            const sortedCountries = [...csvData].sort((a, b) => 
+                                +b.happiness_score - +a.happiness_score);
+                            const rank = sortedCountries.findIndex(d => d.country === selectedCountry) + 1;
+                            
+                            selectedCountryData.happiness_score = +selectedCountryData.happiness_score;
+                            selectedCountryData.rank = rank;
+                            
+                            // Add to the display data if not already there
+                            if (!yearData.countries.find(d => d.country === selectedCountry)) {
+                                yearData = {
+                                    year: yearData.year,
+                                    countries: [...yearData.countries, selectedCountryData]
+                                };
+                            }
+                            
+                            // Update the display with the new data
+                            updateDisplay(yearData);
+                        }
+                    });
+            } else {
+                updateDisplay(yearData);
+            }
+        } else {
+            updateDisplay(yearData);
+        }
+    }
+    
+    function updateDisplay(yearData) {
         // Update y-scale domain
         y.domain(yearData.countries.map(d => d.country));
         
@@ -147,6 +249,9 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Remove axis line
         yAxis.select('.domain').remove();
+        
+        // Remove country labels from y-axis (as we'll use rank + score only)
+        yAxis.selectAll('.tick text').remove();
         
         // Bind data to bars
         const bars = svg.selectAll('.country-bar')
@@ -171,10 +276,8 @@ document.addEventListener('DOMContentLoaded', function() {
             .duration(animationSpeed * 0.9)
             .attr('y', d => y(d.country))
             .attr('width', d => x(d.happiness_score))
-            .attr('fill', d => regionColors[d.region] || defaultColor);
-        
-        // Remove country labels from y-axis (as we'll use rank + score only)
-        yAxis.selectAll('.tick text').remove();
+            .attr('fill', d => regionColors[d.region] || defaultColor)
+            .attr('class', d => `country-bar ${d.country === selectedCountry ? 'highlighted' : ''}`);
         
         // Bind data to rank labels
         const rankLabels = svg.selectAll('.rank-label')
@@ -199,7 +302,8 @@ document.addEventListener('DOMContentLoaded', function() {
             .duration(animationSpeed * 0.9)
             .attr('y', d => y(d.country) + y.bandwidth() / 2)
             .text(d => `#${d.rank}`)
-            .style('opacity', 1);
+            .style('opacity', 1)
+            .style('font-weight', d => d.country === selectedCountry ? 'bold' : 'normal');
         
         // Bind data to country labels inside bars
         const countryLabels = svg.selectAll('.country-label')
@@ -223,7 +327,8 @@ document.addEventListener('DOMContentLoaded', function() {
             .transition()
             .duration(animationSpeed * 0.9)
             .attr('y', d => y(d.country) + y.bandwidth() / 2)
-            .style('opacity', 1);
+            .style('opacity', 1)
+            .style('font-weight', d => d.country === selectedCountry ? 'bold' : 'normal');
         
         // Bind data to score labels
         const scoreLabels = svg.selectAll('.score-label')
@@ -249,7 +354,8 @@ document.addEventListener('DOMContentLoaded', function() {
             .attr('x', d => x(d.happiness_score) + 5)
             .attr('y', d => y(d.country) + y.bandwidth() / 2)
             .text(d => d.happiness_score.toFixed(2))
-            .style('opacity', 1);
+            .style('opacity', 1)
+            .style('font-weight', d => d.country === selectedCountry ? 'bold' : 'normal');
     }
 
     // Function to start the animation
@@ -321,6 +427,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 
             // Update chart
             updateChart(currentYearIndex);
+            
+            // Recreate the legend if needed
+            createLegend();
         }
     });
 }); 
