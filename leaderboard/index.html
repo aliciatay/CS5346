@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happiness Score Leaderboard</title>
+    <link href="https://fonts.cdnfonts.com/css/berton-sans" rel="stylesheet">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>World Happiness Leaderboard</h1>
+        <p class="description">This visualization shows the top 20 happiest countries across the years 2015-2023. <span class="version">v1.0</span></p>
+        
+        <div class="controls">
+            <button id="play-button">Play</button>
+            <button id="pause-button">Pause</button>
+            <div class="speed-control">
+                <label for="speed-input">Speed:</label>
+                <input type="range" id="speed-input" min="500" max="2000" step="100" value="1000">
+            </div>
+            <div class="year-display">
+                <span id="current-year">2015</span>
+            </div>
+        </div>
+        
+        <div class="chart-container">
+            <div id="leaderboard-chart"></div>
+        </div>
+        
+        <div class="notes">
+            <p><strong>About this visualization:</strong> This animated bar chart shows how the top 20 happiest countries change over time, based on the World Happiness Report data from 2015 to 2023.</p>
+            <p>Bars represent happiness scores, with longer bars indicating higher happiness levels.</p>
+        </div>
+    </div>
+
+    <script src="js/leaderboard.js"></script>
+</body>
+</html> 
