@@ -170,12 +170,71 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             
             // Check if we have enough data
-            if (filteredData.length < 2) {
-                showNoDataMessage('Insufficient data for correlation calculation (need at least 2 data points).');
+            if (filteredData.length < 1) {
+                showNoDataMessage('No data available for the selected filters. Please try different filter options.');
                 return;
             }
             
-            // Calculate correlations for each factor with happiness score
+            // If we have exactly one data point (country in specific year)
+            if (filteredData.length === 1) {
+                console.log("Single data point mode - showing raw values instead of correlations");
+                // Display the actual factor values directly instead of correlations
+                const singleDataPoint = filteredData[0];
+                
+                // Normalize the factor values to a -1 to 1 scale for display
+                // We'll use min-max scaling based on the full dataset's range for each factor
+                const factorRanges = {};
+                
+                Object.keys(FACTORS).forEach(factor => {
+                    const allValues = data.map(d => d[factor]);
+                    factorRanges[factor] = {
+                        min: d3.min(allValues),
+                        max: d3.max(allValues)
+                    };
+                });
+                
+                const normalizedValues = {};
+                Object.keys(FACTORS).forEach(factor => {
+                    const range = factorRanges[factor];
+                    const value = singleDataPoint[factor];
+                    // Normalize to -1 to 1 range
+                    const normalized = ((value - range.min) / (range.max - range.min) * 2) - 1;
+                    normalizedValues[factor] = normalized;
+                });
+                
+                console.log("Normalized values for single point:", normalizedValues);
+                
+                // Prepare data for radar chart
+                const chartData = [{
+                    name: singleDataPoint.country,
+                    ...normalizedValues
+                }];
+                
+                console.log("Chart data prepared (single point mode):", chartData);
+                
+                // Draw the radar chart
+                drawRadarChart(chartData, FACTORS);
+
+                // Add a note explaining that we're showing actual values for a single year
+                d3.select('#chart-legend')
+                    .append('div')
+                    .attr('class', 'info-message')
+                    .style('text-align', 'center')
+                    .style('padding', '10px')
+                    .style('margin-top', '20px')
+                    .style('color', '#4e79a7')
+                    .style('font-size', '14px')
+                    .style('font-family', "'Berton Sans Book', Arial, sans-serif")
+                    .style('background-color', '#f0f7ff')
+                    .style('border-radius', '4px')
+                    .style('border', '1px solid #4e79a7')
+                    .html(`Showing normalized happiness factor values for ${singleDataPoint.country} in ${singleDataPoint.year}.<br>
+                            <span style="font-size: 12px">Note: Values are normalized to a -1 to 1 scale based on the range across all countries and years.</span>`);
+
+                return;
+            }
+            
+            // For multiple data points, calculate correlations as before
             const correlations = calculateCorrelations(filteredData);
             console.log("Calculated correlations:", correlations);
             
@@ -198,6 +257,22 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Draw the radar chart
             drawRadarChart(chartData, FACTORS);
+
+            // Add a note explaining that we're showing correlations
+            d3.select('#chart-legend')
+                .append('div')
+                .attr('class', 'info-message')
+                .style('text-align', 'center')
+                .style('padding', '10px')
+                .style('margin-top', '20px')
+                .style('color', '#4e79a7')
+                .style('font-size', '14px')
+                .style('font-family', "'Berton Sans Book', Arial, sans-serif")
+                .style('background-color', '#f0f7ff')
+                .style('border-radius', '4px')
+                .style('border', '1px solid #4e79a7')
+                .html(`Showing correlations between happiness factors and overall happiness scores for the selected filters.<br>
+                        <span style="font-size: 12px">Values range from -1.0 (strongest negative correlation) to 1.0 (strongest positive correlation).</span>`);
         }
         
         // Calculate Pearson correlation coefficient for each factor with happiness score
