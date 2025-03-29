@@ -11,7 +11,7 @@
 <body>
     <div class="container">
         <h1>Happiness Factors Correlation Spider Chart</h1>
-        <p class="description">This visualization shows how different factors correlate with happiness scores across regions, countries and years. <span class="version">v3.7</span></p>
+        <p class="description">This visualization shows how different factors correlate with happiness scores across regions, countries and years. <span class="version">v3.8</span></p>
         
         <div class="filters">
             <div class="filter-group">
@@ -45,8 +45,10 @@
         <div class="legend" id="chart-legend"></div>
         
         <div class="notes">
-            <p><strong>Note:</strong> Values range from -1.0 (strongest negative correlation) to 1.0 (strongest positive correlation). A value of 0 indicates no correlation.</p>
-            <p><strong>About this visualization:</strong> This spider chart shows Pearson correlation coefficients between happiness factors and overall happiness scores for the selected region/country and year.</p>
+            <p><strong>Note:</strong> This visualization has two modes:</p>
+            <p><strong>1. Correlation Mode:</strong> When multiple data points are selected (e.g., 'All' years), values range from -1.0 (strongest negative correlation) to 1.0 (strongest positive correlation).</p>
+            <p><strong>2. Direct Values Mode:</strong> When a single data point is selected (specific country and year), the chart shows normalized factor values ranging from -1.0 to 1.0.</p>
+            <p><strong>About this visualization:</strong> This spider chart visualizes happiness factors either as correlations or as normalized values, depending on your selection.</p>
         </div>
     </div>
 
