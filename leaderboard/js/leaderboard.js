@@ -8,14 +8,22 @@ document.addEventListener('DOMContentLoaded', function() {
     let isPlaying = false;
     let animationTimer;
 
-    // Define color scale (Tableau-like colors)
-    const colors = d3.scaleOrdinal()
-        .range([
-            '#4e79a7', '#f28e2c', '#e15759', '#76b7b2', 
-            '#59a14f', '#edc949', '#af7aa1', '#ff9da7', 
-            '#9c755f', '#bab0ab', '#76b7b2', '#a0c8a0', 
-            '#f1ce63', '#d37295', '#b9a0ba', '#bab0ab'
-        ]);
+    // Define color scale by region (using a more coordinated color palette)
+    const regionColors = {
+        "Western Europe": "#4e79a7", // Blue
+        "North America and ANZ": "#59a14f", // Green
+        "Latin America and Caribbean": "#f28e2c", // Orange
+        "Middle East and North Africa": "#edc949", // Yellow
+        "East Asia": "#e15759", // Red
+        "Southeast Asia": "#76b7b2", // Teal
+        "Central and Eastern Europe": "#b07aa1", // Purple
+        "Commonwealth of Independent States": "#9c755f", // Brown
+        "South Asia": "#bab0ab", // Gray
+        "Sub-Saharan Africa": "#d37295" // Pink
+    };
+    
+    // Default color for regions not in the mapping
+    const defaultColor = "#cccccc";
 
     // Set up chart dimensions
     const margin = { top: 40, right: 170, bottom: 30, left: 80 };
@@ -127,7 +135,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Get data for current year
         const yearData = data[yearIndex];
-        document.getElementById('current-year').textContent = yearData.year;
+        document.getElementById('current-year').textContent = `Year: ${yearData.year}`;
         
         // Update y-scale domain
         y.domain(yearData.countries.map(d => d.country));
@@ -155,7 +163,7 @@ document.addEventListener('DOMContentLoaded', function() {
             .attr('height', y.bandwidth())
             .attr('x', 0)
             .attr('width', 0)
-            .attr('fill', d => colors(d.country));
+            .attr('fill', d => regionColors[d.region] || defaultColor);
         
         // Update all bars
         barsEnter.merge(bars)
@@ -163,9 +171,37 @@ document.addEventListener('DOMContentLoaded', function() {
             .duration(animationSpeed * 0.9)
             .attr('y', d => y(d.country))
             .attr('width', d => x(d.happiness_score))
-            .attr('fill', d => colors(d.country));
+            .attr('fill', d => regionColors[d.region] || defaultColor);
         
-        // Bind data to country labels
+        // Remove country labels from y-axis (as we'll use rank + score only)
+        yAxis.selectAll('.tick text').remove();
+        
+        // Bind data to rank labels
+        const rankLabels = svg.selectAll('.rank-label')
+            .data(yearData.countries, d => d.country);
+        
+        // Exit old rank labels
+        rankLabels.exit().remove();
+        
+        // Enter new rank labels
+        const rankLabelsEnter = rankLabels.enter()
+            .append('text')
+            .attr('class', 'rank-label')
+            .attr('x', -30)
+            .attr('y', d => y(d.country) + y.bandwidth() / 2)
+            .attr('dy', '0.35em')
+            .text(d => `#${d.rank}`)
+            .style('opacity', 0);
+        
+        // Update all rank labels
+        rankLabelsEnter.merge(rankLabels)
+            .transition()
+            .duration(animationSpeed * 0.9)
+            .attr('y', d => y(d.country) + y.bandwidth() / 2)
+            .text(d => `#${d.rank}`)
+            .style('opacity', 1);
+        
+        // Bind data to country labels inside bars
         const countryLabels = svg.selectAll('.country-label')
             .data(yearData.countries, d => d.country);
         
@@ -176,7 +212,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const countryLabelsEnter = countryLabels.enter()
             .append('text')
             .attr('class', 'country-label')
-            .attr('x', 5)
+            .attr('x', 10) // Position inside the bar
             .attr('y', d => y(d.country) + y.bandwidth() / 2)
             .attr('dy', '0.35em')
             .text(d => d.country)
@@ -213,31 +249,6 @@ document.addEventListener('DOMContentLoaded', function() {
             .attr('x', d => x(d.happiness_score) + 5)
             .attr('y', d => y(d.country) + y.bandwidth() / 2)
             .text(d => d.happiness_score.toFixed(2))
-            .style('opacity', 1);
-        
-        // Bind data to rank labels
-        const rankLabels = svg.selectAll('.rank-label')
-            .data(yearData.countries, d => d.country);
-        
-        // Exit old rank labels
-        rankLabels.exit().remove();
-        
-        // Enter new rank labels
-        const rankLabelsEnter = rankLabels.enter()
-            .append('text')
-            .attr('class', 'rank-label')
-            .attr('x', -30)
-            .attr('y', d => y(d.country) + y.bandwidth() / 2)
-            .attr('dy', '0.35em')
-            .text(d => `#${d.rank}`)
-            .style('opacity', 0);
-        
-        // Update all rank labels
-        rankLabelsEnter.merge(rankLabels)
-            .transition()
-            .duration(animationSpeed * 0.9)
-            .attr('y', d => y(d.country) + y.bandwidth() / 2)
-            .text(d => `#${d.rank}`)
             .style('opacity', 1);
     }
 
