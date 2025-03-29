@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', function() {
         .text('Top 20 Countries by Happiness Score');
 
     // Load data
-    d3.csv('../complete_world_happiness.csv').then(function(csvData) {
+    d3.csv('./complete_world_happiness.csv').then(function(csvData) {
         // Format data
         csvData.forEach(d => {
             d.happiness_score = +d.happiness_score;
