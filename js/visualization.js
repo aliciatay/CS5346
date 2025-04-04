@@ -12,7 +12,7 @@ const svg = d3.select("#visualization")
     .attr("transform", `translate(${margin.left},${margin.top})`);
 
 // Load the data
-d3.csv("final_df_cleaned.csv").then(function(data) {
+d3.csv("../spotify_project/final_df_cleaned.csv").then(function(data) {
     // Process the data
     const processedData = data.map(d => {
         // Calculate if song is a hit (5 or more platforms)
